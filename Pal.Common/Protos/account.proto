@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package account;
+
+service AccountService {
+	// Accounts are a way to distinguish different players.
+	//
+	// Their primary purpose is tracking who has seen a trap/coffer appear to ensure reliability,
+	// as well as allowing some basic protection against garabage data.
+	//
+	// We never store any character data/xiv account data in an account.
+	rpc CreateAccount(CreateAccountRequest) returns (CreateAccountReply);
+
+	rpc Login(LoginRequest) returns (LoginReply);
+
+	// Ensures that the auth token we use is valid in calls.
+	rpc Verify(VerifyRequest) returns (VerifyReply);
+}
+
+message CreateAccountRequest {
+}
+
+message CreateAccountReply {
+	bool success = 1;
+	string accountId = 2;
+	CreateAccountError error = 3;
+}
+
+enum CreateAccountError {
+	CREATE_ACCOUNT_ERROR_NONE = 0;
+	CREATE_ACCOUNT_ERROR_UNKNOWN = 1;
+	CREATE_ACCOUNT_ERROR_UPGRADE_REQUIRED = 2;
+	CREATE_ACCOUNT_ERROR_INVALID_HASH = 3;
+}
+
+message LoginRequest {
+	string accountId = 1;
+}
+
+message LoginReply {
+	bool success = 1;
+	string authToken = 2;
+	reserved 3; // expiresAt
+	LoginError error = 4;
+}
+
+enum LoginError {
+	LOGIN_ERROR_NONE = 0;
+	LOGIN_ERROR_UNKNOWN = 1;
+	LOGIN_ERROR_INVALID_ACCOUNT_ID = 2;
+	LOGIN_ERROR_UPGRADE_REQUIRED = 3;
+}
+
+message VerifyRequest {
+}
+
+message VerifyReply {
+}

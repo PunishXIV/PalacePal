@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <!-- Common -->
+  <data name="Palace_Pal" xml:space="preserve">
+        <value>Palace Pal</value>
+        <comment>Plugin Name</comment>
+    </data>
+  <data name="PalaceOfTheDead" xml:space="preserve">
+        <value>Palais des morts</value>
+    </data>
+  <data name="HeavenOnHigh" xml:space="preserve">
+        <value>Palais des Cieux</value>
+    </data>
+  <data name="EurekaOrthos" xml:space="preserve">
+        <value>Eurêka Orthos</value>
+    </data>
+  <data name="Save" xml:space="preserve">
+        <value>Enregistrer</value>
+    </data>
+  <data name="SaveAndClose" xml:space="preserve">
+        <value>Enregistrer et Fermer</value>
+    </data>
+  <!-- Generic Errors -->
+  <data name="Error_FirstTimeSetupRequired" xml:space="preserve">
+        <value>Veuillez s'il vous plaît terminer la configuration initiale.</value>
+        <comment>Before using any /pal command, the initial setup/agreeement needs to be completed.</comment>
+    </data>
+  <data name="Error_WrongRepository" xml:space="preserve">
+        <value>Veuillez installer ce plugin depuis le dépôt officiel {0} pour continuer à l'utiliser.</value>
+    </data>
+  <!-- /pal commands -->
+  <data name="Command_pal_HelpText" xml:space="preserve">
+        <value>Ouvrir la fenêtre de configuration / débogage</value>
+        <comment>Help text for the /pal command, shown in the Plugin Installer</comment>
+    </data>
+  <data name="Command_pal_UnknownSubcommand" xml:space="preserve">
+        <value>Paramètre inconnu "{0} pour "{1}".</value>
+        <comment>Error shown when using '/pal xxx' with an unknown argument 'xxx'.</comment>
+    </data>
+  <data name="Command_pal_stats_CurrentFloor" xml:space="preserve">
+        <value>Vous pouvez voir les statistiques de l'étage actuel en ouvrant l'onglet "Débogage" dans la fenêtre de configuration.</value>
+    </data>
+  <data name="Command_pal_stats_UnableToFetchStatistics" xml:space="preserve">
+        <value>Impossible de récupérer les statistiques.</value>
+        <comment>Shown when /pal stats produces a server-side error, and the statistics window can't be loaded.</comment>
+    </data>
+  <!-- Messages while connecting to the server. These are typically only visible when clicking 'Test connection'. -->
+  <data name="ConnectionSuccessful" xml:space="preserve">
+        <value>Connexion réussie.</value>
+    </data>
+  <data name="ConnectionError_NotOnline" xml:space="preserve">
+        <value>Vous n'êtes pas connecté.</value>
+        <comment>Shown if you attempt to connect to the server while you have selected 'never upload discoveries, only show traps and coffers i found myself'</comment>
+    </data>
+  <data name="ConnectionError_OldVersion" xml:space="preserve">
+        <value>Votre version de Palace Pal est dépréciée, veuillez faire la mise à jour via l'installateur de plugin.</value>
+        <comment>Shown if the version is too old to create an account or log in.</comment>
+    </data>
+  <data name="ConnectionError_CreateAccountFailed" xml:space="preserve">
+        <value>Échec de la création de compte ({0}).</value>
+        <comment>Creating an account failed with an error code, but there is no (translated) error message for it.</comment>
+    </data>
+  <data name="ConnectionError_CreateAccountReturnedNoId" xml:space="preserve">
+        <value>Pas d'ID de compte suite à la tentative de création d'un compte.</value>
+        <comment>If the creation of an account was successful, we expect an account-id to be returned so we can log in. If this happens, the server sent an invalid response.</comment>
+    </data>
+  <data name="ConnectionError_InvalidAccountId" xml:space="preserve">
+        <value>Identifiant de compte invalide.</value>
+        <comment>The account id used was not found on the server.</comment>
+    </data>
+  <data name="ConnectionError_LoginFailed" xml:space="preserve">
+        <value>Échec de connexion ({0}).</value>
+        <comment>Logging in failed with an error code, but there is no (translated) error message for it.</comment>
+    </data>
+  <data name="ConnectionError_LoginReturnedNoToken" xml:space="preserve">
+        <value>Informations de connexion non disponibles.</value>
+        <comment>The server sent no valid client token, even though the login was successful.</comment>
+    </data>
+  <data name="ConnectionError_CouldNotConnectToServer" xml:space="preserve">
+        <value>Échec de connexion au serveur : {0}</value>
+    </data>
+  <!-- Config Window: Deep Dungeons -->
+  <data name="ConfigTab_DeepDungeons" xml:space="preserve">
+        <value>Donjons sans fonds</value>
+    </data>
+  <data name="Config_Traps_Show" xml:space="preserve">
+        <value>Afficher les pièges</value>
+    </data>
+  <data name="Config_Traps_Color" xml:space="preserve">
+        <value>Couleur pièges</value>
+    </data>
+  <data name="Config_Traps_HideImpossible" xml:space="preserve">
+        <value>Masquer les pièges de l'étage actuel</value>
+        <comment>When a trap has no chance of appearing (after a pomander of safety/sight is used), hide it.</comment>
+    </data>
+  <data name="Config_Traps_HideImpossible_ToolTip" xml:space="preserve">
+        <value>Lors de l'utilisation d'une poterie magique de localisation, seul les locations confirmées sont affichées, les locations potentielles sont masquées.
+Lors de l'utilisation d'une poterie magique de désamorçage, tous les pièges sont masqués.</value>
+    </data>
+  <data name="Config_HoardCoffers_Show" xml:space="preserve">
+        <value>Afficher les trésors cachés</value>
+    </data>
+  <data name="Config_HoardCoffers_Color" xml:space="preserve">
+        <value>Couleur trésors cachés</value>
+    </data>
+  <data name="Config_HoardCoffers_HideImpossible" xml:space="preserve">
+        <value>Masquer les trésors cachés ne se trouvent pas sur l'étage actuel</value>
+        <comment>When a hoard coffer has no chance of appearing (after a pomander of safety/sight is used), hide it.</comment>
+    </data>
+  <data name="Config_HoardCoffers_HideImpossible_ToolTip" xml:space="preserve">
+        <value>Lors de l'utilisation d'une poterie magique d'intuition, seul les trésors cachés confirmés sont visibles, les locations potentielles sont masquées.</value>
+    </data>
+  <data name="Config_SilverCoffer_Show" xml:space="preserve">
+        <value>Afficher les coffres en argent de l'étage actuel</value>
+    </data>
+  <data name="Config_SilverCoffers_ToolTip" xml:space="preserve">
+        <value>Afficher tous les coffres en argent actuellement visible sur l'étage actuel.
+Il n'y a pas de synchronisation avec les autres joueurs ni de sauvegarde entre les étages / tentatives.</value>
+    </data>
+  <data name="Config_SilverCoffer_Color" xml:space="preserve">
+        <value>Couleur coffres argent</value>
+    </data>
+  <data name="Config_SilverCoffer_Filled" xml:space="preserve">
+        <value>Remplir</value>
+        <comment>Whether silver coffers should only be drawn with the circle outline or as filled circle.</comment>
+    </data>
+  <!-- Config Window: Community -->
+  <data name="ConfigTab_Community" xml:space="preserve">
+        <value>Communauté</value>
+    </data>
+  <data name="Config_TestConnection" xml:space="preserve">
+        <value>Test de connexion</value>
+    </data>
+  <data name="Config_TestConnection_Connecting" xml:space="preserve">
+        <value>Test en cours...</value>
+        <comment>When clicking on the 'Test Connection' button, this is shown until a success/error message is available.</comment>
+    </data>
+  <!-- Config Window: Import -->
+  <data name="ConfigTab_Import" xml:space="preserve">
+        <value>Importer</value>
+    </data>
+  <data name="Config_ImportExplanation1" xml:space="preserve">
+        <value>Utiliser un fichier d'importation peut être utilisé si vous n'arriver pas à vous connecter au serveur ou bien que vous ne souhaitez pas partager vos découvertes.</value>
+    </data>
+  <data name="Config_ImportExplanation2" xml:space="preserve">
+        <value>Les exports sont (actuellement) générées manuellement. Ils incluent actuellement les trésors cachés et pièges rencontrés par 5 personnes ou plus. Cela peut amener des résultats sporadiques pour les étages supérieurs, cependant les étages communs (tel que PdM 51-60, PdC 21-30) sont proches d'être complets.</value>
+    </data>
+  <data name="Config_ImportExplanation3" xml:space="preserve">
+        <value>Si vous n'êtes pas connecté, importer un fichier n'aura aucun impact.</value>
+    </data>
+  <data name="Config_ImportDownloadLocation" xml:space="preserve">
+        <value>Les exports sont disponibles depuis {0} (en tant que fichiers *.pal).</value>
+    </data>
+  <data name="Config_Import_VisitGitHub" xml:space="preserve">
+        <value>Visiter GitHub</value>
+    </data>
+  <data name="Config_SelectImportFile" xml:space="preserve">
+        <value>Fichier à importer :</value>
+    </data>
+  <data name="Config_SelectImportFile_Hint" xml:space="preserve">
+        <value>Chemin vers le fichier *.pal</value>
+        <comment>When importing a file, this is the hint that shows up in the 'path' input box while no file has been selected.</comment>
+    </data>
+  <data name="Config_StartImport" xml:space="preserve">
+        <value>Démarrer l'importation</value>
+    </data>
+  <data name="Config_UndoImportExplanation1" xml:space="preserve">
+        <value>Votre dernière importation était le {0}, qui a ajoutée la base de données de pièges et trésors cachés depuis {1} créée le {2:d}.</value>
+    </data>
+  <data name="Config_UndoImportExplanation2" xml:space="preserve">
+        <value>Si vous pensez que c'est une erreur, vous pouvez supprimer tous les emplacements trouvés dans l'import (aucune des locations que vous avez trouvées ne sont modifiées).</value>
+    </data>
+  <data name="Config_UndoImport" xml:space="preserve">
+        <value>Annuler l'importation</value>
+    </data>
+  <!-- Config Window: Export -->
+  <data name="ConfigTab_Export" xml:space="preserve">
+        <value>Exporter</value>
+    </data>
+  <data name="Config_ExportSource" xml:space="preserve">
+        <value>Exporter tous les marqueurs depuis {0} :</value>
+    </data>
+  <data name="Config_Export_SaveAs" xml:space="preserve">
+        <value>Enregistrer sous :</value>
+    </data>
+  <data name="Config_StartExport" xml:space="preserve">
+        <value>Démarrer l'exportation</value>
+    </data>
+  <!-- Config Window: Renderer -->
+  <data name="ConfigTab_Renderer" xml:space="preserve">
+        <value>Moteur de rendu</value>
+        <comment>Configuration tab to select Splatoon or Simple as rendering backend</comment>
+    </data>
+  <data name="Config_SelectRenderBackend" xml:space="preserve">
+        <value>Choisissez le moteur de rendu pour les marqueurs :</value>
+    </data>
+  <data name="Config_Renderer_Splatoon" xml:space="preserve">
+        <value>Splatoon</value>
+        <comment>Splatoon plugin. Do not localize.</comment>
+    </data>
+  <data name="Config_Renderer_Splatoon_Hint" xml:space="preserve">
+        <value>Par défaut, requiert d'avoir installé Splatoon</value>
+    </data>
+  <data name="Config_Renderer_Simple" xml:space="preserve">
+        <value>Simple</value>
+    </data>
+  <data name="Config_Renderer_Simple_Hint" xml:space="preserve">
+        <value>Expérimental</value>
+    </data>
+  <data name="Config_Splatoon_DrawCircles" xml:space="preserve">
+        <value>Dessiner les marqueurs des pièges et coffres autour de soi</value>
+        <comment>To test the Splatoon integration, you can draw markers around yourself.</comment>
+    </data>
+  <!-- Config Window: Debug -->
+  <data name="ConfigTab_Debug" xml:space="preserve">
+        <value>Débogage</value>
+    </data>
+  <data name="Config_Debug_NotInADeepDungeon" xml:space="preserve">
+        <value>Vous nêtes PAS dans un donjon sans fond.</value>
+    </data>
+  <!-- Statistics Window -->
+  <data name="Statistics" xml:space="preserve">
+        <value>Statistiques</value>
+    </data>
+  <data name="Statistics_TerritoryId" xml:space="preserve">
+        <value>Id</value>
+    </data>
+  <data name="Statistics_InstanceName" xml:space="preserve">
+        <value>Nom de l'instance</value>
+    </data>
+  <data name="Statistics_Traps" xml:space="preserve">
+        <value>Pièges</value>
+    </data>
+  <data name="Statistics_HoardCoffers" xml:space="preserve">
+        <value>Trésor</value>
+    </data>
+  <!-- Agreement Window -->
+  <data name="Explanation_1" xml:space="preserve">
+        <value>Pal Palace affiche la location des potentiels pièges et trésors cachés.</value>
+    </data>
+  <data name="Explanation_2" xml:space="preserve">
+        <value>Pour ce faire, l'utilisation d'une poterie magique révélant l'emplacement d'un piège ou trésor caché sauvera la location révélée.</value>
+    </data>
+  <data name="Explanation_3" xml:space="preserve">
+        <value>Idéalement, nous voulons découvrir l'emplacement de chaque piège et trésor potentiel dans le jeu, mais le faire seul peut s'avérer très fastidieux. Les étages 51-60 plus de 300 locations de piège et plus de 290 locations de coffres et nous ne savons pas si la carte est complète. Les étages plus lointains on naturellement moins de tentatives, ce qui rends la cartographie plus complexe.</value>
+    </data>
+  <data name="Explanation_4" xml:space="preserve">
+        <value>Vous pouvez décider si vous souhaitez partager la location des pièges coffres que vous trouvez avec la communauté, ce qui vous permets également de voir les locations trouvées par les autres joueurs. Cette option peut être modifiée à tout moment. Aucune donnée concernant votre personnage FFXIV ou compte n'est envoyée vers notre serveur.</value>
+    </data>
+  <data name="Config_UploadMyDiscoveries_ShowOtherTraps" xml:space="preserve">
+        <value>Envoyer mes découvertes, afficher les pièges et coffres que les autres joueurs ont découvert</value>
+    </data>
+  <data name="Config_NeverUploadDiscoveries_ShowMyTraps" xml:space="preserve">
+        <value>Ne jamais envoyer mes découvertes, afficher uniquement les pièges et trésors que j'ai découverts moi-même</value>
+    </data>
+  <data name="Agreement_Warning1" xml:space="preserve">
+        <value>Bien que ce ne soit pas de l'automatisation, vous enfreignez certainement les conditions d'utilisation.</value>
+    </data>
+  <data name="Agreement_Warning2" xml:space="preserve">
+        <value>Les autres joueurs de votre équipe peuvent toujours voir vos actions.</value>
+    </data>
+  <data name="Agreement_Warning3" xml:space="preserve">
+        <value>De ce fait, veuillez éviter de mentionner ce plugin en jeu et de ne pas partager de vidéos / captures d'écrans.</value>
+    </data>
+  <data name="Agreement_UsingThisOnMyOwnRisk" xml:space="preserve">
+        <value>Je comprends que j'utilise ce plugin à mes propres risques.</value>
+    </data>
+  <data name="Agreement_ViewPluginAndServerSourceCode" xml:space="preserve">
+        <value>Voir le code source du plugin et du serveur</value>
+    </data>
+  <data name="Agreement_PickOneOption" xml:space="preserve">
+        <value>Veuillez choisir une des options ci-dessous.</value>
+        <comment>Shown if neither of the two radio buttons in the setup setup window are selected.</comment>
+    </data>
+  <!-- Import (chat messages) -->
+  <data name="ImportCompleteStatistics" xml:space="preserve">
+        <value>Importation de {0} nouvelles locations de pièges et {1} locations de trésors cachés.</value>
+        <comment>After the import of a *.pal file, the number of traps/hoard coffers is shown as a summary.</comment>
+    </data>
+  <data name="Error_ImportFailed" xml:space="preserve">
+        <value>Échec de l'import : {0}</value>
+    </data>
+  <data name="Error_ImportFailed_IncompatibleVersion" xml:space="preserve">
+        <value>Échec de l'import : version incompatible.</value>
+    </data>
+  <data name="Error_ImportFailed_InvalidFile" xml:space="preserve">
+        <value>Échec de l'import : fichier invalide.</value>
+    </data>
+  <!-- Other -->
+</root>

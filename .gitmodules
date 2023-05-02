@@ -1,0 +1,3 @@
+[submodule "vendor/ECommons"]
+	path = vendor/ECommons
+	url = https://github.com/NightmareXIV/ECommons

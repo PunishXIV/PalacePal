@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Use with:
+#
+# $> git config core.hooksPath .githooks
+if ! git diff --cached --quiet -- "*.cs"; then
+  dotnet format --verbosity quiet --exclude vendor/
+fi

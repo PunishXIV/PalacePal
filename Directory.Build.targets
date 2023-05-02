@@ -1,0 +1,10 @@
+<Project>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <WindowsKitsRoot Condition="'$(WindowsKitsRoot)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'KitsRoot10', null, RegistryView.Registry32, RegistryView.Default))</WindowsKitsRoot>
+    <SignToolPath Condition="'$(WindowsKitsRoot)' != '' And '$(SignToolPath)' == '' And exists('$(WindowsKitsRoot)bin\10.0.19041.0\')">$(WindowsKitsRoot)bin\10.0.19041.0\x86\</SignToolPath>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(SignToolPath)' != '' And Exists('$(SolutionDir)codesigning.pfx')">
+    <Exec Command="&quot;$(SignToolPath)signtool.exe&quot; sign /f $(SolutionDir)codesigning.pfx /t http://timestamp.digicert.com /fd SHA256 &quot;$(TargetPath)&quot;" />
+  </Target>
+</Project>

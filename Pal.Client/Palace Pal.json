@@ -1,0 +1,9 @@
+﻿{
+  "Name": "Palace Pal",
+  "Author": "Liza Carvelli",
+  "Punchline": "Shows possible trap & hoard coffer locations in Palace of the Dead & Heaven on High.",
+  "Description": "Shows possible trap & hoard coffer locations in Palace of the Dead & Heaven on High.\n\nThe default configuration requires Splatoon to be installed. If you do not wish to install Splatoon, you can switch to the experimental 'Simple' renderer in the configuration.",
+  "RepoUrl": "https://github.com/carvelli/PalacePal",
+  "IconUrl": "https://raw.githubusercontent.com/carvelli/Dalamud-Plugins/master/dist/Palace Pal.png",
+  "Tags": [ "potd", "palace", "hoh", "splatoon" ]
+}
