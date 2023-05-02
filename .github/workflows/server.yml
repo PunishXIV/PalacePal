@@ -2,7 +2,7 @@ name: docker build
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - '.github/workflows/server.yml'
       - 'Pal.Common/**'
