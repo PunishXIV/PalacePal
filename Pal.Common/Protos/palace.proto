@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package palace;
+
+service PalaceService {
+	rpc DownloadFloors(DownloadFloorsRequest) returns (DownloadFloorsReply);
+	rpc UploadFloors(UploadFloorsRequest) returns (UploadFloorsReply);
+	rpc MarkObjectsSeen(MarkObjectsSeenRequest) returns (MarkObjectsSeenReply);
+	rpc FetchStatistics(StatisticsRequest) returns (StatisticsReply);
+}
+
+message DownloadFloorsRequest {
+	uint32 territoryType = 1;
+}
+	
+message DownloadFloorsReply {
+	bool success = 1;
+	repeated PalaceObject objects = 2;
+}
+
+message UploadFloorsRequest {
+	uint32 territoryType = 1;
+	repeated PalaceObject objects = 2;
+}
+
+message UploadFloorsReply {
+	bool success = 1;
+	repeated PalaceObject objects = 2;
+}
+
+message StatisticsRequest {
+}
+
+message StatisticsReply {
+	bool success = 1;
+	repeated FloorStatistics floorStatistics = 2;
+}
+
+message FloorStatistics {
+	uint32 territoryType = 1;
+	uint32 trapCount = 2;
+	uint32 hoardCount = 3;
+}
+
+message PalaceObject {
+	ObjectType type = 1;
+	float x = 2;
+	float y = 3;
+	float z = 4;
+
+	// Ignored for uploaded markers.
+	string networkId = 5;
+}
+
+message MarkObjectsSeenRequest {
+	uint32 territoryType = 1;
+	repeated string networkIds = 2;
+}
+
+message MarkObjectsSeenReply {
+	bool success = 1;
+}
+
+enum ObjectType {
+	OBJECT_TYPE_UNKNOWN = 0;
+	OBJECT_TYPE_TRAP = 1;
+	OBJECT_TYPE_HOARD = 2;
+
+	// Objects only really used for debugging, may not return any objects at any point in time.
+	// Semi-Permanent: Not saved locally, but saved on the server.
+	reserved 3;
+}

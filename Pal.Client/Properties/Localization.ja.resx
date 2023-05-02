@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <!-- Common -->
+  <data name="Palace_Pal" xml:space="preserve">
+        <value>Palace Pal</value>
+        <comment>Plugin Name</comment>
+    </data>
+  <data name="PalaceOfTheDead" xml:space="preserve">
+        <value>死者の宮殿</value>
+    </data>
+  <data name="HeavenOnHigh" xml:space="preserve">
+        <value>アメノミハシラ</value>
+    </data>
+  <data name="EurekaOrthos" xml:space="preserve">
+        <value>オルト・エウレカ</value>
+    </data>
+  <data name="Save" xml:space="preserve">
+        <value>保存</value>
+    </data>
+  <data name="SaveAndClose" xml:space="preserve">
+        <value>保存して閉じる</value>
+    </data>
+  <!-- Generic Errors -->
+  <data name="Error_FirstTimeSetupRequired" xml:space="preserve">
+        <value>最初にセットアップを完了してください。</value>
+        <comment>Before using any /pal command, the initial setup/agreeement needs to be completed.</comment>
+    </data>
+  <data name="Error_WrongRepository" xml:space="preserve">
+        <value>引き続き使用する場合は公式リポジトリ {0} からこのプラグインをインストールしてください。</value>
+    </data>
+  <!-- /pal commands -->
+  <data name="Command_pal_HelpText" xml:space="preserve">
+        <value>設定を開く</value>
+        <comment>Help text for the /pal command, shown in the Plugin Installer</comment>
+    </data>
+  <data name="Command_pal_UnknownSubcommand" xml:space="preserve">
+        <value>そのコマンドはありません。： '{0}' for '{1}'。</value>
+        <comment>Error shown when using '/pal xxx' with an unknown argument 'xxx'.</comment>
+    </data>
+  <data name="Command_pal_stats_CurrentFloor" xml:space="preserve">
+        <value>設定からDebugタブを開くことで、現在のフロアの統計情報を表示できます。</value>
+    </data>
+  <data name="Command_pal_stats_UnableToFetchStatistics" xml:space="preserve">
+        <value>統計情報を取得できません。</value>
+        <comment>Shown when /pal stats produces a server-side error, and the statistics window can't be loaded.</comment>
+    </data>
+  <!-- Messages while connecting to the server. These are typically only visible when clicking 'Test connection'. -->
+  <data name="ConnectionSuccessful" xml:space="preserve">
+        <value>接続に成功しました。</value>
+    </data>
+  <data name="ConnectionError_NotOnline" xml:space="preserve">
+        <value>接続に失敗しました。</value>
+        <comment>Shown if you attempt to connect to the server while you have selected 'never upload discoveries, only show traps and coffers i found myself'</comment>
+    </data>
+  <data name="ConnectionError_OldVersion" xml:space="preserve">
+        <value>Palace Palのバージョンが古くなっています。プラグインインストーラを使用してプラグインを更新してください。</value>
+        <comment>Shown if the version is too old to create an account or log in.</comment>
+    </data>
+  <data name="ConnectionError_CreateAccountFailed" xml:space="preserve">
+        <value>アカウントを作成できませんでした。({0})</value>
+        <comment>Creating an account failed with an error code, but there is no (translated) error message for it.</comment>
+    </data>
+  <data name="ConnectionError_CreateAccountReturnedNoId" xml:space="preserve">
+        <value>アカウントが作成されようとしましたが、アカウントIDがありません。</value>
+        <comment>If the creation of an account was successful, we expect an account-id to be returned so we can log in. If this happens, the server sent an invalid response.</comment>
+    </data>
+  <data name="ConnectionError_InvalidAccountId" xml:space="preserve">
+        <value>無効なアカウントIDです。</value>
+        <comment>The account id used was not found on the server.</comment>
+    </data>
+  <data name="ConnectionError_LoginFailed" xml:space="preserve">
+        <value>ログインできませんでした 。({0})</value>
+        <comment>Logging in failed with an error code, but there is no (translated) error message for it.</comment>
+    </data>
+  <data name="ConnectionError_LoginReturnedNoToken" xml:space="preserve">
+        <value>ログイン情報がありません。</value>
+        <comment>The server sent no valid client token, even though the login was successful.</comment>
+    </data>
+  <data name="ConnectionError_CouldNotConnectToServer" xml:space="preserve">
+        <value>サーバーに接続できません: {0}</value>
+    </data>
+  <!-- Config Window: Deep Dungeons -->
+  <data name="ConfigTab_DeepDungeons" xml:space="preserve">
+        <value>ディープダンジョン</value>
+    </data>
+  <data name="Config_Traps_Show" xml:space="preserve">
+        <value>トラップを表示</value>
+    </data>
+  <data name="Config_Traps_Color" xml:space="preserve">
+        <value>トラップの色</value>
+    </data>
+  <data name="Config_Traps_HideImpossible" xml:space="preserve">
+        <value>現在のフロアに存在しないトラップを非表示</value>
+        <comment>When a trap has no chance of appearing (after a pomander of safety/sight is used), hide it.</comment>
+    </data>
+  <data name="Config_Traps_HideImpossible_ToolTip" xml:space="preserve">
+        <value>サイトロを使用した場合、存在するトラップの位置のみが表示されます。
+呪印解除を使用した場合、全てのトラップが非表示になります。</value>
+    </data>
+  <data name="Config_HoardCoffers_Show" xml:space="preserve">
+        <value>埋もれた財宝を表示</value>
+    </data>
+  <data name="Config_HoardCoffers_Color" xml:space="preserve">
+        <value>埋もれた財宝の色</value>
+    </data>
+  <data name="Config_HoardCoffers_HideImpossible" xml:space="preserve">
+        <value>現在のフロアに存在しない埋もれた財宝を非表示</value>
+        <comment>When a hoard coffer has no chance of appearing (after a pomander of safety/sight is used), hide it.</comment>
+    </data>
+  <data name="Config_HoardCoffers_HideImpossible_ToolTip" xml:space="preserve">
+        <value>財宝感知を使用した場合、現在のフロアに埋もれた財宝が存在する場合は表示されます。
+存在しない場合は非表示になります。</value>
+    </data>
+  <data name="Config_SilverCoffer_Show" xml:space="preserve">
+        <value>銀の宝箱を表示</value>
+    </data>
+  <data name="Config_SilverCoffers_ToolTip" xml:space="preserve">
+        <value>現在のフロアにある全ての銀の宝箱を表示します。
+これは他のプレイヤーと同期されず、データは保存されません。</value>
+    </data>
+  <data name="Config_SilverCoffer_Color" xml:space="preserve">
+        <value>銀の宝箱の色</value>
+    </data>
+  <data name="Config_SilverCoffer_Filled" xml:space="preserve">
+        <value>塗りつぶす</value>
+        <comment>Whether silver coffers should only be drawn with the circle outline or as filled circle.</comment>
+    </data>
+  <data name="Config_GoldCoffer_Show" xml:space="preserve">
+        <value>金の宝箱を表示</value>
+    </data>
+  <data name="Config_GoldCoffers_ToolTip" xml:space="preserve">
+        <value>現在のフロアにある全ての金の宝箱を表示します。
+これは他のプレイヤーと同期されず、データは保存されません。</value>
+    </data>
+  <data name="Config_GoldCoffer_Color" xml:space="preserve">
+        <value>金の宝箱の色</value>
+    </data>
+  <data name="Config_GoldCoffer_Filled" xml:space="preserve">
+        <value>塗りつぶす</value>
+        <comment>Whether gold coffers should only be drawn with the circle outline or as filled circle.</comment>
+    </data>
+  <!-- Config Window: Community -->
+  <data name="ConfigTab_Community" xml:space="preserve">
+        <value>コミュニティ</value>
+    </data>
+  <data name="Config_TestConnection" xml:space="preserve">
+        <value>接続をテストする</value>
+    </data>
+  <data name="Config_TestConnection_Connecting" xml:space="preserve">
+        <value>接続テスト中...</value>
+        <comment>When clicking on the 'Test Connection' button, this is shown until a success/error message is available.</comment>
+    </data>
+  <!-- Config Window: Import -->
+  <data name="ConfigTab_Import" xml:space="preserve">
+        <value>インポート</value>
+    </data>
+  <data name="Config_ImportExplanation1" xml:space="preserve">
+        <value>エクスポートを使用すると、サーバーに接続できない場合や、情報を共有したくない場合に便利です。</value>
+    </data>
+  <data name="Config_ImportExplanation2" xml:space="preserve">
+        <value>エクスポートは(現在)手動で生成され、5人以上が遭遇したトラップ/宝箱のみが含まれています。
+深層の情報は不安要素が多くなりますが、多くのプレイヤーが挑戦するフロア(死者の宮殿51F-60F、アメノミハシラ21F-30F)は完成に近付いています。</value>
+    </data>
+  <data name="Config_ImportExplanation3" xml:space="preserve">
+        <value>オフラインモードで利用していない場合は、ファイルをインポートしても顕著な効果を得られません。</value>
+    </data>
+  <data name="Config_ImportDownloadLocation" xml:space="preserve">
+        <value>エクスポートは {0} (*.pal ファイルとして) から入手できます。</value>
+    </data>
+  <data name="Config_Import_VisitGitHub" xml:space="preserve">
+        <value>GitHubを開く</value>
+    </data>
+  <data name="Config_SelectImportFile" xml:space="preserve">
+        <value>ファイルを選択</value>
+    </data>
+  <data name="Config_StartImport" xml:space="preserve">
+        <value>インポート</value>
+    </data>
+  <data name="Config_UndoImportExplanation1" xml:space="preserve">
+        <value>あなたが最後にインポートしたファイルは{0}です。
+{1}が{2:d}に作成したデータベースです。</value>
+    </data>
+  <data name="Config_UndoImportExplanation2" xml:space="preserve">
+        <value>間違いだと思われる場合は、インポートで見つかったすべての場所を削除することができます(自分で見た場所は変更されません)。</value>
+    </data>
+  <data name="Config_UndoImport" xml:space="preserve">
+        <value>インポートを取り消す</value>
+    </data>
+  <!-- Config Window: Export -->
+  <data name="ConfigTab_Export" xml:space="preserve">
+        <value>エクスポート</value>
+    </data>
+  <data name="Config_ExportSource" xml:space="preserve">
+        <value>{0} から全てのマーカーをエクスポート</value>
+    </data>
+  <data name="Config_Export_SaveAs" xml:space="preserve">
+        <value>名前をつけて保存</value>
+    </data>
+  <data name="Config_StartExport" xml:space="preserve">
+        <value>エクスポートの開始</value>
+    </data>
+  <!-- Config Window: Renderer -->
+  <data name="ConfigTab_Renderer" xml:space="preserve">
+        <value>レンダリング</value>
+        <comment>Configuration tab to select Splatoon or Simple as rendering backend</comment>
+    </data>
+  <data name="Config_SelectRenderBackend" xml:space="preserve">
+        <value>マーカーに使用するバックエンドを選択:</value>
+    </data>
+  <data name="Config_Renderer_Splatoon" xml:space="preserve">
+        <value>Splatoon</value>
+        <comment>Splatoon plugin. Do not localize.</comment>
+    </data>
+  <data name="Config_Renderer_Splatoon_Hint" xml:space="preserve">
+        <value>デフォルトではSpatoonをインストールする必要があります</value>
+    </data>
+  <data name="Config_Renderer_Simple" xml:space="preserve">
+        <value>シンプル表示</value>
+    </data>
+  <data name="Config_Renderer_Simple_Hint" xml:space="preserve">
+        <value>試験的機能</value>
+    </data>
+  <data name="Config_Splatoon_DrawCircles" xml:space="preserve">
+        <value>自分の周りにトラップと宝箱を表示する</value>
+        <comment>To test the Splatoon integration, you can draw markers around yourself.</comment>
+    </data>
+  <!-- Config Window: Debug -->
+  <data name="ConfigTab_Debug" xml:space="preserve">
+        <value>Debug</value>
+    </data>
+  <data name="Config_Debug_NotInADeepDungeon" xml:space="preserve">
+        <value>あなたはディープダンジョンにいません。</value>
+    </data>
+  <!-- Statistics Window -->
+  <data name="Statistics" xml:space="preserve">
+        <value>統計</value>
+    </data>
+  <data name="Statistics_TerritoryId" xml:space="preserve">
+        <value>エリアID</value>
+    </data>
+  <data name="Statistics_InstanceName" xml:space="preserve">
+        <value>インスタンス名</value>
+    </data>
+  <data name="Statistics_Traps" xml:space="preserve">
+        <value>トラップ</value>
+    </data>
+  <data name="Statistics_HoardCoffers" xml:space="preserve">
+        <value>埋もれた財宝</value>
+    </data>
+  <!-- Agreement Window -->
+  <data name="Explanation_1" xml:space="preserve">
+        <value>Pal Palaceは、潜在的なトラップ/宝箱がある場所を表示します。</value>
+    </data>
+  <data name="Explanation_2" xml:space="preserve">
+        <value>これを行うには、土器を使用してトラップや宝箱の場所を明らかにすると、あなたが見ているものの位置が保存されます。</value>
+    </data>
+  <data name="Explanation_3" xml:space="preserve">
+        <value>理想的には、我々はゲーム内のすべての潜在的なトラップと宝箱の位置を発見したいです。しかし、これを1人で行うことは非常に退屈です。フロア51-60には300箇所以上のトラップがあり、290箇所以上の宝箱があります。 フロアが高ければ高いほど、試行回数が少なくなり、ソロではマッピングがより難しくなります。</value>
+    </data>
+  <data name="Explanation_4" xml:space="preserve">
+        <value>トラップと宝箱をコミュニティと共有するかどうかを選択できます。 
+他のプレイヤーが見つけたトラップや宝箱も表示できます。
+これはいつでも変更することができます。
+あなたのFFXIVキャラクターに関するデータやアカウント情報は送信されることはありません。</value>
+    </data>
+  <data name="Config_UploadMyDiscoveries_ShowOtherTraps" xml:space="preserve">
+        <value>自分で見つけたトラップ/宝箱の情報をアップロードし、他のプレイヤーが発見したトラップ/宝箱を表示します</value>
+    </data>
+  <data name="Config_NeverUploadDiscoveries_ShowMyTraps" xml:space="preserve">
+        <value>データをアップロードせず、自分で発見したトラップと埋もれた財宝だけを表示する</value>
+    </data>
+  <data name="Agreement_Warning1" xml:space="preserve">
+        <value>これは自動化機能ではありませんが、ToSを壊す可能性は非常に高いです。</value>
+    </data>
+  <data name="Agreement_Warning2" xml:space="preserve">
+        <value>あなたのパーティーの他のプレイヤーは、あなたが立っている/歩く場所をいつでも見ることができます。</value>
+    </data>
+  <data name="Agreement_Warning3" xml:space="preserve">
+        <value>そのため、ゲーム内で言及することは避けて、ビデオ/スクリーンショットを共有しないでください。</value>
+    </data>
+  <data name="Agreement_UsingThisOnMyOwnRisk" xml:space="preserve">
+        <value>私は自分の責任でこのプラグインを使用していることを理解しています.</value>
+    </data>
+  <data name="Agreement_ViewPluginAndServerSourceCode" xml:space="preserve">
+        <value>プラグインとサーバーのソースコードを表示</value>
+    </data>
+  <data name="Agreement_PickOneOption" xml:space="preserve">
+        <value>以下のいずれかのオプションを選択してください。</value>
+        <comment>Shown if neither of the two radio buttons in the setup setup window are selected.</comment>
+    </data>
+  <!-- Import (chat messages) -->
+  <data name="ImportCompleteStatistics" xml:space="preserve">
+        <value>{0} 個の新しいトラップの場所と {1} 個の新しい宝箱の場所をインポートしました。</value>
+        <comment>After the import of a *.pal file, the number of traps/hoard coffers is shown as a summary.</comment>
+    </data>
+  <data name="Error_ImportFailed" xml:space="preserve">
+        <value>インポートに失敗しました。
+{0}</value>
+    </data>
+  <data name="Error_ImportFailed_IncompatibleVersion" xml:space="preserve">
+        <value>インポートに失敗しました: 互換性のないバージョンです。</value>
+    </data>
+  <data name="Error_ImportFailed_InvalidFile" xml:space="preserve">
+        <value>インポートに失敗しました: 無効なファイルです。</value>
+    </data>
+  <!-- Other -->
+</root>

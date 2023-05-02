@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    
+    <!-- Common -->
+    <data name="Palace_Pal" xml:space="preserve">
+        <value>Palace Pal</value>
+        <comment>Plugin Name</comment>
+    </data>
+    <data name="PalaceOfTheDead" xml:space="preserve">
+        <value>Palace of the Dead</value>
+    </data>
+    <data name="HeavenOnHigh" xml:space="preserve">
+        <value>Heaven on High</value>
+    </data>
+    <data name="EurekaOrthos" xml:space="preserve">
+        <value>Eureka Orthos</value>
+    </data>
+
+    <data name="Save" xml:space="preserve">
+        <value>Save</value>
+    </data>
+    <data name="SaveAndClose" xml:space="preserve">
+        <value>Save &amp; Close</value>
+    </data>
+    
+    <!-- Generic Errors -->
+    <data name="Error_FirstTimeSetupRequired" xml:space="preserve">
+        <value>Please finish the initial setup first.</value>
+        <comment>Before using any /pal command, the initial setup/agreeement needs to be completed.</comment>
+    </data>
+    <data name="Error_LoadFailed" xml:space="preserve">
+        <value>Plugin could not be loaded: {0}</value>
+        <comment>Shown when the plugin fails to load, with the placeholder filled with the exception message.</comment>
+    </data>
+    <data name="Error_WrongRepository" xml:space="preserve">
+        <value>Please install this plugin from the official repository at {0} to continue using it.</value>
+    </data>
+
+    <!-- /pal commands -->
+    <data name="Command_pal_HelpText" xml:space="preserve">
+        <value>Open the configuration window</value>
+        <comment>Help text for the /pal command, shown in the Plugin Installer</comment>
+    </data>
+    <data name="Command_pal_UnknownSubcommand" xml:space="preserve">
+        <value>Unknown sub-command '{0}' for '{1}'.</value>
+        <comment>Error shown when using '/pal xxx' with an unknown argument 'xxx'.</comment>
+    </data>
+    <data name="Command_pal_stats_CurrentFloor" xml:space="preserve">
+        <value>You can view statistics for the floor you're currently on by opening the 'Debug' tab in the configuration window.</value>
+    </data>
+    <data name="Command_pal_stats_UnableToFetchStatistics" xml:space="preserve">
+        <value>Unable to fetch statistics.</value>
+        <comment>Shown when /pal stats produces a server-side error, and the statistics window can't be loaded.</comment>
+    </data>
+    <data name="Error_CommandFailed" xml:space="preserve">
+        <value>Command could not be executed: {0}</value>
+        <comment>Shown when '/pal ...' fails, with the placeholder filled with the exception message.</comment>
+    </data>
+
+    <!-- Messages while connecting to the server. These are typically only visible when clicking 'Test connection'. -->
+    <data name="ConnectionSuccessful" xml:space="preserve">
+        <value>Connection successful.</value>
+    </data>
+    <data name="ConnectionError_NotOnline" xml:space="preserve">
+        <value>You are not online.</value>
+        <comment>Shown if you attempt to connect to the server while you have selected 'never upload discoveries, only show traps and coffers i found myself'</comment>
+    </data>
+    <data name="ConnectionError_OldVersion" xml:space="preserve">
+        <value>Your version of Palace Pal is outdated, please update the plugin using the Plugin Installer.</value>
+        <comment>Shown if the version is too old to create an account or log in.</comment>
+    </data>
+    <data name="ConnectionError_CreateAccountFailed" xml:space="preserve">
+        <value>Could not create account ({0}).</value>
+        <comment>Creating an account failed with an error code, but there is no (translated) error message for it.</comment>
+    </data>
+    <data name="ConnectionError_CreateAccountReturnedNoId" xml:space="preserve">
+        <value>No account-id after account was attempted to be created.</value>
+        <comment>If the creation of an account was successful, we expect an account-id to be returned so we can log in. If this happens, the server sent an invalid response.</comment>
+    </data>
+    <data name="ConnectionError_InvalidAccountId" xml:space="preserve">
+        <value>Invalid account id.</value>
+        <comment>The account id used was not found on the server.</comment>
+    </data>
+    <data name="ConnectionError_LoginFailed" xml:space="preserve">
+        <value>Could not log in ({0}).</value>
+        <comment>Logging in failed with an error code, but there is no (translated) error message for it.</comment>
+    </data>
+    <data name="ConnectionError_LoginReturnedNoToken" xml:space="preserve">
+        <value>No login information available.</value>
+        <comment>The server sent no valid client token, even though the login was successful.</comment>
+    </data>
+    <data name="ConnectionError_CouldNotConnectToServer" xml:space="preserve">
+        <value>Could not connect to server: {0}</value>
+    </data>
+    
+    <!-- Config Window: Deep Dungeons -->
+    <data name="ConfigTab_DeepDungeons" xml:space="preserve">
+        <value>Deep Dungeons</value>
+    </data>
+    <data name="Config_Traps_Show" xml:space="preserve">
+        <value>Show traps</value>
+    </data>
+    <data name="Config_Traps_Color" xml:space="preserve">
+        <value>Trap color</value>
+    </data>
+    <data name="Config_Traps_HideImpossible" xml:space="preserve">
+        <value>Hide traps not on current floor</value>
+        <comment>When a trap has no chance of appearing (after a pomander of safety/sight is used), hide it.</comment>
+    </data>
+    <data name="Config_Traps_HideImpossible_ToolTip" xml:space="preserve">
+        <value>When using a Pomander of Sight, only the actual trap locations are visible, all other traps are hidden.
+When using a Pomander of Safety, all traps are hidden.</value>
+    </data>
+    <data name="Config_HoardCoffers_Show" xml:space="preserve">
+        <value>Show hoard coffers</value>
+    </data>
+    <data name="Config_HoardCoffers_Color" xml:space="preserve">
+        <value>Hoard Coffer color</value>
+    </data>
+    <data name="Config_HoardCoffers_HideImpossible" xml:space="preserve">
+        <value>Hide hoard coffers not on current floor</value>
+        <comment>When a hoard coffer has no chance of appearing (after a pomander of safety/sight is used), hide it.</comment>
+    </data>
+    <data name="Config_HoardCoffers_HideImpossible_ToolTip" xml:space="preserve">
+        <value>When using a Pomander of intuition, only the actual hoard coffer location is visible, all other (potential) hoard coffers are hidden.</value>
+    </data>
+    <data name="Config_SilverCoffer_Show" xml:space="preserve">
+        <value>Show silver coffers on current floor</value>
+    </data>
+    <data name="Config_SilverCoffers_ToolTip" xml:space="preserve">
+        <value>Shows nearby silver coffers (gear upgrades and magicites) on the current floor.
+This is not synchronized with other players and not saved between floors/runs.</value>
+    </data>
+    <data name="Config_SilverCoffer_Color" xml:space="preserve">
+        <value>Silver Coffer color</value>
+    </data>
+    <data name="Config_SilverCoffer_Filled" xml:space="preserve">
+        <value>Draw filled</value>
+        <comment>Whether silver coffers should only be drawn with the circle outline or as filled circle.</comment>
+    </data>
+    <data name="Config_GoldCoffer_Show" xml:space="preserve">
+        <value>Show gold coffers on current floor</value>
+    </data>
+    <data name="Config_GoldCoffers_ToolTip" xml:space="preserve">
+        <value>Shows nearby gold coffers (containing pomanders) on the current floor.
+This is not synchronized with other players and not saved between floors/runs.</value>
+    </data>
+    <data name="Config_GoldCoffer_Color" xml:space="preserve">
+        <value>Gold Coffer color</value>
+    </data>
+    <data name="Config_GoldCoffer_Filled" xml:space="preserve">
+        <value>Draw filled</value>
+        <comment>Whether gold coffers should only be drawn with the circle outline or as filled circle.</comment>
+    </data>
+
+	<!-- Config Window: Community -->
+    <data name="ConfigTab_Community" xml:space="preserve">
+        <value>Community</value>
+    </data>
+    <data name="Config_TestConnection" xml:space="preserve">
+        <value>Test Connection</value>
+    </data>
+    <data name="Config_TestConnection_Connecting" xml:space="preserve">
+        <value>Testing...</value>
+        <comment>When clicking on the 'Test Connection' button, this is shown until a success/error message is available.</comment>
+    </data>
+
+	<!-- Config Window: Import -->
+    <data name="ConfigTab_Import" xml:space="preserve">
+        <value>Import</value>
+    </data>
+    <data name="Config_ImportExplanation1" xml:space="preserve">
+        <value>Using an export is useful if you're unable to connect to the server, or don't wish to share your findings.</value>
+    </data>
+    <data name="Config_ImportExplanation2" xml:space="preserve">
+        <value>Exports are (currently) generated manually, and they only include traps and hoard coffers encountered by 5 or more people. This may lead to higher floors having very sporadic coverage, but commonly run floors (e.g. PotD 51-60, HoH 21-30) are closer to complete.</value>
+    </data>
+    <data name="Config_ImportExplanation3" xml:space="preserve">
+        <value>If you aren't offline, importing a file won't have any noticeable effect.</value>
+    </data>
+    <data name="Config_ImportDownloadLocation" xml:space="preserve">
+        <value>Exports are available from {0} (as *.pal files).</value>
+    </data>
+    <data name="Config_Import_VisitGitHub" xml:space="preserve">
+        <value>Visit GitHub</value>
+    </data>
+    <data name="Config_SelectImportFile" xml:space="preserve">
+        <value>File to Import:</value>
+    </data>
+    <data name="Config_SelectImportFile_Hint" xml:space="preserve">
+        <value>Path to *.pal file</value>
+        <comment>When importing a file, this is the hint that shows up in the 'path' input box while no file has been selected.</comment>
+    </data>
+    <data name="Config_StartImport" xml:space="preserve">
+        <value>Start Import</value>
+    </data>
+    <data name="Config_UndoImportExplanation1" xml:space="preserve">
+        <value>Your last import was on {0}, which added the trap/hoard coffer database from {1} created on {2:d}.</value>
+    </data>
+    <data name="Config_UndoImportExplanation2" xml:space="preserve">
+        <value>If you think that was a mistake, you can remove all locations only found in the import (any location you've seen yourself is not changed).</value>
+    </data>
+    <data name="Config_UndoImport" xml:space="preserve">
+        <value>Undo Import</value>
+    </data>
+
+	<!-- Config Window: Export -->
+    <data name="ConfigTab_Export" xml:space="preserve">
+        <value>Export</value>
+    </data>
+    <data name="Config_ExportSource" xml:space="preserve">
+        <value>Export all markers from {0}:</value>
+    </data>
+    <data name="Config_Export_SaveAs" xml:space="preserve">
+        <value>Save as:</value>
+    </data>
+    <data name="Config_StartExport" xml:space="preserve">
+        <value>Start Export</value>
+    </data>
+
+	<!-- Config Window: Renderer -->
+    <data name="ConfigTab_Renderer" xml:space="preserve">
+        <value>Renderer</value>
+        <comment>Configuration tab to select Splatoon or Simple as rendering backend</comment>
+    </data>
+    <data name="Config_SelectRenderBackend" xml:space="preserve">
+        <value>Select which render backend to use for markers:</value>
+    </data>
+    <data name="Config_Renderer_Splatoon" xml:space="preserve">
+        <value>Splatoon</value>
+        <comment>Splatoon plugin. Do not localize.</comment>
+    </data>
+    <data name="Config_Renderer_Splatoon_Hint" xml:space="preserve">
+        <value>default, required Splatoon to be installed</value>
+    </data>
+    <data name="Config_Renderer_Simple" xml:space="preserve">
+        <value>Simple</value>
+    </data>
+    <data name="Config_Renderer_Simple_Hint" xml:space="preserve">
+        <value>experimental</value>
+    </data>
+    <data name="Config_Splatoon_DrawCircles" xml:space="preserve">
+        <value>Draw trap &amp; coffer circles around self</value>
+        <comment>To test the Splatoon integration, you can draw markers around yourself.</comment>
+    </data>
+
+	<!-- Config Window: Debug -->
+    <data name="ConfigTab_Debug" xml:space="preserve">
+        <value>Debug</value>
+    </data>
+    <data name="Config_Debug_NotInADeepDungeon" xml:space="preserve">
+        <value>You are NOT in a deep dungeon.</value>
+    </data>
+
+    <!-- Statistics Window -->
+    <data name="Statistics" xml:space="preserve">
+        <value>Statistics</value>
+    </data>
+    <data name="Statistics_TerritoryId" xml:space="preserve">
+        <value>Id</value>
+    </data>
+    <data name="Statistics_InstanceName" xml:space="preserve">
+        <value>Instance Name</value>
+    </data>
+    <data name="Statistics_Traps" xml:space="preserve">
+        <value>Traps</value>
+    </data>
+    <data name="Statistics_HoardCoffers" xml:space="preserve">
+        <value>Hoard</value>
+    </data>
+    
+    <!-- Agreement Window -->
+    <data name="Explanation_1" xml:space="preserve">
+        <value>Pal Palace will show where potential trap &amp; hoard coffer locations are.</value>
+    </data>
+    <data name="Explanation_2" xml:space="preserve">
+        <value>To do this, using a pomander to reveal trap or treasure chest locations will save the position of what you see.</value>
+    </data>
+    <data name="Explanation_3" xml:space="preserve">
+        <value>Ideally, we want to discover every potential trap and chest location in the game, but doing this alone is very tedious. Floor 51-60 has over 300 trap locations and over 290 coffer locations - and we don't know if that map is complete. Higher floors naturally see fewer runs, making solo attempts to map the place much harder.</value>
+    </data>
+    <data name="Explanation_4" xml:space="preserve">
+        <value>You can decide whether you want to share traps and chests you find with the community, which likewise also will let you see chests and coffers found by other players. This can be changed at any time. No data regarding your FFXIV character or account is ever sent to our server.</value>
+    </data>
+    <data name="Config_UploadMyDiscoveries_ShowOtherTraps" xml:space="preserve">
+        <value>Upload my discoveries, show traps &amp; coffers other players have discovered</value>
+    </data>
+    <data name="Config_NeverUploadDiscoveries_ShowMyTraps" xml:space="preserve">
+        <value>Never upload discoveries, show only traps and coffers I found myself</value>
+    </data>
+    <data name="Agreement_Warning1" xml:space="preserve">
+        <value>While this is not an automation feature, you're still very likely to break the ToS.</value>
+    </data>
+    <data name="Agreement_Warning2" xml:space="preserve">
+        <value>Other players in your party can always see where you're standing/walking.</value>
+    </data>
+    <data name="Agreement_Warning3" xml:space="preserve">
+        <value>As such, please avoid mentioning it in-game and do not share videos/screenshots.</value>
+    </data>
+    <data name="Agreement_UsingThisOnMyOwnRisk" xml:space="preserve">
+        <value>I understand I'm using this plugin on my own risk.</value>
+    </data>
+    <data name="Agreement_ViewPluginAndServerSourceCode" xml:space="preserve">
+        <value>View plugin &amp; server source code</value>
+    </data>
+    <data name="Agreement_PickOneOption" xml:space="preserve">
+        <value>Please chose one of the options above.</value>
+        <comment>Shown if neither of the two radio buttons in the setup setup window are selected.</comment>
+    </data>
+
+    <!-- Import (chat messages) -->
+    <data name="ImportCompleteStatistics" xml:space="preserve">
+        <value>Imported {0} new trap locations and {1} new hoard coffer locations.</value>
+        <comment>After the import of a *.pal file, the number of traps/hoard coffers is shown as a summary.</comment>
+    </data>
+    <data name="Error_ImportFailed" xml:space="preserve">
+        <value>Import failed: {0}</value>
+    </data>
+    <data name="Error_ImportFailed_IncompatibleVersion" xml:space="preserve">
+        <value>Import failed: Incompatible version.</value>
+    </data>
+    <data name="Error_ImportFailed_InvalidFile" xml:space="preserve">
+        <value>Import failed: Invalid file.</value>
+    </data>
+    <!-- Other -->
+</root>

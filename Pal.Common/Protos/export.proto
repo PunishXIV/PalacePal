@@ -1,0 +1,58 @@
+﻿syntax = "proto3";
+
+package account;
+
+import "google/protobuf/timestamp.proto";
+
+service ExportService {
+	rpc Export(ExportRequest) returns (ExportReply);
+}
+
+message ExportRequest {
+	string serverUrl = 1;
+}
+
+
+message ExportReply {
+	bool success = 1;
+	ExportRoot data = 2;
+	ExportError error = 3;
+}
+
+enum ExportError {
+	EXPORT_ERROR_NONE = 0;
+	EXPORT_ERROR_UNKNOWN = 1;
+}
+
+message ExportRoot {
+	string exportId = 1;
+
+	// Only increases if the export format changes, in case of backwards-incompatible changes.
+	int32 exportVersion = 2;
+
+	string serverUrl = 3;
+
+	// Server MAY decide not to send any markers older than this.
+	google.protobuf.Timestamp createdAt = 4;
+
+	repeated ExportFloor floors = 5;
+}
+
+message ExportFloor {
+	uint32 territoryType = 1;
+	repeated ExportObject objects = 2;
+}
+
+message ExportObject {
+	ExportObjectType type = 1;
+	float x = 2;
+	float y = 3;
+	float z = 4;
+	//string networkId = 5;
+}
+
+enum ExportObjectType {
+	EXPORT_OBJECT_TYPE_UNKNOWN = 0;
+	EXPORT_OBJECT_TYPE_TRAP = 1;
+	EXPORT_OBJECT_TYPE_HOARD = 2;
+}
