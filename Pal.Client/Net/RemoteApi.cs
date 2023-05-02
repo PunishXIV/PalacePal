@@ -11,9 +11,9 @@ namespace Pal.Client.Net
     internal sealed partial class RemoteApi : IDisposable
     {
 #if DEBUG
-        public const string RemoteUrl = "https://api.puni.sh/palacepal";
+        public const string RemoteUrl = "https://api.puni.sh";
 #else
-        public const string RemoteUrl = "https://api.puni.sh/palacepal";
+        public const string RemoteUrl = "https://api.puni.sh";
 #endif
         private readonly string _userAgent =
             $"{typeof(RemoteApi).Assembly.GetName().Name?.Replace(" ", "")}/{typeof(RemoteApi).Assembly.GetName().Version?.ToString(2)}";
