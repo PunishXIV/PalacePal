@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommons", "vendor\ECommons\ECommons\ECommons.csproj", "{D0B37096-5BC3-41B0-8D81-203CBA3932B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommons", "ECommons\ECommons\ECommons.csproj", "{D0B37096-5BC3-41B0-8D81-203CBA3932B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github-workflows", "github-workflows", "{FEE47161-1F89-4D70-A2CA-2A1B92D43B1F}"
 	ProjectSection(SolutionItems) = preProject

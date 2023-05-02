@@ -58,7 +58,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Pal.Common\Pal.Common.csproj" />
-	  <ProjectReference Include="..\vendor\ECommons\ECommons\ECommons.csproj" />
+	  <ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -115,7 +115,7 @@
 		</Compile>
 	</ItemGroup>
 
-	<Target Name="PopulateInfo" DependsOnTargets="GitVersion" BeforeTargets="GetAssemblyVersion;GenerateNuspec;GetPackageContents">
+	<Target Name="PopulateInfo" BeforeTargets="GetAssemblyVersion;GenerateNuspec;GetPackageContents">
 		<PropertyGroup>
 			<Version>$(GitSemVerMajor).$(GitSemVerMinor)</Version>
 			<PackageVersion>$(Version)</PackageVersion>
