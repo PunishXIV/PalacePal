@@ -763,16 +763,18 @@ namespace Pal.Client.Properties {
                 return ResourceManager.GetString("Explanation_4", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Heaven on High.
         /// </summary>
-        internal static string HeavenOnHigh {
-            get {
+        internal static string HeavenOnHigh
+        {
+            get
+            {
                 return ResourceManager.GetString("HeavenOnHigh", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Imported {0} new trap locations and {1} new hoard coffer locations..
         /// </summary>
