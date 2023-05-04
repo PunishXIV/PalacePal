@@ -60,7 +60,7 @@ namespace Pal.Client.Floors.Tasks
                 Z = location.Position.Z,
                 Seen = location.Seen,
                 Source = location.Source,
-                SinceVersion = typeof(Plugin).Assembly.GetName().Version!.ToString(2),
+                SinceVersion = typeof(Plugin).Assembly.GetName().Version!.ToString(),
             };
         }
 

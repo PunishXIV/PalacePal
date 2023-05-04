@@ -49,6 +49,8 @@ namespace Pal.Client.Windows
                     ETerritoryType.Palace_191_200);
                 DrawDungeonStats("Heaven on High", Localization.HeavenOnHigh, ETerritoryType.HeavenOnHigh_1_10,
                     ETerritoryType.HeavenOnHigh_91_100);
+                DrawDungeonStats("Eureka Orthos", Localization.EurekaOrthos, ETerritoryType.EurekaOrthos_1_10,
+                    ETerritoryType.EurekaOrthos_91_100);
             }
         }
 

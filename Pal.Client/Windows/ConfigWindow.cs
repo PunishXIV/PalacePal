@@ -22,6 +22,8 @@ using Pal.Client.Configuration;
 using Pal.Client.Database;
 using Pal.Client.DependencyInjection;
 using Pal.Client.Floors;
+using ECommons.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Pal.Client.Windows
 {
@@ -114,7 +116,7 @@ namespace Pal.Client.Windows
 
         public void LanguageChanged()
         {
-            var version = typeof(Plugin).Assembly.GetName().Version!.ToString(2);
+            var version = typeof(Plugin).Assembly.GetName().Version!.ToString();
             WindowName = $"{Localization.Palace_Pal} v{version}{WindowId}";
         }
 
@@ -137,6 +139,7 @@ namespace Pal.Client.Windows
             _exportDialog.Reset();
             _testConnectionCts?.Cancel();
             _testConnectionCts = null;
+            EzConfig.Save();
         }
 
         public override void Draw()
@@ -239,6 +242,12 @@ namespace Pal.Client.Windows
 
                 ImGui.Separator();
 
+                ImGui.PushID("exit");
+                // TODO: move to loc
+                if (ImGui.Checkbox($"Highlight exit point", ref Plugin.P.AdditionalConfiguration.DisplayExit)) UpdateRender();
+                if(ImGui.Checkbox($"Only when active", ref Plugin.P.AdditionalConfiguration.DisplayExitOnlyActive)) UpdateRender();
+                ImGui.PopID();
+
                 save = ImGui.Button(Localization.Save);
                 ImGui.SameLine();
                 saveAndClose = ImGui.Button(Localization.SaveAndClose);
@@ -246,6 +255,8 @@ namespace Pal.Client.Windows
                 ImGui.EndTabItem();
             }
         }
+
+        void UpdateRender() => Plugin.P._rootScope!.ServiceProvider.GetRequiredService<RenderAdapter>()._implementation.UpdateExitElement();
 
         private void DrawCommunityTab(ref bool saveAndClose)
         {
@@ -284,11 +295,11 @@ namespace Pal.Client.Windows
                 ImGui.TextWrapped(Localization.Config_ImportExplanation1);
                 ImGui.TextWrapped(Localization.Config_ImportExplanation2);
                 ImGui.TextWrapped(Localization.Config_ImportExplanation3);
-                ImGui.Separator();
+                /*ImGui.Separator();
                 ImGui.TextWrapped(string.Format(Localization.Config_ImportDownloadLocation,
                     "https://github.com/carvelli/PalacePal/releases/"));
                 if (ImGui.Button(Localization.Config_Import_VisitGitHub))
-                    GenericHelpers.ShellStart("https://github.com/carvelli/PalacePal/releases/latest");
+                    GenericHelpers.ShellStart("https://github.com/carvelli/PalacePal/releases/latest");*/
                 ImGui.Separator();
                 ImGui.Text(Localization.Config_SelectImportFile);
                 ImGui.SameLine();

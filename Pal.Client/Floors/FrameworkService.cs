@@ -105,6 +105,7 @@ namespace Pal.Client.Floors
                     _territoryState.PomanderOfIntuition = PomanderState.Inactive;
                     recreateLayout = true;
                     _debugState.Reset();
+                    Plugin.P._rootScope!.ServiceProvider.GetRequiredService<RenderAdapter>()._implementation.UpdateExitElement();
                 }
 
                 if (!_territoryState.IsInDeepDungeon() || !_floorService.IsReady(_territoryState.LastTerritory))

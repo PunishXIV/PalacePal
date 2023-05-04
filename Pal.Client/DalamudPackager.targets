@@ -5,8 +5,7 @@
 			ProjectDir="$(ProjectDir)"
 			OutputPath="$(OutputPath)"
 			AssemblyName="$(AssemblyName)"
-			MakeZip="false"
-			VersionComponents="2"/>
+			MakeZip="false"/>
 	</Target>
 
 	<Target Name="PackagePlugin" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
@@ -15,7 +14,6 @@
 			OutputPath="$(OutputPath)"
 			AssemblyName="$(AssemblyName)"
 			MakeZip="true"
-			VersionComponents="2"
 			Exclude="ECommons.pdb;ECommons.xml"/>
 	</Target>
 </Project>

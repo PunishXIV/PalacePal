@@ -19,6 +19,8 @@ using Microsoft.Extensions.Logging;
 using Pal.Client.Commands;
 using Pal.Client.Configuration;
 using Pal.Client.DependencyInjection;
+using PunishLib;
+using ECommons.Configuration;
 
 namespace Pal.Client
 {
@@ -43,8 +45,11 @@ namespace Pal.Client
         private DependencyInjectionContext? _dependencyInjectionContext;
         private ILogger _logger = DependencyInjectionContext.LoggerProvider.CreateLogger<Plugin>();
         private WindowSystem? _windowSystem;
-        private IServiceScope? _rootScope;
+        internal IServiceScope? _rootScope;
         private Action? _loginAction;
+
+        internal static Plugin P = null!;
+        internal AdditionalConfiguration AdditionalConfiguration;
 
         public Plugin(
             DalamudPluginInterface pluginInterface,
@@ -53,6 +58,10 @@ namespace Pal.Client
             ChatGui chatGui,
             Framework framework)
         {
+            P = this;
+            PunishLibMain.Init(pluginInterface, this);
+            ECommonsMain.Init(pluginInterface, this, Module.SplatoonAPI, Module.DalamudReflector);
+            AdditionalConfiguration = EzConfig.Init<AdditionalConfiguration>(); // TODO temp solution, move it to main config later (maybe)
             _pluginInterface = pluginInterface;
             _commandManager = commandManager;
             _clientState = clientState;
@@ -226,6 +235,7 @@ namespace Pal.Client
             _initCts.Cancel();
             _rootScope?.Dispose();
             _dependencyInjectionContext?.Dispose();
+            PunishLibMain.Dispose();
         }
 
         private enum ELoadState

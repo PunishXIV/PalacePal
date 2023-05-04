@@ -18,9 +18,7 @@
 		<DebugType>portable</DebugType>
 		<PathMap Condition="$(SolutionDir) != ''">$(SolutionDir)=X:\</PathMap>
 		<GitVersion>false</GitVersion>
-		<GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-		<GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+      <Version>4.7.0.0</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
@@ -58,7 +56,8 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Pal.Common\Pal.Common.csproj" />
-	  <ProjectReference Include="..\vendor\ECommons\ECommons\ECommons.csproj" />
+	  <ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
+	  <ProjectReference Include="..\punishLib\PunishLib\PunishLib.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -114,17 +113,6 @@
 			<DependentUpon>Localization.resx</DependentUpon>
 		</Compile>
 	</ItemGroup>
-
-	<Target Name="PopulateInfo" DependsOnTargets="GitVersion" BeforeTargets="GetAssemblyVersion;GenerateNuspec;GetPackageContents">
-		<PropertyGroup>
-			<Version>$(GitSemVerMajor).$(GitSemVerMinor)</Version>
-			<PackageVersion>$(Version)</PackageVersion>
-		</PropertyGroup>
-	</Target>
-
-	<Target Name="RenameLatestZip" AfterTargets="PackagePlugin" Condition="'$(Configuration)' == 'Release'">
-		<Exec Command="rename &quot;$(OutDir)$(AssemblyName)\latest.zip&quot; &quot;$(AssemblyName)-$(Version).zip&quot;" />
-	</Target>
 
 	<Target Name="Clean">
 		<RemoveDir Directories="dist" />

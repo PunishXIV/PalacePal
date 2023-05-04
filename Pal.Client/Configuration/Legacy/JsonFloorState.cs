@@ -113,7 +113,7 @@ namespace Pal.Client.Configuration.Legacy
             foreach (var marker in Markers)
             {
                 if (string.IsNullOrEmpty(marker.SinceVersion))
-                    marker.SinceVersion = typeof(Plugin).Assembly.GetName().Version!.ToString(2);
+                    marker.SinceVersion = typeof(Plugin).Assembly.GetName().Version!.ToString();
             }
 
             if (Markers.Count == 0)
