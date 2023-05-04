@@ -1,19 +1,14 @@
+<!-- Repository Header Begin -->
+<div align="center">
+<img src="https://love.puni.sh/resources/palacepal.svg" alt="Palace Pal IconUrl" width="15%">
+
 # Palace Pal
 
-Shows possible trap & hoard coffer locations in Palace of the Dead & Heaven on High. 
+Shows possible trap & Accursed Hoard locations in Palace of The Dead, Heaven on High, and Eureka Orthos.
 
-## Installation
+</div>
 
-To install this plugin from my plugin repository, please check the
-[Installation Instructions](https://github.com/carvelli/Dalamud-Plugins#installation).
+<!-- Repository Header End -->
 
-Additionally, you **need to install Splatoon**, which is used to render the visible overlays.
+Note, you **need to install Splatoon**, which is used to render the visible overlays.
 Please check [Splatoon's Installation Instructions](https://github.com/NightmareXIV/MyDalamudPlugins#installation).
-
-
-## Translation
-
-Please feel free to help by [translating this plugin into your language](https://crowdin.com/project/palace-pal).
-
-If you want to translate the plugin into a language that is currently not enabled, 
-[please create a new issue](https://github.com/carvelli/PalacePal/issues/new).
