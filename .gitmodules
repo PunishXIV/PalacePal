@@ -1,9 +1,6 @@
-[submodule "vendor/ECommons"]
-	path = vendor/ECommons
-	url = https://github.com/NightmareXIV/ECommons
+[submodule "PunishLib"]
+	path = PunishLib
+	url = https://github.com/PunishXIV/PunishLib/
 [submodule "ECommons"]
 	path = ECommons
 	url = https://github.com/NightmareXIV/ECommons
-[submodule "punishLib"]
-	path = punishLib
-	url = https://github.com/punishXIV/punishLib/
