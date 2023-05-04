@@ -43,7 +43,7 @@ namespace Pal.Client.Rendering
             _chat = chat;
 
             _logger.LogInformation("Initializing splatoon");
-            ECommonsMain.Init(pluginInterface, dalamudPlugin, ECommons.Module.SplatoonAPI);
+            //ECommonsMain.Init(pluginInterface, dalamudPlugin, ECommons.Module.SplatoonAPI);
             Splatoon.SetOnConnect(SplatoonOnConnect);
         }
 
@@ -167,7 +167,7 @@ namespace Pal.Client.Rendering
 
         public void Dispose()
         {
-            _logger.LogInformation("Disposing splatoon");
+            _logger.LogInformation("Disposing splatoon rendered");
 
             IsDisposed = true;
 
@@ -175,7 +175,7 @@ namespace Pal.Client.Rendering
             ResetLayer(ELayer.RegularCoffers);
             ResetLayer(ELayer.Test);
 
-            ECommonsMain.Dispose();
+            //ECommonsMain.Dispose();
         }
 
         public void UpdateExitElement()
@@ -183,37 +183,61 @@ namespace Pal.Client.Rendering
             const string Name = "PalacePal.ExitElement";
             Splatoon.RemoveDynamicElements(Name);
             PluginLog.Debug($"Removing exit objects");
-            if (Enum.GetValues<ETerritoryType>().Contains((ETerritoryType)Svc.ClientState.TerritoryType))
+            if (Plugin.P.AdditionalConfiguration.DisplayExit)
             {
-                PluginLog.Debug($"Adding exit objects");
-                uint[] IDs = new uint[] { 2007188, 2009507, 2013287 };
-                foreach (var x in IDs)
+                if (Enum.GetValues<ETerritoryType>().Contains((ETerritoryType)Svc.ClientState.TerritoryType))
                 {
-                    PluginLog.Debug($"Adding exit object {x}");
-                    Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
+                    PluginLog.Debug($"Adding exit objects");
+                    uint[] IDs = new uint[] { 2007188, 2009507, 2013287 };
+                    foreach (var x in IDs)
                     {
-                        radius = 2.1f,
-                        color = 1684471552,
-                        overlayVOffset = 0.76f,
-                        overlayText = "ACTIVE",
-                        refActorDataID = x,
-                        includeHitbox = true,
-                        Filled = true,
-                        refActorComparisonAnd = true,
-                        refActorObjectEffectData1 = 4,
-                        refActorObjectEffectData2 = 8,
-                        refActorObjectEffectMax = int.MaxValue,
-                    }, 0);
-                    Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
-                    {
-                        radius = 2.1f,
-                        color = 3355498751,
-                        overlayVOffset = 0.76f,
-                        overlayText = "Passage",
-                        refActorComparisonType = RefActorComparisonType.DataID,
-                        refActorDataID = x,
-                        includeHitbox = true,
-                    }, 0);
+                        PluginLog.Debug($"Adding exit object {x}");
+                        if (Plugin.P.AdditionalConfiguration.DisplayExitOnlyActive)
+                        {
+                            Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
+                            {
+                                radius = 2.1f,
+                                color = 3355498751,
+                                overlayVOffset = 0.76f,
+                                overlayText = "Passage",
+                                refActorComparisonType = RefActorComparisonType.DataID,
+                                refActorDataID = x,
+                                includeHitbox = true,
+                                refActorComparisonAnd = true,
+                                refActorObjectEffectData1 = 4,
+                                refActorObjectEffectData2 = 8,
+                                refActorObjectEffectMax = int.MaxValue,
+                            }, 0);
+                        }
+                        else
+                        {
+                            Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
+                            {
+                                radius = 2.1f,
+                                color = 3355498751,
+                                overlayVOffset = 0.76f,
+                                overlayText = "Passage",
+                                refActorComparisonType = RefActorComparisonType.DataID,
+                                refActorDataID = x,
+                                includeHitbox = true,
+                            }, 0);
+                        }
+                        Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
+                        {
+                            radius = 2.1f,
+                            color = 1684471552,
+                            overlayVOffset = 0.76f,
+                            overlayText = "ACTIVE",
+                            refActorDataID = x,
+                            includeHitbox = true,
+                            Filled = true,
+                            refActorComparisonAnd = true,
+                            refActorObjectEffectData1 = 4,
+                            refActorObjectEffectData2 = 8,
+                            refActorObjectEffectMax = int.MaxValue,
+                        }, 0);
+                        
+                    }
                 }
             }
         }

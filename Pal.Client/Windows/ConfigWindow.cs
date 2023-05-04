@@ -22,6 +22,8 @@ using Pal.Client.Configuration;
 using Pal.Client.Database;
 using Pal.Client.DependencyInjection;
 using Pal.Client.Floors;
+using ECommons.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Pal.Client.Windows
 {
@@ -137,6 +139,7 @@ namespace Pal.Client.Windows
             _exportDialog.Reset();
             _testConnectionCts?.Cancel();
             _testConnectionCts = null;
+            EzConfig.Save();
         }
 
         public override void Draw()
@@ -240,7 +243,9 @@ namespace Pal.Client.Windows
                 ImGui.Separator();
 
                 ImGui.PushID("exit");
-                //ImGui.Checkbox($"Highlight exit point")
+                // TODO: move to loc
+                if (ImGui.Checkbox($"Highlight exit point", ref Plugin.P.AdditionalConfiguration.DisplayExit)) UpdateRender();
+                if(ImGui.Checkbox($"Only when active", ref Plugin.P.AdditionalConfiguration.DisplayExitOnlyActive)) UpdateRender();
                 ImGui.PopID();
 
                 save = ImGui.Button(Localization.Save);
@@ -250,6 +255,8 @@ namespace Pal.Client.Windows
                 ImGui.EndTabItem();
             }
         }
+
+        void UpdateRender() => Plugin.P._rootScope!.ServiceProvider.GetRequiredService<RenderAdapter>()._implementation.UpdateExitElement();
 
         private void DrawCommunityTab(ref bool saveAndClose)
         {

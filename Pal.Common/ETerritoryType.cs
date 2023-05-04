@@ -66,8 +66,8 @@ namespace Pal.Common
         [Display(Order = 8)]
         EurekaOrthos_71_80 = 1106,
         [Display(Order = 9)]
-        EurekaOrthos_81_90 = 1108,
+        EurekaOrthos_81_90 = 1107,
         [Display(Order = 10)]
-        EurekaOrthos_91_100 = 1124
+        EurekaOrthos_91_100 = 1108
     }
 }
