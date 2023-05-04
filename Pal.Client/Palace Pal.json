@@ -1,9 +1,9 @@
 ﻿{
     "Name": "Palace Pal",
-    "Author": "Liza Carvelli, Puni.sh",
-    "Punchline": "Shows possible trap & hoard coffer locations in Palace of the Dead & Heaven on High.",
-    "Description": "Shows possible trap & hoard coffer locations in Palace of the Dead & Heaven on High.\n\nThe default configuration requires Splatoon to be installed. If you do not wish to install Splatoon, you can switch to the experimental 'Simple' renderer in the configuration.",
-    "RepoUrl": "https://puni.sh/",
+    "Author": "Liza Carvelli (Puni.sh)",
+    "Punchline": "Shows possible trap & Accursed Hoard locations in Palace of The Dead, Heaven on High, and Eureka Orthos.",
+    "Description": "Shows possible trap & Accursed Hoard locations in Palace of The Dead, Heaven on High, and Eureka Orthos.\n\nThis plugin requires Splatoon in order to render various draws on the screen.",
+    "RepoUrl": "https://github.com/PunishXIV/PalacePal",
     "IconUrl": "https://love.puni.sh/resources/palacepal.png",
     "Tags": [ "potd", "palace", "hoh", "splatoon" ]
 }
