@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using Pal.Client.Commands;
 using Pal.Client.Configuration;
 using Pal.Client.DependencyInjection;
+using PunishLib;
 
 namespace Pal.Client
 {
@@ -56,6 +57,7 @@ namespace Pal.Client
             Framework framework)
         {
             P = this;
+            PunishLibMain.Init(pluginInterface, this);
             _pluginInterface = pluginInterface;
             _commandManager = commandManager;
             _clientState = clientState;
@@ -229,6 +231,7 @@ namespace Pal.Client
             _initCts.Cancel();
             _rootScope?.Dispose();
             _dependencyInjectionContext?.Dispose();
+            PunishLibMain.Dispose();
         }
 
         private enum ELoadState

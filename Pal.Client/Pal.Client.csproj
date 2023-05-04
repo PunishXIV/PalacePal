@@ -57,6 +57,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Pal.Common\Pal.Common.csproj" />
 	  <ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
+	  <ProjectReference Include="..\punishLib\PunishLib\PunishLib.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

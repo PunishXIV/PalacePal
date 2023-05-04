@@ -239,6 +239,10 @@ namespace Pal.Client.Windows
 
                 ImGui.Separator();
 
+                ImGui.PushID("exit");
+                //ImGui.Checkbox($"Highlight exit point")
+                ImGui.PopID();
+
                 save = ImGui.Button(Localization.Save);
                 ImGui.SameLine();
                 saveAndClose = ImGui.Button(Localization.SaveAndClose);
