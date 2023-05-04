@@ -99,7 +99,7 @@ namespace Pal.Client.DependencyInjection
                             Seen = false,
                             Source = ClientLocation.ESource.Import,
                             ImportedBy = new List<ImportHistory> { importHistory },
-                            SinceVersion = typeof(Plugin).Assembly.GetName().Version!.ToString(2),
+                            SinceVersion = typeof(Plugin).Assembly.GetName().Version!.ToString(),
                         };
                         dbContext.Locations.Add(clientLocation);
 

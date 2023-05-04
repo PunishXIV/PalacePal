@@ -116,7 +116,7 @@ namespace Pal.Client.Windows
 
         public void LanguageChanged()
         {
-            var version = typeof(Plugin).Assembly.GetName().Version!.ToString(2);
+            var version = typeof(Plugin).Assembly.GetName().Version!.ToString();
             WindowName = $"{Localization.Palace_Pal} v{version}{WindowId}";
         }
 
@@ -295,11 +295,11 @@ namespace Pal.Client.Windows
                 ImGui.TextWrapped(Localization.Config_ImportExplanation1);
                 ImGui.TextWrapped(Localization.Config_ImportExplanation2);
                 ImGui.TextWrapped(Localization.Config_ImportExplanation3);
-                ImGui.Separator();
+                /*ImGui.Separator();
                 ImGui.TextWrapped(string.Format(Localization.Config_ImportDownloadLocation,
                     "https://github.com/carvelli/PalacePal/releases/"));
                 if (ImGui.Button(Localization.Config_Import_VisitGitHub))
-                    GenericHelpers.ShellStart("https://github.com/carvelli/PalacePal/releases/latest");
+                    GenericHelpers.ShellStart("https://github.com/carvelli/PalacePal/releases/latest");*/
                 ImGui.Separator();
                 ImGui.Text(Localization.Config_SelectImportFile);
                 ImGui.SameLine();
