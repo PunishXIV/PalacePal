@@ -43,8 +43,10 @@ namespace Pal.Client
         private DependencyInjectionContext? _dependencyInjectionContext;
         private ILogger _logger = DependencyInjectionContext.LoggerProvider.CreateLogger<Plugin>();
         private WindowSystem? _windowSystem;
-        private IServiceScope? _rootScope;
+        internal IServiceScope? _rootScope;
         private Action? _loginAction;
+
+        internal static Plugin P = null!;
 
         public Plugin(
             DalamudPluginInterface pluginInterface,
@@ -53,6 +55,7 @@ namespace Pal.Client
             ChatGui chatGui,
             Framework framework)
         {
+            P = this;
             _pluginInterface = pluginInterface;
             _commandManager = commandManager;
             _clientState = clientState;

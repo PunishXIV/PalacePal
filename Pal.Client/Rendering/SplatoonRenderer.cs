@@ -14,6 +14,9 @@ using Microsoft.Extensions.Logging;
 using Pal.Client.Configuration;
 using Pal.Client.DependencyInjection;
 using Pal.Client.Floors;
+using Pal.Common;
+using ECommons.DalamudServices;
+using Dalamud.Logging;
 
 namespace Pal.Client.Rendering
 {
@@ -41,7 +44,10 @@ namespace Pal.Client.Rendering
 
             _logger.LogInformation("Initializing splatoon");
             ECommonsMain.Init(pluginInterface, dalamudPlugin, ECommons.Module.SplatoonAPI);
+            Splatoon.SetOnConnect(SplatoonOnConnect);
         }
+
+        void SplatoonOnConnect() => UpdateExitElement();
 
         private bool IsDisposed { get; set; }
 
@@ -170,6 +176,46 @@ namespace Pal.Client.Rendering
             ResetLayer(ELayer.Test);
 
             ECommonsMain.Dispose();
+        }
+
+        public void UpdateExitElement()
+        {
+            const string Name = "PalacePal.ExitElement";
+            Splatoon.RemoveDynamicElements(Name);
+            PluginLog.Debug($"Removing exit objects");
+            if (Enum.GetValues<ETerritoryType>().Contains((ETerritoryType)Svc.ClientState.TerritoryType))
+            {
+                PluginLog.Debug($"Adding exit objects");
+                uint[] IDs = new uint[] { 2007188, 2009507, 2013287 };
+                foreach (var x in IDs)
+                {
+                    PluginLog.Debug($"Adding exit object {x}");
+                    Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
+                    {
+                        radius = 2.1f,
+                        color = 1684471552,
+                        overlayVOffset = 0.76f,
+                        overlayText = "ACTIVE",
+                        refActorDataID = x,
+                        includeHitbox = true,
+                        Filled = true,
+                        refActorComparisonAnd = true,
+                        refActorObjectEffectData1 = 4,
+                        refActorObjectEffectData2 = 8,
+                        refActorObjectEffectMax = int.MaxValue,
+                    }, 0);
+                    Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
+                    {
+                        radius = 2.1f,
+                        color = 3355498751,
+                        overlayVOffset = 0.76f,
+                        overlayText = "Passage",
+                        refActorComparisonType = RefActorComparisonType.DataID,
+                        refActorDataID = x,
+                        includeHitbox = true,
+                    }, 0);
+                }
+            }
         }
 
         private sealed class SplatoonElement : IRenderElement

@@ -15,7 +15,7 @@ namespace Pal.Client.Rendering
         private readonly IPalacePalConfiguration _configuration;
 
         private IServiceScope? _renderScope;
-        private IRenderer _implementation;
+        internal IRenderer _implementation;
 
         public RenderAdapter(IServiceScopeFactory serviceScopeFactory, ILogger<RenderAdapter> logger,
             IPalacePalConfiguration configuration)
@@ -73,6 +73,11 @@ namespace Pal.Client.Rendering
         {
             if (_implementation is SimpleRenderer sr)
                 sr.DrawLayers();
+        }
+
+        public void UpdateExitElement()
+        {
+            _implementation.UpdateExitElement();
         }
     }
 }

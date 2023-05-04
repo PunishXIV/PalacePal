@@ -16,5 +16,7 @@ namespace Pal.Client.Rendering
         IRenderElement CreateElement(MemoryLocation.EType type, Vector3 pos, uint color, bool fill = false);
 
         void DrawDebugItems(uint trapColor, uint hoardColor);
+
+        void UpdateExitElement();
     }
 }

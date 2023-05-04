@@ -175,6 +175,11 @@ namespace Pal.Client.Rendering
                 l.Dispose();
         }
 
+        public void UpdateExitElement()
+        {
+            
+        }
+
         public sealed class SimpleLayer : IDisposable
         {
             public required ushort TerritoryType { get; init; }
