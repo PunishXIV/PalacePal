@@ -8,6 +8,8 @@ using Dalamud.Game;
 using Dalamud.Game.ClientState;
 using Dalamud.Game.ClientState.Objects;
 using Dalamud.Game.ClientState.Objects.Types;
+using Dalamud.Logging;
+using ECommons;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Pal.Client.Configuration;
@@ -102,7 +104,9 @@ namespace Pal.Client.Floors
 
                     _floorService.ChangeTerritory(_territoryState.LastTerritory);
                     _territoryState.PomanderOfSight = PomanderState.Inactive;
+                    PluginLog.Debug($"PomanderOfSight is now set to inactive {_territoryState.PomanderOfSight}");
                     _territoryState.PomanderOfIntuition = PomanderState.Inactive;
+                    PluginLog.Debug($"PomanderOfIntuition is now set to inactive {_territoryState.PomanderOfIntuition}");
                     recreateLayout = true;
                     _debugState.Reset();
                     Plugin.P._rootScope!.ServiceProvider.GetRequiredService<RenderAdapter>()._implementation.UpdateExitElement();
@@ -140,6 +144,7 @@ namespace Pal.Client.Floors
             catch (Exception e)
             {
                 _debugState.SetFromException(e);
+                e.Log();
             }
         }
 
