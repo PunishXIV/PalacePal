@@ -4,6 +4,10 @@ using Dalamud.Data;
 using Dalamud.Game.Gui;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
+using Dalamud.Logging;
+using Dalamud.Utility;
+using ECommons;
+using ECommons.DalamudServices;
 using Lumina.Excel.GeneratedSheets;
 using Pal.Client.Configuration;
 using Pal.Client.Floors;
@@ -44,8 +48,10 @@ namespace Pal.Client.DependencyInjection
                 return;
 
             string message = seMessage.ToString();
+            PluginLog.Debug($"Message: {message}, floorchanged: {_localizedChatMessages.FloorChanged.ToString()}");
             if (_localizedChatMessages.FloorChanged.IsMatch(message))
             {
+                PluginLog.Debug($"Floor changed");
                 _territoryState.PomanderOfSight = PomanderState.Inactive;
 
                 if (_territoryState.PomanderOfIntuition == PomanderState.FoundOnCurrentFloor)
@@ -82,14 +88,32 @@ namespace Pal.Client.DependencyInjection
                 HoardNotOnCurrentFloor = GetLocalizedString(7273),
                 HoardCofferOpened = GetLocalizedString(7274),
                 FloorChanged =
-                    new Regex("^" + GetLocalizedString(7270).Replace("\u0002 \u0003\ufffd\u0002\u0003", @"(\d+)") +
-                              "$"),
+                    new Regex(GetFloorChangedRegex()),
             };
+        }
+
+        private string GetFloorChangedRegex()
+        {
+            //7270	57	33	0	False	Floor <Value>IntegerParameter(1)</Value>
+            //7270	57	33	0	False	地下<Value>IntegerParameter(1)</Value>階
+            //7270	57	33	0	False	Ebene <Value>IntegerParameter(1)</Value> betreten!
+            //7270	57	33	0	False	Sous-sol <Value>IntegerParameter(1)</Value>
+            if (Svc.ClientState.ClientLanguage == Dalamud.ClientLanguage.English) return @"^Floor (\d+)";
+            if (Svc.ClientState.ClientLanguage == Dalamud.ClientLanguage.Japanese) return @"^地下(\d+)階";
+            if (Svc.ClientState.ClientLanguage == Dalamud.ClientLanguage.German) return @"^Ebene (\d+) betreten!";
+            if (Svc.ClientState.ClientLanguage == Dalamud.ClientLanguage.French) return @"^Sous-sol (\d+)";
+            throw new Exception("Invalid client language: " + Svc.ClientState.ClientLanguage);
+
         }
 
         private string GetLocalizedString(uint id)
         {
             return _dataManager.GetExcelSheet<LogMessage>()?.GetRow(id)?.Text?.ToString() ?? "Unknown";
+        }
+
+        private string GetLocalizedExtractedString(uint id)
+        {
+            return _dataManager.GetExcelSheet<LogMessage>()?.GetRow(id)?.Text.ToDalamudString().ExtractText() ?? "Unknown";
         }
 
         private sealed class LocalizedChatMessages
