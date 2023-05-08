@@ -24,30 +24,25 @@ namespace Pal.Client.Rendering
             _logger = logger;
             _configuration = configuration;
 
-            _implementation = Recreate(null);
+            _implementation = Recreate(true);
         }
 
         public bool RequireRedraw { get; set; }
 
-        private IRenderer Recreate(ERenderer? currentRenderer)
+        private IRenderer Recreate(bool recreate)
         {
-            ERenderer targetRenderer = _configuration.Renderer.SelectedRenderer;
-            if (targetRenderer == currentRenderer)
+            if (!recreate)
                 return _implementation;
 
             _renderScope?.Dispose();
 
-            _logger.LogInformation("Selected new renderer: {Renderer}", _configuration.Renderer.SelectedRenderer);
+            _logger.LogInformation("Selected new renderer: Splatoon");
             _renderScope = _serviceScopeFactory.CreateScope();
-            if (targetRenderer == ERenderer.Splatoon)
-                return _renderScope.ServiceProvider.GetRequiredService<SplatoonRenderer>();
-            else
-                return _renderScope.ServiceProvider.GetRequiredService<SimpleRenderer>();
+            return _renderScope.ServiceProvider.GetRequiredService<SplatoonRenderer>();
         }
 
         public void ConfigUpdated()
         {
-            _implementation = Recreate(_implementation.GetConfigValue());
             RequireRedraw = true;
         }
 
@@ -63,16 +58,12 @@ namespace Pal.Client.Rendering
         public IRenderElement CreateElement(MemoryLocation.EType type, Vector3 pos, uint color, bool fill = false)
             => _implementation.CreateElement(type, pos, color, fill);
 
-        public ERenderer GetConfigValue()
-            => throw new NotImplementedException();
-
         public void DrawDebugItems(uint trapColor, uint hoardColor)
             => _implementation.DrawDebugItems(trapColor, hoardColor);
 
         public void DrawLayers()
         {
-            if (_implementation is SimpleRenderer sr)
-                sr.DrawLayers();
+            
         }
 
         public void UpdateExitElement()

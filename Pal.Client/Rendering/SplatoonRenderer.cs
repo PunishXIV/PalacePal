@@ -162,9 +162,6 @@ namespace Pal.Client.Rendering
             }
         }
 
-        public ERenderer GetConfigValue()
-            => ERenderer.Splatoon;
-
         public void Dispose()
         {
             _logger.LogInformation("Disposing splatoon rendered");

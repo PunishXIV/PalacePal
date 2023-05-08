@@ -21,7 +21,6 @@ namespace Pal.Client.Configuration
         string BetaKey { get; }
 
         DeepDungeonConfiguration DeepDungeons { get; set; }
-        RendererConfiguration Renderer { get; set; }
         BackupConfiguration Backups { get; set; }
 
         IAccountConfiguration CreateAccount(string server, Guid accountId);
@@ -76,11 +75,6 @@ namespace Pal.Client.Configuration
 
         public bool OnlyVisibleAfterPomander { get; set; }
         public bool Fill { get; set; }
-    }
-
-    public class RendererConfiguration
-    {
-        public ERenderer SelectedRenderer { get; set; } = ERenderer.Splatoon;
     }
 
     public interface IAccountConfiguration

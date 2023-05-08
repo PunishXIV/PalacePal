@@ -123,7 +123,6 @@ namespace Pal.Client.Windows
         public override void OnOpen()
         {
             _mode = (int)_configuration.Mode;
-            _renderer = (int)_configuration.Renderer.SelectedRenderer;
             _trapConfig = new ConfigurableMarker(_configuration.DeepDungeons.Traps);
             _hoardConfig = new ConfigurableMarker(_configuration.DeepDungeons.HoardCoffers);
             _silverConfig = new ConfigurableMarker(_configuration.DeepDungeons.SilverCoffers);
@@ -152,7 +151,6 @@ namespace Pal.Client.Windows
                 DrawCommunityTab(ref saveAndClose);
                 DrawImportTab();
                 DrawExportTab();
-                DrawRenderTab(ref save, ref saveAndClose);
                 DrawDebugTab();
 
                 ImGui.EndTabBar();
@@ -163,7 +161,6 @@ namespace Pal.Client.Windows
             if (save || saveAndClose)
             {
                 _configuration.Mode = (EMode)_mode;
-                _configuration.Renderer.SelectedRenderer = (ERenderer)_renderer;
                 _configuration.DeepDungeons.Traps = _trapConfig.Build();
                 _configuration.DeepDungeons.HoardCoffers = _hoardConfig.Build();
                 _configuration.DeepDungeons.SilverCoffers = _silverConfig.Build();
@@ -376,32 +373,6 @@ namespace Pal.Client.Windows
                 if (ImGui.Button(Localization.Config_StartExport))
                     DoExport(_saveExportPath);
                 ImGui.EndDisabled();
-
-                ImGui.EndTabItem();
-            }
-        }
-
-        private void DrawRenderTab(ref bool save, ref bool saveAndClose)
-        {
-            if (ImGui.BeginTabItem($"{Localization.ConfigTab_Renderer}###TabRenderer"))
-            {
-                ImGui.Text(Localization.Config_SelectRenderBackend);
-                ImGui.RadioButton(
-                    $"{Localization.Config_Renderer_Splatoon} ({Localization.Config_Renderer_Splatoon_Hint})",
-                    ref _renderer, (int)ERenderer.Splatoon);
-                ImGui.RadioButton($"{Localization.Config_Renderer_Simple} ({Localization.Config_Renderer_Simple_Hint})",
-                    ref _renderer, (int)ERenderer.Simple);
-
-                ImGui.Separator();
-
-                save = ImGui.Button(Localization.Save);
-                ImGui.SameLine();
-                saveAndClose = ImGui.Button(Localization.SaveAndClose);
-
-                ImGui.Separator();
-                if (ImGui.Button(Localization.Config_Splatoon_DrawCircles))
-                    _renderAdapter.DrawDebugItems(ImGui.ColorConvertFloat4ToU32(_trapConfig.Color),
-                        ImGui.ColorConvertFloat4ToU32(_hoardConfig.Color));
 
                 ImGui.EndTabItem();
             }

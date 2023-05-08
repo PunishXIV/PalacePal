@@ -7,8 +7,6 @@ namespace Pal.Client.Rendering
 {
     internal interface IRenderer
     {
-        ERenderer GetConfigValue();
-
         void SetLayer(ELayer layer, IReadOnlyList<IRenderElement> elements);
 
         void ResetLayer(ELayer layer);
