@@ -47,7 +47,11 @@ namespace Pal.Client.Rendering
             Splatoon.SetOnConnect(SplatoonOnConnect);
         }
 
-        void SplatoonOnConnect() => UpdateExitElement();
+        void SplatoonOnConnect()
+        {
+            UpdateExitElement();
+            //Splatoon.AddDynamicElement("test", Splatoon.DecodeElement("{\"Name\":\"\",\"type\":2,\"refX\":92.5,\"refY\":80.0,\"refZ\":9.5366886E-07,\"offX\":92.5,\"offY\":120.0,\"radius\":2.5}"), 0);
+        }
 
         private bool IsDisposed { get; set; }
 
@@ -180,7 +184,7 @@ namespace Pal.Client.Rendering
             const string Name = "PalacePal.ExitElement";
             Splatoon.RemoveDynamicElements(Name);
             PluginLog.Debug($"Removing exit objects");
-            if (Plugin.P.AdditionalConfiguration.DisplayExit)
+            if (Plugin.P.Config.DisplayExit)
             {
                 if (Enum.GetValues<ETerritoryType>().Contains((ETerritoryType)Svc.ClientState.TerritoryType))
                 {
@@ -189,7 +193,7 @@ namespace Pal.Client.Rendering
                     foreach (var x in IDs)
                     {
                         PluginLog.Debug($"Adding exit object {x}");
-                        if (Plugin.P.AdditionalConfiguration.DisplayExitOnlyActive)
+                        if (Plugin.P.Config.DisplayExitOnlyActive)
                         {
                             Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
                             {

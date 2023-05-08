@@ -24,6 +24,8 @@ using Pal.Client.DependencyInjection;
 using Pal.Client.Floors;
 using ECommons.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ECommons.ImGuiMethods;
+using PunishLib.ImGuiMethods;
 
 namespace Pal.Client.Windows
 {
@@ -177,73 +179,91 @@ namespace Pal.Client.Windows
         {
             if (ImGui.BeginTabItem($"{Localization.ConfigTab_DeepDungeons}###TabDeepDungeons"))
             {
-                ImGui.PushID("trap");
-                ImGui.Checkbox(Localization.Config_Traps_Show, ref _trapConfig.Show);
-                ImGui.Indent();
-                ImGui.BeginDisabled(!_trapConfig.Show);
-                ImGui.Spacing();
-                ImGui.ColorEdit4(Localization.Config_Traps_Color, ref _trapConfig.Color, ImGuiColorEditFlags.NoInputs);
-                ImGui.Checkbox(Localization.Config_Traps_HideImpossible, ref _trapConfig.OnlyVisibleAfterPomander);
-                ImGui.SameLine();
-                ImGuiComponents.HelpMarker(Localization.Config_Traps_HideImpossible_ToolTip);
-                ImGui.EndDisabled();
-                ImGui.Unindent();
-                ImGui.PopID();
+                ImGuiEx.Text($"Traps");
+                if (ImGuiGroup.BeginGroupBox())
+                {
+                    ImGui.PushID("trap");
+                    ImGui.Checkbox(Localization.Config_Traps_Show, ref _trapConfig.Show);
+                    ImGui.Indent();
+                    ImGui.BeginDisabled(!_trapConfig.Show);
+                    ImGui.Spacing();
+                    ImGui.ColorEdit4(Localization.Config_Traps_Color, ref _trapConfig.Color, ImGuiColorEditFlags.NoInputs);
+                    ImGui.Checkbox(Localization.Config_Traps_HideImpossible, ref _trapConfig.OnlyVisibleAfterPomander);
+                    ImGui.SameLine();
+                    ImGuiComponents.HelpMarker(Localization.Config_Traps_HideImpossible_ToolTip);
+                    ImGui.EndDisabled();
+                    ImGui.Unindent();
+                    ImGui.PopID();
+                    ImGuiGroup.EndGroupBox();
+                }
+
+
+                ImGuiEx.Text($"Coffers");
+                if (ImGuiGroup.BeginGroupBox())
+                {
+                    ImGui.PushID("hoard");
+                    ImGui.Checkbox(Localization.Config_HoardCoffers_Show, ref _hoardConfig.Show);
+                    ImGui.Indent();
+                    ImGui.BeginDisabled(!_hoardConfig.Show);
+                    ImGui.Spacing();
+                    ImGui.ColorEdit4(Localization.Config_HoardCoffers_Color, ref _hoardConfig.Color,
+                        ImGuiColorEditFlags.NoInputs);
+                    ImGui.Checkbox(Localization.Config_HoardCoffers_HideImpossible,
+                        ref _hoardConfig.OnlyVisibleAfterPomander);
+                    ImGui.SameLine();
+                    ImGuiComponents.HelpMarker(Localization.Config_HoardCoffers_HideImpossible_ToolTip);
+                    ImGui.EndDisabled();
+                    ImGui.Unindent();
+                    ImGui.PopID();
+
+                    ImGui.Separator();
+
+                    ImGui.PushID("silver");
+                    ImGui.Checkbox(Localization.Config_SilverCoffer_Show, ref _silverConfig.Show);
+                    ImGuiComponents.HelpMarker(Localization.Config_SilverCoffers_ToolTip);
+                    ImGui.Indent();
+                    ImGui.BeginDisabled(!_silverConfig.Show);
+                    ImGui.Spacing();
+                    ImGui.ColorEdit4(Localization.Config_SilverCoffer_Color, ref _silverConfig.Color,
+                        ImGuiColorEditFlags.NoInputs);
+                    ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref _silverConfig.Fill);
+                    ImGui.EndDisabled();
+                    ImGui.Unindent();
+                    ImGui.PopID();
+
+
+                    ImGui.PushID("gold");
+                    ImGui.Checkbox(Localization.Config_GoldCoffer_Show, ref _goldConfig.Show);
+                    ImGuiComponents.HelpMarker(Localization.Config_GoldCoffers_ToolTip);
+                    ImGui.Indent();
+                    ImGui.BeginDisabled(!_goldConfig.Show);
+                    ImGui.Spacing();
+                    ImGui.ColorEdit4(Localization.Config_GoldCoffer_Color, ref _goldConfig.Color,
+                        ImGuiColorEditFlags.NoInputs);
+                    ImGui.Checkbox(Localization.Config_GoldCoffer_Filled, ref _goldConfig.Fill);
+                    ImGui.EndDisabled();
+                    ImGui.Unindent();
+                    ImGui.PopID();
+
+
+                    ImGuiGroup.EndGroupBox();
+                }
+
+
+                ImGuiEx.Text($"Passages");
+                if (ImGuiGroup.BeginGroupBox())
+                {
+                    if (ImGui.Checkbox($"Display Passages", ref P.Config.DisplayExit)) UpdateRender();
+                    if (P.Config.DisplayExit)
+                    {
+                        if (ImGui.Checkbox($"Highlight When Activated", ref P.Config.DisplayExitOnlyActive)) UpdateRender();
+                        ImGuiComponents.HelpMarker("By default the Passage will be marked only with a yellow outline and text label, enabling this will also enable a bright green fill.");
+                    }
+                    ImGuiGroup.EndGroupBox();
+                }
 
                 ImGui.Separator();
 
-                ImGui.PushID("hoard");
-                ImGui.Checkbox(Localization.Config_HoardCoffers_Show, ref _hoardConfig.Show);
-                ImGui.Indent();
-                ImGui.BeginDisabled(!_hoardConfig.Show);
-                ImGui.Spacing();
-                ImGui.ColorEdit4(Localization.Config_HoardCoffers_Color, ref _hoardConfig.Color,
-                    ImGuiColorEditFlags.NoInputs);
-                ImGui.Checkbox(Localization.Config_HoardCoffers_HideImpossible,
-                    ref _hoardConfig.OnlyVisibleAfterPomander);
-                ImGui.SameLine();
-                ImGuiComponents.HelpMarker(Localization.Config_HoardCoffers_HideImpossible_ToolTip);
-                ImGui.EndDisabled();
-                ImGui.Unindent();
-                ImGui.PopID();
-
-                ImGui.Separator();
-
-                ImGui.PushID("silver");
-                ImGui.Checkbox(Localization.Config_SilverCoffer_Show, ref _silverConfig.Show);
-                ImGuiComponents.HelpMarker(Localization.Config_SilverCoffers_ToolTip);
-                ImGui.Indent();
-                ImGui.BeginDisabled(!_silverConfig.Show);
-                ImGui.Spacing();
-                ImGui.ColorEdit4(Localization.Config_SilverCoffer_Color, ref _silverConfig.Color,
-                    ImGuiColorEditFlags.NoInputs);
-                ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref _silverConfig.Fill);
-                ImGui.EndDisabled();
-                ImGui.Unindent();
-                ImGui.PopID();
-
-                ImGui.Separator();
-
-                ImGui.PushID("gold");
-                ImGui.Checkbox(Localization.Config_GoldCoffer_Show, ref _goldConfig.Show);
-                ImGuiComponents.HelpMarker(Localization.Config_GoldCoffers_ToolTip);
-                ImGui.Indent();
-                ImGui.BeginDisabled(!_goldConfig.Show);
-                ImGui.Spacing();
-                ImGui.ColorEdit4(Localization.Config_GoldCoffer_Color, ref _goldConfig.Color,
-                    ImGuiColorEditFlags.NoInputs);
-                ImGui.Checkbox(Localization.Config_GoldCoffer_Filled, ref _goldConfig.Fill);
-                ImGui.EndDisabled();
-                ImGui.Unindent();
-                ImGui.PopID();
-
-                ImGui.Separator();
-
-                ImGui.PushID("exit");
-                // TODO: move to loc
-                if (ImGui.Checkbox($"Highlight exit point", ref Plugin.P.AdditionalConfiguration.DisplayExit)) UpdateRender();
-                if(ImGui.Checkbox($"Only when active", ref Plugin.P.AdditionalConfiguration.DisplayExitOnlyActive)) UpdateRender();
-                ImGui.PopID();
 
                 save = ImGui.Button(Localization.Save);
                 ImGui.SameLine();

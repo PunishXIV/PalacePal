@@ -49,7 +49,7 @@ namespace Pal.Client
         private Action? _loginAction;
 
         internal static Plugin P = null!;
-        internal AdditionalConfiguration AdditionalConfiguration;
+        internal AdditionalConfiguration Config;
 
         public Plugin(
             DalamudPluginInterface pluginInterface,
@@ -61,7 +61,7 @@ namespace Pal.Client
             P = this;
             PunishLibMain.Init(pluginInterface, this);
             ECommonsMain.Init(pluginInterface, this, Module.SplatoonAPI, Module.DalamudReflector);
-            AdditionalConfiguration = EzConfig.Init<AdditionalConfiguration>(); // TODO temp solution, move it to main config later (maybe)
+            Config = EzConfig.Init<AdditionalConfiguration>(); // TODO temp solution, move it to main config later (maybe)
             _pluginInterface = pluginInterface;
             _commandManager = commandManager;
             _clientState = clientState;
