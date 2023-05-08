@@ -5,17 +5,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Pal.Client.Configuration;
 using Pal.Client.Floors;
+using static Pal.Client.Rendering.SplatoonRenderer;
 
 namespace Pal.Client.Rendering
 {
-    internal sealed class RenderAdapter : IRenderer, IDisposable
+    internal sealed class RenderAdapter : IDisposable
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly ILogger<RenderAdapter> _logger;
         private readonly IPalacePalConfiguration _configuration;
 
         private IServiceScope? _renderScope;
-        internal IRenderer _implementation;
+        internal SplatoonRenderer _implementation;
 
         public RenderAdapter(IServiceScopeFactory serviceScopeFactory, ILogger<RenderAdapter> logger,
             IPalacePalConfiguration configuration)
@@ -29,7 +30,7 @@ namespace Pal.Client.Rendering
 
         public bool RequireRedraw { get; set; }
 
-        private IRenderer Recreate(bool recreate)
+        private SplatoonRenderer Recreate(bool recreate)
         {
             if (!recreate)
                 return _implementation;
@@ -49,13 +50,13 @@ namespace Pal.Client.Rendering
         public void Dispose()
             => _renderScope?.Dispose();
 
-        public void SetLayer(ELayer layer, IReadOnlyList<IRenderElement> elements)
+        public void SetLayer(ELayer layer, IReadOnlyList<SplatoonElement> elements)
             => _implementation.SetLayer(layer, elements);
 
         public void ResetLayer(ELayer layer)
             => _implementation.ResetLayer(layer);
 
-        public IRenderElement CreateElement(MemoryLocation.EType type, Vector3 pos, uint color, bool fill = false)
+        public SplatoonElement CreateElement(MemoryLocation.EType type, Vector3 pos, uint color, bool fill = false)
             => _implementation.CreateElement(type, pos, color, fill);
 
         public void DrawDebugItems(uint trapColor, uint hoardColor)

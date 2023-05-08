@@ -20,7 +20,7 @@ using Dalamud.Logging;
 
 namespace Pal.Client.Rendering
 {
-    internal sealed class SplatoonRenderer : IRenderer, IDisposable
+    internal sealed class SplatoonRenderer : IDisposable
     {
         private const long OnTerritoryChange = -2;
 
@@ -55,7 +55,7 @@ namespace Pal.Client.Rendering
 
         private bool IsDisposed { get; set; }
 
-        public void SetLayer(ELayer layer, IReadOnlyList<IRenderElement> elements)
+        public void SetLayer(ELayer layer, IReadOnlyList<SplatoonElement> elements)
         {
             // we need to delay this, as the current framework update could be before splatoon's, in which case it would immediately delete the layout
             _ = new TickScheduler(delegate
@@ -63,7 +63,7 @@ namespace Pal.Client.Rendering
                 try
                 {
                     Splatoon.AddDynamicElements(ToLayerName(layer),
-                        elements.Cast<SplatoonElement>().Select(x => x.Delegate).ToArray(),
+                        elements.Select(x => x.Delegate).ToArray(),
                         new[] { Environment.TickCount64 + 60 * 60 * 1000, OnTerritoryChange });
                 }
                 catch (Exception e)
@@ -90,7 +90,7 @@ namespace Pal.Client.Rendering
         private string ToLayerName(ELayer layer)
             => $"PalacePal.{layer}";
 
-        public IRenderElement CreateElement(MemoryLocation.EType type, Vector3 pos, uint color, bool fill = false)
+        public SplatoonElement CreateElement(MemoryLocation.EType type, Vector3 pos, uint color, bool fill = false)
         {
             MarkerConfig config = MarkerConfig.ForType(type);
             Element element = new Element(ElementType.CircleAtFixedCoordinates)
@@ -119,7 +119,7 @@ namespace Pal.Client.Rendering
                 {
                     ResetLayer(ELayer.Test);
 
-                    var elements = new List<IRenderElement>
+                    var elements = new List<SplatoonElement>
                     {
                         CreateElement(MemoryLocation.EType.Trap, pos.Value, trapColor),
                         CreateElement(MemoryLocation.EType.Hoard, pos.Value, hoardColor),
@@ -243,7 +243,7 @@ namespace Pal.Client.Rendering
             }
         }
 
-        private sealed class SplatoonElement : IRenderElement
+        internal sealed class SplatoonElement
         {
             private readonly SplatoonRenderer _renderer;
 

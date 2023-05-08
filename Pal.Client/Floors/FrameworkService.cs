@@ -19,6 +19,7 @@ using Pal.Client.Net;
 using Pal.Client.Rendering;
 using Pal.Client.Scheduled;
 using Pal.Common;
+using static Pal.Client.Rendering.SplatoonRenderer;
 
 namespace Pal.Client.Floors
 {
@@ -228,7 +229,7 @@ namespace Pal.Client.Floors
             if (memoryTerritory == null)
                 return;
 
-            List<IRenderElement> elements = new();
+            List<SplatoonElement> elements = new();
             foreach (var location in memoryTerritory.Locations)
             {
                 if (location.Type == MemoryLocation.EType.Trap)
@@ -253,7 +254,7 @@ namespace Pal.Client.Floors
         {
             _renderAdapter.ResetLayer(ELayer.RegularCoffers);
 
-            List<IRenderElement> elements = new();
+            List<SplatoonElement> elements = new();
             foreach (var location in _floorService.EphemeralLocations)
             {
                 if (location.Type == MemoryLocation.EType.SilverCoffer &&
@@ -305,7 +306,7 @@ namespace Pal.Client.Floors
             };
         }
 
-        private void CreateRenderElement(MemoryLocation location, List<IRenderElement> elements, uint color,
+        private void CreateRenderElement(MemoryLocation location, List<SplatoonElement> elements, uint color,
             MarkerConfiguration config)
         {
             if (!config.Show)
