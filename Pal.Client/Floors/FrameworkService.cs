@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Dalamud.Game.ClientState.Objects;
 using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Logging;
 using ECommons;
+using ECommons.DalamudServices;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Pal.Client.Configuration;
@@ -111,6 +113,7 @@ namespace Pal.Client.Floors
                     recreateLayout = true;
                     _debugState.Reset();
                     Plugin.P._rootScope!.ServiceProvider.GetRequiredService<RenderAdapter>()._implementation.UpdateExitElement();
+                    ExternalUtils.UpdateBronzeTreasureCoffers(_clientState.TerritoryType);
                 }
 
                 if (!_territoryState.IsInDeepDungeon() || !_floorService.IsReady(_territoryState.LastTerritory))
@@ -313,8 +316,54 @@ namespace Pal.Client.Floors
                 return;
 
             var element = _renderAdapter.CreateElement(location.Type, location.Position, color, config.Fill);
+            if(location.Type == MemoryLocation.EType.GoldCoffer)
+            {
+                /*{"Name":"Gold Treasure Coffer","type":1,"Enabled":false,"color":3355495679,"overlayBGColor":0,"overlayTextColor":4278242559,"overlayVOffset":0.6,"overlayFScale":1.3,"overlayText":" Gold Treasure Coffer","refActorPlaceholder":["<t>"],"refActorComparisonType":5,"includeOwnHitbox":true}
+
+                {"Name":"Gold Treasure Coffer Fill","type":1,"Enabled":false,"color":838913279,"overlayVOffset":0.68,"overlayFScale":1.24,"refActorPlaceholder":["<t>"],"FillStep":0.429,"refActorComparisonType":5,"includeOwnHitbox":true,"Filled":true}
+                */
+                element.Delegate.color = 0xC800CCFF;
+                element.Delegate.overlayBGColor = 0;
+                element.Delegate.overlayVOffset = 0.6f;
+                element.Delegate.overlayFScale = 1.3f;
+                element.Delegate.overlayText = " Gold Treasure Coffer";
+                element.Delegate.overlayTextColor = 0xFF00CCFF;
+                element.Delegate.radius = 1f;
+                element.Delegate.Filled = false;
+
+                var element2 = _renderAdapter.CreateElement(location.Type, location.Position, color);
+                element2.Delegate.color = 0x3200CCFF;
+                element2.Delegate.radius = 1f;
+                element2.Delegate.Filled = true;
+                location.RenderElement2 = element2;
+                elements.Add(element2);
+            }
+            else if(location.Type == MemoryLocation.EType.SilverCoffer)
+            {
+                /*
+                 * {"Name":"Silver Treasure Coffer","type":1,"Enabled":false,"color":3372220415,"overlayBGColor":0,"overlayTextColor":4294967295,"overlayVOffset":0.6,"overlayFScale":1.3,"overlayText":" Silver Treasure Coffer","refActorType":1,"includeOwnHitbox":true}
+
+                {"Name":"Silver Treasure Coffer Fill","type":1,"Enabled":false,"color":855638015,"overlayVOffset":0.68,"overlayFScale":1.24,"FillStep":0.429,"refActorType":1,"includeOwnHitbox":true,"Filled":true}
+
+                 * */
+                element.Delegate.color = 0xC8FFFFFF;
+                element.Delegate.overlayBGColor = 0;
+                element.Delegate.overlayVOffset = 0.6f;
+                element.Delegate.overlayFScale = 1.3f;
+                element.Delegate.overlayText = " Silver Treasure Coffer";
+                element.Delegate.overlayTextColor = 0xFFFFFFFF;
+                element.Delegate.radius = 1f;
+                element.Delegate.Filled = false;
+
+                var element2 = _renderAdapter.CreateElement(location.Type, location.Position, color);
+                element2.Delegate.color = 0x3200CCFF;
+                element2.Delegate.radius = 1f;
+                element2.Delegate.Filled = true;
+                location.RenderElement2 = element2;
+                elements.Add(element2);
+            }
             location.RenderElement = element;
-            elements.Add(element);
+            elements.Add(element); 
         }
 
         #endregion

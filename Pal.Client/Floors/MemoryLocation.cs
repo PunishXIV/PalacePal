@@ -18,6 +18,7 @@ namespace Pal.Client.Floors
         public bool Seen { get; set; }
 
         public SplatoonElement? RenderElement { get; set; }
+        public SplatoonElement? RenderElement2 { get; set; }
 
         public enum EType
         {
