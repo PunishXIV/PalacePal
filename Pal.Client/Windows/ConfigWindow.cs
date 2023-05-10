@@ -182,69 +182,47 @@ namespace Pal.Client.Windows
                 ImGuiEx.Text($"Traps");
                 if (ImGuiGroup.BeginGroupBox())
                 {
-                    ImGui.PushID("trap");
-                    ImGui.Checkbox(Localization.Config_Traps_Show, ref _trapConfig.Show);
-                    ImGui.Indent();
-                    ImGui.BeginDisabled(!_trapConfig.Show);
-                    ImGui.Spacing();
-                    ImGui.ColorEdit4(Localization.Config_Traps_Color, ref _trapConfig.Color, ImGuiColorEditFlags.NoInputs);
-                    ImGui.Checkbox(Localization.Config_Traps_HideImpossible, ref _trapConfig.OnlyVisibleAfterPomander);
-                    ImGui.SameLine();
-                    ImGuiComponents.HelpMarker(Localization.Config_Traps_HideImpossible_ToolTip);
-                    ImGui.EndDisabled();
-                    ImGui.Unindent();
-                    ImGui.PopID();
+                    ImGui.Checkbox("Display Potential Trap Locations", ref _trapConfig.Show);
+                    ImGuiComponents.HelpMarker("Displays the potential location of invisible floor traps");
+                    ImGui.ColorEdit4("Trap Outline Colour", ref _trapConfig.Color, ImGuiColorEditFlags.NoInputs);
+                    ImGui.Checkbox($"Draw Traps Filled", ref P.Config.TrapColorFilled);
+                    ImGui.Checkbox("Hide Traps on Safety/Sight Use", ref _trapConfig.OnlyVisibleAfterPomander);
+                    ImGuiComponents.HelpMarker("Disable rendering of potential traps that are not actually present on this floor after revealing/banishing them via Sight or Safety pomanders.");
                     ImGuiGroup.EndGroupBox();
                 }
 
+                ImGuiEx.Text($"Accursed Hoard");
+                if (ImGuiGroup.BeginGroupBox())
+                {
+                    ImGui.Checkbox("Display Potential Accursed Hoard Coffer Locations", ref _hoardConfig.Show);
+                    ImGuiComponents.HelpMarker("Displays the location of anywhere an Accursed Hoard coffer has been found.");
+                    ImGui.ColorEdit4("Accursed Hoard Outline Colour", ref _hoardConfig.Color, ImGuiColorEditFlags.NoInputs);
+                    ImGui.Checkbox("Hide Accursed Hoard Locations on Intuition Use", ref _hoardConfig.OnlyVisibleAfterPomander);
+                    ImGuiComponents.HelpMarker("Disable rendering of potential Accursed Hoard coffer locations when using a Pommander of Intuition until the Accursed Hoard is found.");
+                    ImGuiGroup.EndGroupBox();
+                }
 
                 ImGuiEx.Text($"Coffers");
                 if (ImGuiGroup.BeginGroupBox())
                 {
-                    ImGui.PushID("hoard");
-                    ImGui.Checkbox(Localization.Config_HoardCoffers_Show, ref _hoardConfig.Show);
-                    ImGui.Indent();
-                    ImGui.BeginDisabled(!_hoardConfig.Show);
-                    ImGui.Spacing();
-                    ImGui.ColorEdit4(Localization.Config_HoardCoffers_Color, ref _hoardConfig.Color,
-                        ImGuiColorEditFlags.NoInputs);
-                    ImGui.Checkbox(Localization.Config_HoardCoffers_HideImpossible,
-                        ref _hoardConfig.OnlyVisibleAfterPomander);
-                    ImGui.SameLine();
-                    ImGuiComponents.HelpMarker(Localization.Config_HoardCoffers_HideImpossible_ToolTip);
-                    ImGui.EndDisabled();
-                    ImGui.Unindent();
-                    ImGui.PopID();
+                    ImGui.Checkbox("Display Gold Treasure Coffer Locations", ref _goldConfig.Show);
+                    ImGuiComponents.HelpMarker(Localization.Config_GoldCoffers_ToolTip);
+                    ImGui.ColorEdit4(Localization.Config_GoldCoffer_Color, ref _goldConfig.Color, ImGuiColorEditFlags.NoInputs);
+                    ImGui.Checkbox(Localization.Config_GoldCoffer_Filled, ref _goldConfig.Fill);
 
                     ImGui.Separator();
 
-                    ImGui.PushID("silver");
-                    ImGui.Checkbox(Localization.Config_SilverCoffer_Show, ref _silverConfig.Show);
+                    ImGui.Checkbox("Display Silver Treasure Coffer Locations", ref _silverConfig.Show);
                     ImGuiComponents.HelpMarker(Localization.Config_SilverCoffers_ToolTip);
-                    ImGui.Indent();
-                    ImGui.BeginDisabled(!_silverConfig.Show);
-                    ImGui.Spacing();
-                    ImGui.ColorEdit4(Localization.Config_SilverCoffer_Color, ref _silverConfig.Color,
-                        ImGuiColorEditFlags.NoInputs);
+                    ImGui.ColorEdit4(Localization.Config_SilverCoffer_Color, ref _silverConfig.Color, ImGuiColorEditFlags.NoInputs);
                     ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref _silverConfig.Fill);
-                    ImGui.EndDisabled();
-                    ImGui.Unindent();
-                    ImGui.PopID();
 
+                    ImGui.Separator();
 
-                    ImGui.PushID("gold");
-                    ImGui.Checkbox(Localization.Config_GoldCoffer_Show, ref _goldConfig.Show);
-                    ImGuiComponents.HelpMarker(Localization.Config_GoldCoffers_ToolTip);
-                    ImGui.Indent();
-                    ImGui.BeginDisabled(!_goldConfig.Show);
-                    ImGui.Spacing();
-                    ImGui.ColorEdit4(Localization.Config_GoldCoffer_Color, ref _goldConfig.Color,
-                        ImGuiColorEditFlags.NoInputs);
-                    ImGui.Checkbox(Localization.Config_GoldCoffer_Filled, ref _goldConfig.Fill);
-                    ImGui.EndDisabled();
-                    ImGui.Unindent();
-                    ImGui.PopID();
-
+                    ImGui.Checkbox("Display Bronze Treasure Coffer Locations", ref P.Config.BronzeShow);
+                    //ImGuiComponents.HelpMarker(Localization.Config_SilverCoffers_ToolTip);
+                    ImGui.ColorEdit4("Bronze Coffer color", ref P.Config.BronzeColor, ImGuiColorEditFlags.NoInputs);
+                    ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref P.Config.BronzeFill);
 
                     ImGuiGroup.EndGroupBox();
                 }
