@@ -322,21 +322,24 @@ namespace Pal.Client.Floors
 
                 {"Name":"Gold Treasure Coffer Fill","type":1,"Enabled":false,"color":838913279,"overlayVOffset":0.68,"overlayFScale":1.24,"refActorPlaceholder":["<t>"],"FillStep":0.429,"refActorComparisonType":5,"includeOwnHitbox":true,"Filled":true}
                 */
-                element.Delegate.color = 0xC800CCFF;
+                element.Delegate.color = color;
                 element.Delegate.overlayBGColor = 0;
                 element.Delegate.overlayVOffset = 0.6f;
                 element.Delegate.overlayFScale = 1.3f;
                 element.Delegate.overlayText = " Gold Treasure Coffer";
-                element.Delegate.overlayTextColor = 0xFF00CCFF;
+                element.Delegate.overlayTextColor = color;
                 element.Delegate.radius = 1f;
                 element.Delegate.Filled = false;
 
                 var element2 = _renderAdapter.CreateElement(location.Type, location.Position, color);
-                element2.Delegate.color = 0x3200CCFF;
+                element2.Delegate.color = (color.ToVector4() with { W = color.ToVector4().W / 2f }).ToUint();
                 element2.Delegate.radius = 1f;
                 element2.Delegate.Filled = true;
                 location.RenderElement2 = element2;
-                elements.Add(element2);
+                if (config.Fill)
+                {
+                    elements.Add(element2);
+                }
             }
             else if(location.Type == MemoryLocation.EType.SilverCoffer)
             {
@@ -346,21 +349,24 @@ namespace Pal.Client.Floors
                 {"Name":"Silver Treasure Coffer Fill","type":1,"Enabled":false,"color":855638015,"overlayVOffset":0.68,"overlayFScale":1.24,"FillStep":0.429,"refActorType":1,"includeOwnHitbox":true,"Filled":true}
 
                  * */
-                element.Delegate.color = 0xC8FFFFFF;
+                element.Delegate.color = color;
                 element.Delegate.overlayBGColor = 0;
                 element.Delegate.overlayVOffset = 0.6f;
                 element.Delegate.overlayFScale = 1.3f;
                 element.Delegate.overlayText = " Silver Treasure Coffer";
-                element.Delegate.overlayTextColor = 0xFFFFFFFF;
+                element.Delegate.overlayTextColor = color;
                 element.Delegate.radius = 1f;
                 element.Delegate.Filled = false;
 
                 var element2 = _renderAdapter.CreateElement(location.Type, location.Position, color);
-                element2.Delegate.color = 0x3200CCFF;
+                element2.Delegate.color = (color.ToVector4() with { W = color.ToVector4().W / 2f }).ToUint(); ;
                 element2.Delegate.radius = 1f;
                 element2.Delegate.Filled = true;
                 location.RenderElement2 = element2;
-                elements.Add(element2);
+                if (config.Fill)
+                {
+                    elements.Add(element2);
+                }
             }
             location.RenderElement = element;
             elements.Add(element); 

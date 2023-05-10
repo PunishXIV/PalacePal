@@ -1,4 +1,5 @@
-﻿using ECommons.DalamudServices;
+﻿using ECommons;
+using ECommons.DalamudServices;
 using ECommons.SplatoonAPI;
 using Pal.Common;
 using System;
@@ -18,7 +19,7 @@ namespace Pal.Client
         internal static void UpdateBronzeTreasureCoffers(uint terr)
         {
             Splatoon.RemoveDynamicElements(BronzeTreasureNamespace);
-            if (Enum.GetValues<ETerritoryType>().Contains((ETerritoryType)terr))
+            if (Enum.GetValues<ETerritoryType>().Contains((ETerritoryType)terr) && P.Config.BronzeShow)
             {
                 foreach(var x in BronzeCofferDataID)
                 {
@@ -26,11 +27,20 @@ namespace Pal.Client
                     element.refActorDataID = x;
                     var elementFill = Splatoon.DecodeElement("{\"Name\":\"Bronze Treasure Coffer Fill\",\"type\":1,\"color\":840456929,\"overlayVOffset\":0.68,\"overlayFScale\":1.24,\"FillStep\":0.429,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"Filled\":true}");
                     elementFill.refActorDataID = x;
+                    element.color = P.Config.BronzeColor.ToUint();
+                    elementFill.color = (P.Config.BronzeColor with { W = P.Config.BronzeColor.W / 2f }).ToUint();
                     Splatoon.AddDynamicElement(BronzeTreasureNamespace, element, 0);
-                    Splatoon.AddDynamicElement(BronzeTreasureNamespace, elementFill, 0);
+                    if (P.Config.BronzeFill)
+                    {
+                        Splatoon.AddDynamicElement(BronzeTreasureNamespace, elementFill, 0);
+                    }
                 }
+                
                 Splatoon.AddDynamicElement(BronzeTreasureNamespace, Splatoon.DecodeElement("{\"Name\":\"Mimic Trap Coffer\",\"type\":1,\"color\":4278190335,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"overlayText\":\" Mimic Trap Coffer\",\"refActorDataID\":2006020,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232}"), 0);
-                Splatoon.AddDynamicElement(BronzeTreasureNamespace, Splatoon.DecodeElement("{\"Name\":\"Mimic Trap Coffer Fill\",\"type\":1,\"color\":838861055,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"refActorDataID\":2006020,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232,\"Filled\":true}"), 0);
+                if (P.Config.BronzeFill)
+                {
+                    Splatoon.AddDynamicElement(BronzeTreasureNamespace, Splatoon.DecodeElement("{\"Name\":\"Mimic Trap Coffer Fill\",\"type\":1,\"color\":838861055,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"refActorDataID\":2006020,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232,\"Filled\":true}"), 0);
+                }
             }
         }
     }
