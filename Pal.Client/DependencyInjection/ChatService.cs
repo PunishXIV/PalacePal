@@ -8,6 +8,7 @@ using Dalamud.Logging;
 using Dalamud.Utility;
 using ECommons;
 using ECommons.DalamudServices;
+using FFXIVClientStructs.FFXIV.Client.Game;
 using Lumina.Excel.GeneratedSheets;
 using Pal.Client.Configuration;
 using Pal.Client.Floors;

@@ -237,8 +237,7 @@ namespace Pal.Client.Floors
             {
                 if (location.Type == MemoryLocation.EType.Trap)
                 {
-                    CreateRenderElement(location, elements, DetermineColor(location, visibleMarkers),
-                        _configuration.DeepDungeons.Traps);
+                    CreateRenderElement(location, elements, DetermineColor(location, visibleMarkers), _configuration.DeepDungeons.Traps);
                 }
                 else if (location.Type == MemoryLocation.EType.Hoard)
                 {
@@ -288,7 +287,7 @@ namespace Pal.Client.Floors
                     when _territoryState.PomanderOfSight == PomanderState.Inactive ||
                          !_configuration.DeepDungeons.Traps.OnlyVisibleAfterPomander ||
                          visibleLocations.Any(x => x == location):
-                    return _configuration.DeepDungeons.Traps.Color;
+                    return P.Config.TrapColor.ToUint();
                 case MemoryLocation.EType.Hoard
                     when _territoryState.PomanderOfIntuition == PomanderState.Inactive ||
                          !_configuration.DeepDungeons.HoardCoffers.OnlyVisibleAfterPomander ||
@@ -309,8 +308,7 @@ namespace Pal.Client.Floors
             };
         }
 
-        private void CreateRenderElement(MemoryLocation location, List<SplatoonElement> elements, uint color,
-            MarkerConfiguration config)
+        private void CreateRenderElement(MemoryLocation location, List<SplatoonElement> elements, uint color, MarkerConfiguration config)
         {
             if (!config.Show)
                 return;
@@ -359,8 +357,26 @@ namespace Pal.Client.Floors
                 element.Delegate.Filled = false;
 
                 var element2 = _renderAdapter.CreateElement(location.Type, location.Position, color);
-                element2.Delegate.color = (color.ToVector4() with { W = color.ToVector4().W / 2f }).ToUint(); ;
+                element2.Delegate.color = (color.ToVector4() with { W = color.ToVector4().W / 2f }).ToUint();
                 element2.Delegate.radius = 1f;
+                element2.Delegate.Filled = true;
+                location.RenderElement2 = element2;
+                if (config.Fill)
+                {
+                    elements.Add(element2);
+                }
+            }
+            else if(location.Type == MemoryLocation.EType.Trap)
+            {
+                //{"Name":"Mimic Trap Coffer","type":1,"Enabled":false,"color":4278190335,"overlayBGColor":0,"overlayTextColor":4278190335,"overlayVOffset":0.6,"overlayFScale":1.3,"overlayText":" Mimic Trap Coffer","refActorPlaceholder":["<t>"],"FillStep":0.029,"refActorComparisonType":5,"includeOwnHitbox":true,"AdditionalRotation":0.43633232}
+
+                //{ "Name":"Mimic Trap Coffer Fill","type":1,"Enabled":false,"color":838861055,"overlayBGColor":0,"overlayTextColor":4278190335,"overlayVOffset":0.6,"overlayFScale":1.3,"refActorPlaceholder":["<t>"],"FillStep":0.029,"refActorComparisonType":5,"includeOwnHitbox":true,"AdditionalRotation":0.43633232,"Filled":true}
+
+                element.Delegate.color = P.Config.TrapColor.ToUint();
+                element.Delegate.Filled = false;
+
+                var element2 = _renderAdapter.CreateElement(location.Type, location.Position, color);
+                element2.Delegate.color = (P.Config.TrapColor with { W = P.Config.TrapColor.W / 2f }).ToUint();
                 element2.Delegate.Filled = true;
                 location.RenderElement2 = element2;
                 if (config.Fill)

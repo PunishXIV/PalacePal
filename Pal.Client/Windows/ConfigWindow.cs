@@ -184,8 +184,8 @@ namespace Pal.Client.Windows
                 {
                     ImGui.Checkbox("Display Potential Trap Locations", ref _trapConfig.Show);
                     ImGuiComponents.HelpMarker("Displays the potential location of invisible floor traps");
-                    Spacing(true); ImGui.ColorEdit4("Trap Outline Colour", ref _trapConfig.Color, ImGuiColorEditFlags.NoInputs);
-                    Spacing(true); ImGui.Checkbox($"Draw Traps Filled", ref P.Config.TrapColorFilled);
+                    Spacing(true); ImGui.ColorEdit4("Trap Outline Colour", ref P.Config.TrapColor, ImGuiColorEditFlags.NoInputs);
+                    Spacing(true); ImGui.Checkbox($"Draw Traps Filled", ref _trapConfig.Fill);
                     Spacing(); ImGui.Checkbox("Hide Traps on Safety/Sight Use", ref _trapConfig.OnlyVisibleAfterPomander);
                     ImGuiComponents.HelpMarker("Disable rendering of potential traps that are not actually present on this floor after revealing/banishing them via Sight or Safety pomanders.");
                     ImGuiGroup.EndGroupBox();
@@ -205,24 +205,30 @@ namespace Pal.Client.Windows
                 ImGuiEx.Text($"Coffers");
                 if (ImGuiGroup.BeginGroupBox())
                 {
+                    ImGui.PushID("coffer1");
                     ImGui.Checkbox("Display Gold Treasure Coffer Locations", ref _goldConfig.Show);
                     ImGuiComponents.HelpMarker(Localization.Config_GoldCoffers_ToolTip);
                     Spacing(true); ImGui.ColorEdit4(Localization.Config_GoldCoffer_Color, ref _goldConfig.Color, ImGuiColorEditFlags.NoInputs);
                     Spacing(); ImGui.Checkbox(Localization.Config_GoldCoffer_Filled, ref _goldConfig.Fill);
+                    ImGui.PopID();
 
                     ImGui.Separator();
 
+                    ImGui.PushID("coffer2");
                     ImGui.Checkbox("Display Silver Treasure Coffer Locations", ref _silverConfig.Show);
                     ImGuiComponents.HelpMarker(Localization.Config_SilverCoffers_ToolTip);
                     Spacing(true); ImGui.ColorEdit4(Localization.Config_SilverCoffer_Color, ref _silverConfig.Color, ImGuiColorEditFlags.NoInputs);
                     Spacing(); ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref _silverConfig.Fill);
+                    ImGui.PopID();
 
                     ImGui.Separator();
 
+                    ImGui.PushID("coffer3");
                     ImGui.Checkbox("Display Bronze Treasure Coffer Locations", ref P.Config.BronzeShow);
                     //ImGuiComponents.HelpMarker(Localization.Config_SilverCoffers_ToolTip);
                     Spacing(true); ImGui.ColorEdit4("Bronze Coffer color", ref P.Config.BronzeColor, ImGuiColorEditFlags.NoInputs);
                     Spacing(); ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref P.Config.BronzeFill);
+                    ImGui.PopID();
 
                     ImGuiGroup.EndGroupBox();
                 }

@@ -18,5 +18,6 @@ namespace Pal.Client.Configuration
         public bool BronzeShow = false;
         public bool BronzeFill = false;
         public Vector4 BronzeColor = 4279786209.ToVector4();
+        public Vector4 TrapColor = 0xFF0000FF.ToVector4();
     }
 }
