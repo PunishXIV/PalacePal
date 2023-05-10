@@ -18,7 +18,6 @@ namespace Pal.Client.Configuration.Legacy
         #region Saved configuration values
         public bool FirstUse { get; set; } = true;
         public EMode Mode { get; set; } = EMode.Offline;
-        public ERenderer Renderer { get; set; } = ERenderer.Splatoon;
 
         [Obsolete]
         public string? DebugAccountId { private get; set; }

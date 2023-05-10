@@ -4,6 +4,7 @@ using System.Numerics;
 using Pal.Client.Rendering;
 using Pal.Common;
 using Palace;
+using static Pal.Client.Rendering.SplatoonRenderer;
 
 namespace Pal.Client.Floors
 {
@@ -16,7 +17,8 @@ namespace Pal.Client.Floors
         public required Vector3 Position { get; init; }
         public bool Seen { get; set; }
 
-        public IRenderElement? RenderElement { get; set; }
+        public SplatoonElement? RenderElement { get; set; }
+        public SplatoonElement? RenderElement2 { get; set; }
 
         public enum EType
         {

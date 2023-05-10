@@ -133,7 +133,6 @@ namespace Pal.Client
             _serviceCollection.AddScoped<StatisticsWindow>();
 
             // rendering
-            _serviceCollection.AddScoped<SimpleRenderer>();
             _serviceCollection.AddScoped<SplatoonRenderer>();
             _serviceCollection.AddScoped<RenderAdapter>();
 
