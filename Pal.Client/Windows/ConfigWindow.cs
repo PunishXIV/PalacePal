@@ -243,6 +243,15 @@ namespace Pal.Client.Windows
                     ImGuiGroup.EndGroupBox();
                 }
 
+                ImGuiEx.Text($"Common settings");
+                if (ImGuiGroup.BeginGroupBox())
+                {
+                    ImGui.SetNextItemWidth(200f);
+                    ImGui.SliderFloat("Text overlay font scale", ref P.Config.OverlayFScale, 0.1f, 5f);
+                    P.Config.OverlayFScale.ValidateRange(0.1f, 10f);
+                    ImGuiGroup.EndGroupBox();
+                }
+
                 ImGui.Separator();
 
 

@@ -35,11 +35,17 @@ namespace Pal.Client
                         Splatoon.AddDynamicElement(BronzeTreasureNamespace, elementFill, 0);
                     }
                 }
-                
-                Splatoon.AddDynamicElement(BronzeTreasureNamespace, Splatoon.DecodeElement("{\"Name\":\"Mimic Trap Coffer\",\"type\":1,\"color\":4278190335,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"overlayText\":\" Mimic Trap Coffer\",\"refActorDataID\":2006020,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232}"), 0);
+
+                {
+                    var e = Splatoon.DecodeElement("{\"Name\":\"Mimic Trap Coffer\",\"type\":1,\"color\":4278190335,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"overlayText\":\" Mimic Trap Coffer\",\"refActorDataID\":2006020,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232}");
+                    e.overlayFScale = P.Config.OverlayFScale;
+                    Splatoon.AddDynamicElement(BronzeTreasureNamespace, e, 0);
+                }
                 if (P.Config.BronzeFill)
                 {
-                    Splatoon.AddDynamicElement(BronzeTreasureNamespace, Splatoon.DecodeElement("{\"Name\":\"Mimic Trap Coffer Fill\",\"type\":1,\"color\":838861055,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"refActorDataID\":2006020,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232,\"Filled\":true}"), 0);
+                    var e = Splatoon.DecodeElement("{\"Name\":\"Mimic Trap Coffer Fill\",\"type\":1,\"color\":838861055,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"refActorDataID\":2006020,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232,\"Filled\":true}");
+                    e.overlayFScale = P.Config.OverlayFScale;
+                    Splatoon.AddDynamicElement(BronzeTreasureNamespace, e, 0);
                 }
             }
         }

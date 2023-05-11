@@ -201,6 +201,7 @@ namespace Pal.Client.Rendering
                                 color = 3355498751,
                                 overlayVOffset = 0.76f,
                                 overlayText = "Passage",
+                                overlayFScale = P.Config.OverlayFScale,
                                 refActorComparisonType = RefActorComparisonType.DataID,
                                 refActorDataID = x,
                                 includeHitbox = true,
@@ -208,7 +209,7 @@ namespace Pal.Client.Rendering
                                 refActorObjectEffectData1 = 4,
                                 refActorObjectEffectData2 = 8,
                                 refActorObjectEffectMax = int.MaxValue,
-                            }, 0);
+                            }, 0) ;
                         }
                         else
                         {
@@ -218,6 +219,7 @@ namespace Pal.Client.Rendering
                                 color = 3355498751,
                                 overlayVOffset = 0.76f,
                                 overlayText = "Passage",
+                                overlayFScale = P.Config.OverlayFScale,
                                 refActorComparisonType = RefActorComparisonType.DataID,
                                 refActorDataID = x,
                                 includeHitbox = true,
@@ -229,6 +231,7 @@ namespace Pal.Client.Rendering
                             color = 1684471552,
                             overlayVOffset = 0.76f,
                             overlayText = "ACTIVE",
+                            overlayFScale = P.Config.OverlayFScale,
                             refActorDataID = x,
                             includeHitbox = true,
                             Filled = true,

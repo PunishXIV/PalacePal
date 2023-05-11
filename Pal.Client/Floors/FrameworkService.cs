@@ -192,7 +192,13 @@ namespace Pal.Client.Floors
                             return true;
 
                         if (location.RenderElement.Color != desiredColor)
+                        {
                             location.RenderElement.Color = desiredColor;
+                            if (location.RenderElement2 != null)
+                            {
+                                location.RenderElement2.Color = desiredColor == RenderData.ColorInvisible? RenderData.ColorInvisible : (desiredColor.ToVector4() with { W = 50f / 255f }).ToUint();
+                            }
+                        }
                     }
                 }
                 catch (Exception e)
@@ -323,14 +329,14 @@ namespace Pal.Client.Floors
                 element.Delegate.color = color;
                 element.Delegate.overlayBGColor = 0;
                 element.Delegate.overlayVOffset = 0.6f;
-                element.Delegate.overlayFScale = 1.3f;
+                element.Delegate.overlayFScale = P.Config.OverlayFScale;
                 element.Delegate.overlayText = " Gold Treasure Coffer";
                 element.Delegate.overlayTextColor = color;
                 element.Delegate.radius = 1f;
                 element.Delegate.Filled = false;
 
                 var element2 = _renderAdapter.CreateElement(location.Type, location.Position, color);
-                element2.Delegate.color = (color.ToVector4() with { W = color.ToVector4().W / 2f }).ToUint();
+                element2.Delegate.color = (color.ToVector4() with { W = 50f / 255f }).ToUint();
                 element2.Delegate.radius = 1f;
                 element2.Delegate.Filled = true;
                 location.RenderElement2 = element2;
@@ -350,14 +356,14 @@ namespace Pal.Client.Floors
                 element.Delegate.color = color;
                 element.Delegate.overlayBGColor = 0;
                 element.Delegate.overlayVOffset = 0.6f;
-                element.Delegate.overlayFScale = 1.3f;
+                element.Delegate.overlayFScale = P.Config.OverlayFScale;
                 element.Delegate.overlayText = " Silver Treasure Coffer";
                 element.Delegate.overlayTextColor = color;
                 element.Delegate.radius = 1f;
                 element.Delegate.Filled = false;
 
                 var element2 = _renderAdapter.CreateElement(location.Type, location.Position, color);
-                element2.Delegate.color = (color.ToVector4() with { W = color.ToVector4().W / 2f }).ToUint();
+                element2.Delegate.color = (color.ToVector4() with { W = 50f / 255f }).ToUint();
                 element2.Delegate.radius = 1f;
                 element2.Delegate.Filled = true;
                 location.RenderElement2 = element2;
@@ -376,7 +382,7 @@ namespace Pal.Client.Floors
                 element.Delegate.Filled = false;
 
                 var element2 = _renderAdapter.CreateElement(location.Type, location.Position, color);
-                element2.Delegate.color = (P.Config.TrapColor with { W = P.Config.TrapColor.W / 2f }).ToUint();
+                element2.Delegate.color = (P.Config.TrapColor with { W = 50f/255f }).ToUint();
                 element2.Delegate.Filled = true;
                 location.RenderElement2 = element2;
                 if (config.Fill)

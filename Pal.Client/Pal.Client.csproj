@@ -18,7 +18,7 @@
 		<DebugType>portable</DebugType>
 		<PathMap Condition="$(SolutionDir) != ''">$(SolutionDir)=X:\</PathMap>
 		<GitVersion>false</GitVersion>
-      <Version>4.8.0.1</Version>
+      <Version>4.8.0.2</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">

@@ -49,10 +49,10 @@ namespace Pal.Client.DependencyInjection
                 return;
 
             string message = seMessage.ToString();
-            PluginLog.Debug($"Message: {message}, floorchanged: {_localizedChatMessages.FloorChanged.ToString()}");
+            //PluginLog.Debug($"Message: {message}, floorchanged: {_localizedChatMessages.FloorChanged.ToString()}");
             if (_localizedChatMessages.FloorChanged.IsMatch(message))
             {
-                PluginLog.Debug($"Floor changed");
+                //PluginLog.Debug($"Floor changed");
                 _territoryState.PomanderOfSight = PomanderState.Inactive;
 
                 if (_territoryState.PomanderOfIntuition == PomanderState.FoundOnCurrentFloor)
