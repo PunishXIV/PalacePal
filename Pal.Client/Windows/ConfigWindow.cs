@@ -179,34 +179,34 @@ namespace Pal.Client.Windows
         {
             if (ImGui.BeginTabItem($"{Localization.ConfigTab_DeepDungeons}###TabDeepDungeons"))
             {
-                ImGuiEx.Text($"Traps");
+                ImGuiEx.Text(Localization.pnTraps);
                 if (ImGuiGroup.BeginGroupBox())
                 {
-                    ImGui.Checkbox("Display Potential Trap Locations", ref _trapConfig.Show);
-                    ImGuiComponents.HelpMarker("Displays the potential location of invisible floor traps");
-                    Spacing(true); ImGui.ColorEdit4("Trap Outline Colour", ref P.Config.TrapColor, ImGuiColorEditFlags.NoInputs);
-                    Spacing(true); ImGui.Checkbox($"Draw Traps Filled", ref _trapConfig.Fill);
-                    Spacing(); ImGui.Checkbox("Hide Traps on Safety/Sight Use", ref _trapConfig.OnlyVisibleAfterPomander);
-                    ImGuiComponents.HelpMarker("Disable rendering of potential traps that are not actually present on this floor after revealing/banishing them via Sight or Safety pomanders.");
+                    ImGui.Checkbox(Localization.pnDisplay_Potential_Trap_Locations, ref _trapConfig.Show);
+                    ImGuiComponents.HelpMarker(Localization.pnDisplay_Potential_Trap_Locations_Help);
+                    Spacing(true); ImGui.ColorEdit4(Localization.pnTrap_Outline_Colour, ref P.Config.TrapColor, ImGuiColorEditFlags.NoInputs);
+                    Spacing(true); ImGui.Checkbox(Localization.pnDraw_Traps_Filled, ref _trapConfig.Fill);
+                    Spacing(); ImGui.Checkbox(Localization.pnHide_Traps_on_Safety_Sight_Use, ref _trapConfig.OnlyVisibleAfterPomander);
+                    ImGuiComponents.HelpMarker(Localization.pnHide_Traps_on_Safety_Sight_Use_Help);
                     ImGuiGroup.EndGroupBox();
                 }
 
-                ImGuiEx.Text($"Accursed Hoard");
+                ImGuiEx.Text(Localization.pnAccursed_Hoard);
                 if (ImGuiGroup.BeginGroupBox())
                 {
-                    ImGui.Checkbox("Display Potential Accursed Hoard Coffer Locations", ref _hoardConfig.Show);
-                    ImGuiComponents.HelpMarker("Displays the location of anywhere an Accursed Hoard coffer has been found.");
-                    Spacing(true); ImGui.ColorEdit4("Accursed Hoard Outline Colour", ref _hoardConfig.Color, ImGuiColorEditFlags.NoInputs);
-                    Spacing(); ImGui.Checkbox("Hide Accursed Hoard Locations on Intuition Use", ref _hoardConfig.OnlyVisibleAfterPomander);
-                    ImGuiComponents.HelpMarker("Disable rendering of potential Accursed Hoard coffer locations when using a Pommander of Intuition until the Accursed Hoard is found.");
+                    ImGui.Checkbox(Localization.pnDisplay_Potential_Accursed_Hoard_Coffer_Locations, ref _hoardConfig.Show);
+                    ImGuiComponents.HelpMarker(Localization.pnDisplay_Potential_Accursed_Hoard_Coffer_Locations_Help);
+                    Spacing(true); ImGui.ColorEdit4(Localization.pnAccursed_Hoard_Outline_Colour, ref _hoardConfig.Color, ImGuiColorEditFlags.NoInputs);
+                    Spacing(); ImGui.Checkbox(Localization.pnHide_Accursed_Hoard_Locations_on_Intuition_Use, ref _hoardConfig.OnlyVisibleAfterPomander);
+                    ImGuiComponents.HelpMarker(Localization.pnHide_Accursed_Hoard_Locations_on_Intuition_Use_Help);
                     ImGuiGroup.EndGroupBox();
                 }
 
-                ImGuiEx.Text($"Coffers");
+                ImGuiEx.Text(Localization.pnCoffers);
                 if (ImGuiGroup.BeginGroupBox())
                 {
                     ImGui.PushID("coffer1");
-                    ImGui.Checkbox("Display Gold Treasure Coffer Locations", ref _goldConfig.Show);
+                    ImGui.Checkbox(Localization.Config_GoldCoffer_Show, ref _goldConfig.Show);
                     ImGuiComponents.HelpMarker(Localization.Config_GoldCoffers_ToolTip);
                     Spacing(true); ImGui.ColorEdit4(Localization.Config_GoldCoffer_Color, ref _goldConfig.Color, ImGuiColorEditFlags.NoInputs);
                     Spacing(); ImGui.Checkbox(Localization.Config_GoldCoffer_Filled, ref _goldConfig.Fill);
@@ -215,7 +215,7 @@ namespace Pal.Client.Windows
                     ImGui.Separator();
 
                     ImGui.PushID("coffer2");
-                    ImGui.Checkbox("Display Silver Treasure Coffer Locations", ref _silverConfig.Show);
+                    ImGui.Checkbox(Localization.Config_SilverCoffer_Show, ref _silverConfig.Show);
                     ImGuiComponents.HelpMarker(Localization.Config_SilverCoffers_ToolTip);
                     Spacing(true); ImGui.ColorEdit4(Localization.Config_SilverCoffer_Color, ref _silverConfig.Color, ImGuiColorEditFlags.NoInputs);
                     Spacing(); ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref _silverConfig.Fill);
@@ -224,9 +224,9 @@ namespace Pal.Client.Windows
                     ImGui.Separator();
 
                     ImGui.PushID("coffer3");
-                    ImGui.Checkbox("Display Bronze Treasure Coffer Locations", ref P.Config.BronzeShow);
+                    ImGui.Checkbox(Localization.pnDisplay_Bronze_Treasure_Coffer_Locations, ref P.Config.BronzeShow);
                     //ImGuiComponents.HelpMarker(Localization.Config_SilverCoffers_ToolTip);
-                    Spacing(true); ImGui.ColorEdit4("Bronze Coffer color", ref P.Config.BronzeColor, ImGuiColorEditFlags.NoInputs);
+                    Spacing(true); ImGui.ColorEdit4(Localization.pnBronze_Coffer_color, ref P.Config.BronzeColor, ImGuiColorEditFlags.NoInputs);
                     Spacing(); ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref P.Config.BronzeFill);
                     ImGui.PopID();
 
@@ -234,20 +234,20 @@ namespace Pal.Client.Windows
                 }
 
 
-                ImGuiEx.Text($"Passages");
+                ImGuiEx.Text(Localization.pnPassages);
                 if (ImGuiGroup.BeginGroupBox())
                 {
-                    if (ImGui.Checkbox($"Display Passages", ref P.Config.DisplayExit)) UpdateRender();
-                    Spacing(); if (ImGui.Checkbox($"Highlight When Activated", ref P.Config.DisplayExitOnlyActive)) UpdateRender();
-                    ImGuiComponents.HelpMarker("By default the Passage will be marked only with a yellow outline and text label, enabling this will also enable a bright green fill.");
+                    if (ImGui.Checkbox(Localization.pnDisplay_Passages, ref P.Config.DisplayExit)) UpdateRender();
+                    Spacing(); if (ImGui.Checkbox(Localization.pnHighlight_When_Activated, ref P.Config.DisplayExitOnlyActive)) UpdateRender();
+                    ImGuiComponents.HelpMarker(Localization.pnHighlight_When_Activated_Help);
                     ImGuiGroup.EndGroupBox();
                 }
 
-                ImGuiEx.Text($"Common settings");
+                ImGuiEx.Text(Localization.pnCommon_settings);
                 if (ImGuiGroup.BeginGroupBox())
                 {
                     ImGui.SetNextItemWidth(200f);
-                    ImGui.SliderFloat("Text overlay font scale", ref P.Config.OverlayFScale, 0.1f, 5f);
+                    ImGui.SliderFloat(Localization.pnText_overlay_font_scale, ref P.Config.OverlayFScale, 0.1f, 5f);
                     P.Config.OverlayFScale.ValidateRange(0.1f, 10f);
                     ImGuiGroup.EndGroupBox();
                 }
