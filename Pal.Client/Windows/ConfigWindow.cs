@@ -4,34 +4,37 @@ using Dalamud.Interface.Components;
 using Dalamud.Interface.ImGuiFileDialog;
 using Dalamud.Interface.Windowing;
 using ECommons;
+using ECommons.Configuration;
+using ECommons.ImGuiMethods;
 using Google.Protobuf;
 using ImGuiNET;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Pal.Client.Configuration;
+using Pal.Client.Database;
+using Pal.Client.DependencyInjection;
+using Pal.Client.Extensions;
+using Pal.Client.Floors;
 using Pal.Client.Net;
+using Pal.Client.Properties;
 using Pal.Client.Rendering;
 using Pal.Client.Scheduled;
+using PunishLib.ImGuiMethods;
 using System;
 using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Pal.Client.Extensions;
-using Pal.Client.Properties;
-using Pal.Client.Configuration;
-using Pal.Client.Database;
-using Pal.Client.DependencyInjection;
-using Pal.Client.Floors;
-using ECommons.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using ECommons.ImGuiMethods;
-using PunishLib.ImGuiMethods;
+using ThreadLoadImageHandler = PunishLib.ImGuiMethods.ThreadLoadImageHandler;
 
 namespace Pal.Client.Windows
 {
     internal sealed class ConfigWindow : Window, ILanguageChanged, IDisposable
     {
         private const string WindowId = "###PalPalaceConfig";
+
+        public OpenWindow OpenWindow { get; private set; } = OpenWindow.None;
 
         private readonly ILogger<ConfigWindow> _logger;
         private readonly WindowSystem _windowSystem;
@@ -147,15 +150,76 @@ namespace Pal.Client.Windows
         {
             bool save = false;
             bool saveAndClose = false;
-            if (ImGui.BeginTabBar("PalTabs"))
-            {
-                DrawDeepDungeonItemsTab(ref save, ref saveAndClose);
-                DrawCommunityTab(ref saveAndClose);
-                DrawImportTab();
-                DrawExportTab();
-                DrawDebugTab();
 
-                ImGui.EndTabBar();
+            var itemSpacing = ImGui.GetStyle().ItemSpacing;
+            var topLeftSideHeight = ImGui.GetContentRegionAvail().Y;
+
+            if (ImGui.BeginTable("$PPTableContainer", 2, ImGuiTableFlags.Resizable))
+            {
+                ImGui.TableSetupColumn($"###LeftColumn", ImGuiTableColumnFlags.WidthFixed, ImGui.GetWindowWidth() / 2);
+                ImGui.TableNextColumn();
+
+                var regionSize = ImGui.GetContentRegionAvail();
+                ImGui.PushStyleVar(ImGuiStyleVar.SelectableTextAlign, new Vector2(0.5f, 0.5f));
+                ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new Vector2(0f, 15f));
+
+                if (ImGui.BeginChild($"###PPLeft", regionSize with { Y = topLeftSideHeight }, false, ImGuiWindowFlags.NoDecoration))
+                {
+                    var imagePath = "https://love.puni.sh/resources/palacepal.png";
+
+                    if (ThreadLoadImageHandler.TryGetTextureWrap(imagePath, out var logo))
+                    {
+                        ImGuiEx.ImGuiLineCentered("###Logo", () => { ImGui.Image(logo.ImGuiHandle, new(125f.Scale(), 125f.Scale())); });
+
+                    }
+
+                    ImGui.Spacing();
+                    ImGui.Separator();
+
+                    foreach (var window in Enum.GetValues(typeof(OpenWindow)))
+                    {
+                        if ((OpenWindow)window == OpenWindow.None) continue;
+
+                        if (ImGui.Selectable($"{string.Join(" ", window.ToString().SplitCamelCase())}", OpenWindow == (OpenWindow)window))
+                        {
+                            OpenWindow = (OpenWindow)window;
+                        }
+                    }
+
+                    ImGui.Spacing();
+                }
+                ImGui.EndChild();
+
+                ImGui.PopStyleVar(2);
+                ImGui.TableNextColumn();
+                if (ImGui.BeginChild($"###PPRight", Vector2.Zero, false, (false ? ImGuiWindowFlags.AlwaysVerticalScrollbar : ImGuiWindowFlags.None) | ImGuiWindowFlags.NoDecoration))
+                {
+                    switch (OpenWindow)
+                    {
+                        case OpenWindow.DeepDungeons:
+                            DrawDeepDungeonItemsTab(ref save, ref saveAndClose);
+                            break;
+                        case OpenWindow.Community:
+                            DrawCommunityTab(ref saveAndClose);
+                            break;
+                        case OpenWindow.Import:
+                            DrawImportTab();
+                            break;
+                        case OpenWindow.Export:
+                            DrawExportTab();
+                            break;
+                        case OpenWindow.Debug:
+                            DrawDebugTab();
+                            break;
+                        case OpenWindow.About:
+                            AboutTab.Draw(P);
+                            break;
+                    }
+                }
+                ImGui.EndChild();
+
+
+                ImGui.EndTable();
             }
 
             _importDialog.Draw();
@@ -177,184 +241,179 @@ namespace Pal.Client.Windows
 
         private void DrawDeepDungeonItemsTab(ref bool save, ref bool saveAndClose)
         {
-            if (ImGui.BeginTabItem($"{Localization.ConfigTab_DeepDungeons}###TabDeepDungeons"))
+
+            ImGuiEx.Text(Localization.pnTraps);
+            if (ImGuiGroup.BeginGroupBox())
             {
-                ImGuiEx.Text(Localization.pnTraps);
-                if (ImGuiGroup.BeginGroupBox())
-                {
-                    ImGui.Checkbox(Localization.pnDisplay_Potential_Trap_Locations, ref _trapConfig.Show);
-                    ImGuiComponents.HelpMarker(Localization.pnDisplay_Potential_Trap_Locations_Help);
-                    Spacing(true); ImGui.ColorEdit4(Localization.pnTrap_Outline_Colour, ref P.Config.TrapColor, ImGuiColorEditFlags.NoInputs);
-                    Spacing(true); ImGui.Checkbox(Localization.pnDraw_Traps_Filled, ref _trapConfig.Fill);
-                    Spacing(); ImGui.Checkbox(Localization.pnHide_Traps_on_Safety_Sight_Use, ref _trapConfig.OnlyVisibleAfterPomander);
-                    ImGuiComponents.HelpMarker(Localization.pnHide_Traps_on_Safety_Sight_Use_Help);
-                    ImGuiGroup.EndGroupBox();
-                }
+                ImGui.Checkbox(Localization.pnDisplay_Potential_Trap_Locations, ref _trapConfig.Show);
+                ImGuiComponents.HelpMarker(Localization.pnDisplay_Potential_Trap_Locations_Help);
+                Spacing(true); ImGui.ColorEdit4(Localization.pnTrap_Outline_Colour, ref P.Config.TrapColor, ImGuiColorEditFlags.NoInputs);
+                Spacing(true); ImGui.Checkbox(Localization.pnDraw_Traps_Filled, ref _trapConfig.Fill);
+                Spacing(); ImGui.Checkbox(Localization.pnHide_Traps_on_Safety_Sight_Use, ref _trapConfig.OnlyVisibleAfterPomander);
+                ImGuiComponents.HelpMarker(Localization.pnHide_Traps_on_Safety_Sight_Use_Help);
+                ImGuiGroup.EndGroupBox();
+            }
 
-                ImGuiEx.Text(Localization.pnAccursed_Hoard);
-                if (ImGuiGroup.BeginGroupBox())
-                {
-                    ImGui.Checkbox(Localization.pnDisplay_Potential_Accursed_Hoard_Coffer_Locations, ref _hoardConfig.Show);
-                    ImGuiComponents.HelpMarker(Localization.pnDisplay_Potential_Accursed_Hoard_Coffer_Locations_Help);
-                    Spacing(true); ImGui.ColorEdit4(Localization.pnAccursed_Hoard_Outline_Colour, ref _hoardConfig.Color, ImGuiColorEditFlags.NoInputs);
-                    Spacing(); ImGui.Checkbox(Localization.pnHide_Accursed_Hoard_Locations_on_Intuition_Use, ref _hoardConfig.OnlyVisibleAfterPomander);
-                    ImGuiComponents.HelpMarker(Localization.pnHide_Accursed_Hoard_Locations_on_Intuition_Use_Help);
-                    ImGuiGroup.EndGroupBox();
-                }
+            ImGuiEx.Text(Localization.pnAccursed_Hoard);
+            if (ImGuiGroup.BeginGroupBox())
+            {
+                ImGui.Checkbox(Localization.pnDisplay_Potential_Accursed_Hoard_Coffer_Locations, ref _hoardConfig.Show);
+                ImGuiComponents.HelpMarker(Localization.pnDisplay_Potential_Accursed_Hoard_Coffer_Locations_Help);
+                Spacing(true); ImGui.ColorEdit4(Localization.pnAccursed_Hoard_Outline_Colour, ref _hoardConfig.Color, ImGuiColorEditFlags.NoInputs);
+                Spacing(); ImGui.Checkbox(Localization.pnHide_Accursed_Hoard_Locations_on_Intuition_Use, ref _hoardConfig.OnlyVisibleAfterPomander);
+                ImGuiComponents.HelpMarker(Localization.pnHide_Accursed_Hoard_Locations_on_Intuition_Use_Help);
+                ImGuiGroup.EndGroupBox();
+            }
 
-                ImGuiEx.Text(Localization.pnCoffers);
-                if (ImGuiGroup.BeginGroupBox())
-                {
-                    ImGui.PushID("coffer1");
-                    ImGui.Checkbox(Localization.Config_GoldCoffer_Show, ref _goldConfig.Show);
-                    ImGuiComponents.HelpMarker(Localization.Config_GoldCoffers_ToolTip);
-                    Spacing(true); ImGui.ColorEdit4(Localization.Config_GoldCoffer_Color, ref _goldConfig.Color, ImGuiColorEditFlags.NoInputs);
-                    Spacing(); ImGui.Checkbox(Localization.Config_GoldCoffer_Filled, ref _goldConfig.Fill);
-                    ImGui.PopID();
-
-                    ImGui.Separator();
-
-                    ImGui.PushID("coffer2");
-                    ImGui.Checkbox(Localization.Config_SilverCoffer_Show, ref _silverConfig.Show);
-                    ImGuiComponents.HelpMarker(Localization.Config_SilverCoffers_ToolTip);
-                    Spacing(true); ImGui.ColorEdit4(Localization.Config_SilverCoffer_Color, ref _silverConfig.Color, ImGuiColorEditFlags.NoInputs);
-                    Spacing(); ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref _silverConfig.Fill);
-                    ImGui.PopID();
-
-                    ImGui.Separator();
-
-                    ImGui.PushID("coffer3");
-                    ImGui.Checkbox(Localization.pnDisplay_Bronze_Treasure_Coffer_Locations, ref P.Config.BronzeShow);
-                    //ImGuiComponents.HelpMarker(Localization.Config_SilverCoffers_ToolTip);
-                    Spacing(true); ImGui.ColorEdit4(Localization.pnBronze_Coffer_color, ref P.Config.BronzeColor, ImGuiColorEditFlags.NoInputs);
-                    Spacing(); ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref P.Config.BronzeFill);
-                    ImGui.PopID();
-
-                    ImGuiGroup.EndGroupBox();
-                }
-
-
-                ImGuiEx.Text(Localization.pnPassages);
-                if (ImGuiGroup.BeginGroupBox())
-                {
-                    if (ImGui.Checkbox(Localization.pnDisplay_Passages, ref P.Config.DisplayExit)) UpdateRender();
-                    Spacing(); if (ImGui.Checkbox(Localization.pnHighlight_When_Activated, ref P.Config.DisplayExitOnlyActive)) UpdateRender();
-                    ImGuiComponents.HelpMarker(Localization.pnHighlight_When_Activated_Help);
-                    ImGuiGroup.EndGroupBox();
-                }
-
-                ImGuiEx.Text(Localization.pnCommon_settings);
-                if (ImGuiGroup.BeginGroupBox())
-                {
-                    ImGui.SetNextItemWidth(200f);
-                    ImGui.SliderFloat(Localization.pnText_overlay_font_scale, ref P.Config.OverlayFScale, 0.1f, 5f);
-                    P.Config.OverlayFScale.ValidateRange(0.1f, 10f);
-                    ImGuiGroup.EndGroupBox();
-                }
+            ImGuiEx.Text(Localization.pnCoffers);
+            if (ImGuiGroup.BeginGroupBox())
+            {
+                ImGui.PushID("coffer1");
+                ImGui.Checkbox(Localization.Config_GoldCoffer_Show, ref _goldConfig.Show);
+                ImGuiComponents.HelpMarker(Localization.Config_GoldCoffers_ToolTip);
+                Spacing(true); ImGui.ColorEdit4(Localization.Config_GoldCoffer_Color, ref _goldConfig.Color, ImGuiColorEditFlags.NoInputs);
+                Spacing(); ImGui.Checkbox(Localization.Config_GoldCoffer_Filled, ref _goldConfig.Fill);
+                ImGui.PopID();
 
                 ImGui.Separator();
 
+                ImGui.PushID("coffer2");
+                ImGui.Checkbox(Localization.Config_SilverCoffer_Show, ref _silverConfig.Show);
+                ImGuiComponents.HelpMarker(Localization.Config_SilverCoffers_ToolTip);
+                Spacing(true); ImGui.ColorEdit4(Localization.Config_SilverCoffer_Color, ref _silverConfig.Color, ImGuiColorEditFlags.NoInputs);
+                Spacing(); ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref _silverConfig.Fill);
+                ImGui.PopID();
 
-                save = ImGui.Button(Localization.Save);
-                ImGui.SameLine();
-                saveAndClose = ImGui.Button(Localization.SaveAndClose);
+                ImGui.Separator();
 
-                ImGui.EndTabItem();
+                ImGui.PushID("coffer3");
+                ImGui.Checkbox(Localization.pnDisplay_Bronze_Treasure_Coffer_Locations, ref P.Config.BronzeShow);
+                //ImGuiComponents.HelpMarker(Localization.Config_SilverCoffers_ToolTip);
+                Spacing(true); ImGui.ColorEdit4(Localization.pnBronze_Coffer_color, ref P.Config.BronzeColor, ImGuiColorEditFlags.NoInputs);
+                Spacing(); ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref P.Config.BronzeFill);
+                ImGui.PopID();
+
+                ImGuiGroup.EndGroupBox();
             }
+
+
+            ImGuiEx.Text(Localization.pnPassages);
+            if (ImGuiGroup.BeginGroupBox())
+            {
+                if (ImGui.Checkbox(Localization.pnDisplay_Passages, ref P.Config.DisplayExit)) UpdateRender();
+                Spacing(); if (ImGui.Checkbox(Localization.pnHighlight_When_Activated, ref P.Config.DisplayExitOnlyActive)) UpdateRender();
+                ImGuiComponents.HelpMarker(Localization.pnHighlight_When_Activated_Help);
+                ImGuiGroup.EndGroupBox();
+            }
+
+            ImGuiEx.Text(Localization.pnCommon_settings);
+            if (ImGuiGroup.BeginGroupBox())
+            {
+                ImGui.SetNextItemWidth(200f);
+                ImGui.SliderFloat(Localization.pnText_overlay_font_scale, ref P.Config.OverlayFScale, 0.1f, 5f);
+                P.Config.OverlayFScale.ValidateRange(0.1f, 10f);
+                ImGuiGroup.EndGroupBox();
+            }
+
+            ImGui.Separator();
+
+
+            save = ImGui.Button(Localization.Save);
+            ImGui.SameLine();
+            saveAndClose = ImGui.Button(Localization.SaveAndClose);
+
+            ImGui.EndTabItem();
+
         }
 
         void UpdateRender() => Plugin.P._rootScope!.ServiceProvider.GetRequiredService<RenderAdapter>()._implementation.UpdateExitElement();
 
         private void DrawCommunityTab(ref bool saveAndClose)
         {
-            if (PalImGui.BeginTabItemWithFlags($"{Localization.ConfigTab_Community}###TabCommunity",
-                    _switchToCommunityTab ? ImGuiTabItemFlags.SetSelected : ImGuiTabItemFlags.None))
-            {
-                _switchToCommunityTab = false;
 
-                ImGui.TextWrapped(Localization.Explanation_3);
-                ImGui.TextWrapped(Localization.Explanation_4);
+            _switchToCommunityTab = false;
 
-                PalImGui.RadioButtonWrapped(Localization.Config_UploadMyDiscoveries_ShowOtherTraps, ref _mode,
-                    (int)EMode.Online);
-                PalImGui.RadioButtonWrapped(Localization.Config_NeverUploadDiscoveries_ShowMyTraps, ref _mode,
-                    (int)EMode.Offline);
-                saveAndClose = ImGui.Button(Localization.SaveAndClose);
+            ImGui.TextWrapped(Localization.Explanation_3);
+            ImGui.TextWrapped(Localization.Explanation_4);
 
-                ImGui.Separator();
+            PalImGui.RadioButtonWrapped(Localization.Config_UploadMyDiscoveries_ShowOtherTraps, ref _mode,
+                (int)EMode.Online);
+            PalImGui.RadioButtonWrapped(Localization.Config_NeverUploadDiscoveries_ShowMyTraps, ref _mode,
+                (int)EMode.Offline);
+            saveAndClose = ImGui.Button(Localization.SaveAndClose);
 
-                ImGui.BeginDisabled(_configuration.Mode != EMode.Online);
-                if (ImGui.Button(Localization.Config_TestConnection))
-                    TestConnection();
+            ImGui.Separator();
 
-                if (_connectionText != null)
-                    ImGui.Text(_connectionText);
+            ImGui.BeginDisabled(_configuration.Mode != EMode.Online);
+            if (ImGui.Button(Localization.Config_TestConnection))
+                TestConnection();
 
-                ImGui.EndDisabled();
-                ImGui.EndTabItem();
-            }
+            if (_connectionText != null)
+                ImGui.Text(_connectionText);
+
+            ImGui.EndDisabled();
+            ImGui.EndTabItem();
+
         }
 
         private void DrawImportTab()
         {
-            if (ImGui.BeginTabItem($"{Localization.ConfigTab_Import}###TabImport"))
+
+            ImGui.TextWrapped(Localization.Config_ImportExplanation1);
+            ImGui.TextWrapped(Localization.Config_ImportExplanation2);
+            ImGui.TextWrapped(Localization.Config_ImportExplanation3);
+            /*ImGui.Separator();
+            ImGui.TextWrapped(string.Format(Localization.Config_ImportDownloadLocation,
+                "https://github.com/carvelli/PalacePal/releases/"));
+            if (ImGui.Button(Localization.Config_Import_VisitGitHub))
+                GenericHelpers.ShellStart("https://github.com/carvelli/PalacePal/releases/latest");*/
+            ImGui.Separator();
+            ImGui.Text(Localization.Config_SelectImportFile);
+            ImGui.SameLine();
+            ImGui.InputTextWithHint("", Localization.Config_SelectImportFile_Hint, ref _openImportPath, 260);
+            ImGui.SameLine();
+            if (ImGuiComponents.IconButton(FontAwesomeIcon.Search))
             {
-                ImGui.TextWrapped(Localization.Config_ImportExplanation1);
-                ImGui.TextWrapped(Localization.Config_ImportExplanation2);
-                ImGui.TextWrapped(Localization.Config_ImportExplanation3);
-                /*ImGui.Separator();
-                ImGui.TextWrapped(string.Format(Localization.Config_ImportDownloadLocation,
-                    "https://github.com/carvelli/PalacePal/releases/"));
-                if (ImGui.Button(Localization.Config_Import_VisitGitHub))
-                    GenericHelpers.ShellStart("https://github.com/carvelli/PalacePal/releases/latest");*/
-                ImGui.Separator();
-                ImGui.Text(Localization.Config_SelectImportFile);
-                ImGui.SameLine();
-                ImGui.InputTextWithHint("", Localization.Config_SelectImportFile_Hint, ref _openImportPath, 260);
-                ImGui.SameLine();
-                if (ImGuiComponents.IconButton(FontAwesomeIcon.Search))
-                {
-                    _importDialog.OpenFileDialog(Localization.Palace_Pal, $"{Localization.Palace_Pal} (*.pal) {{.pal}}",
-                        (success, paths) =>
+                _importDialog.OpenFileDialog(Localization.Palace_Pal, $"{Localization.Palace_Pal} (*.pal) {{.pal}}",
+                    (success, paths) =>
+                    {
+                        if (success && paths.Count == 1)
                         {
-                            if (success && paths.Count == 1)
-                            {
-                                _openImportPath = paths.First();
-                            }
-                        }, selectionCountMax: 1, startPath: _openImportDialogStartPath, isModal: false);
-                    _openImportDialogStartPath =
-                        null; // only use this once, FileDialogManager will save path between calls
-                }
-
-                ImGui.BeginDisabled(string.IsNullOrEmpty(_openImportPath) || !File.Exists(_openImportPath) || _floorService.IsImportRunning);
-                if (ImGui.Button(Localization.Config_StartImport))
-                    DoImport(_openImportPath);
-                ImGui.EndDisabled();
-
-                ImportHistory? importHistory = _lastImport;
-                if (importHistory != null)
-                {
-                    ImGui.Separator();
-                    ImGui.TextWrapped(string.Format(Localization.Config_UndoImportExplanation1,
-                        importHistory.ImportedAt.ToLocalTime(),
-                        importHistory.RemoteUrl,
-                        importHistory.ExportedAt.ToUniversalTime()));
-                    ImGui.TextWrapped(Localization.Config_UndoImportExplanation2);
-
-                    ImGui.BeginDisabled(_floorService.IsImportRunning);
-                    if (ImGui.Button(Localization.Config_UndoImport))
-                        UndoImport(importHistory.Id);
-                    ImGui.EndDisabled();
-                }
-
-                ImGui.EndTabItem();
+                            _openImportPath = paths.First();
+                        }
+                    }, selectionCountMax: 1, startPath: _openImportDialogStartPath, isModal: false);
+                _openImportDialogStartPath =
+                    null; // only use this once, FileDialogManager will save path between calls
             }
+
+            ImGui.BeginDisabled(string.IsNullOrEmpty(_openImportPath) || !File.Exists(_openImportPath) || _floorService.IsImportRunning);
+            if (ImGui.Button(Localization.Config_StartImport))
+                DoImport(_openImportPath);
+            ImGui.EndDisabled();
+
+            ImportHistory? importHistory = _lastImport;
+            if (importHistory != null)
+            {
+                ImGui.Separator();
+                ImGui.TextWrapped(string.Format(Localization.Config_UndoImportExplanation1,
+                    importHistory.ImportedAt.ToLocalTime(),
+                    importHistory.RemoteUrl,
+                    importHistory.ExportedAt.ToUniversalTime()));
+                ImGui.TextWrapped(Localization.Config_UndoImportExplanation2);
+
+                ImGui.BeginDisabled(_floorService.IsImportRunning);
+                if (ImGui.Button(Localization.Config_UndoImport))
+                    UndoImport(importHistory.Id);
+                ImGui.EndDisabled();
+            }
+
+            ImGui.EndTabItem();
+
         }
 
         private void DrawExportTab()
         {
-            if (_configuration.HasRoleOnCurrentServer(RemoteApi.RemoteUrl, "export:run") &&
-                ImGui.BeginTabItem($"{Localization.ConfigTab_Export}###TabExport"))
+            if (_configuration.HasRoleOnCurrentServer(RemoteApi.RemoteUrl, "export:run"))
             {
                 string todaysFileName = $"export-{DateTime.Today:yyyy-MM-dd}.pal";
                 if (string.IsNullOrEmpty(_saveExportPath) && !string.IsNullOrEmpty(_saveExportDialogStartPath))
@@ -390,64 +449,63 @@ namespace Pal.Client.Windows
 
         private void DrawDebugTab()
         {
-            if (ImGui.BeginTabItem($"{Localization.ConfigTab_Debug}###TabDebug"))
+
+            if (_territoryState.IsInDeepDungeon())
             {
-                if (_territoryState.IsInDeepDungeon())
+                MemoryTerritory? memoryTerritory = _floorService.GetTerritoryIfReady(_territoryState.LastTerritory);
+                ImGui.Text($"You are in a deep dungeon, territory type {_territoryState.LastTerritory}.");
+                ImGui.Text($"Sync State = {memoryTerritory?.SyncState.ToString() ?? "Unknown"}");
+                ImGui.Text($"{_debugState.DebugMessage}");
+
+                ImGui.Indent();
+                if (memoryTerritory != null)
                 {
-                    MemoryTerritory? memoryTerritory = _floorService.GetTerritoryIfReady(_territoryState.LastTerritory);
-                    ImGui.Text($"You are in a deep dungeon, territory type {_territoryState.LastTerritory}.");
-                    ImGui.Text($"Sync State = {memoryTerritory?.SyncState.ToString() ?? "Unknown"}");
-                    ImGui.Text($"{_debugState.DebugMessage}");
-
-                    ImGui.Indent();
-                    if (memoryTerritory != null)
+                    if (_trapConfig.Show)
                     {
-                        if (_trapConfig.Show)
-                        {
-                            int traps = memoryTerritory.Locations.Count(x => x.Type == MemoryLocation.EType.Trap);
-                            ImGui.Text($"{traps} known trap{(traps == 1 ? "" : "s")}");
-                        }
-
-                        if (_hoardConfig.Show)
-                        {
-                            int hoardCoffers =
-                                memoryTerritory.Locations.Count(x => x.Type == MemoryLocation.EType.Hoard);
-                            ImGui.Text($"{hoardCoffers} known hoard coffer{(hoardCoffers == 1 ? "" : "s")}");
-                        }
-
-                        if (_silverConfig.Show)
-                        {
-                            int silverCoffers =
-                                _floorService.EphemeralLocations.Count(x =>
-                                    x.Type == MemoryLocation.EType.SilverCoffer);
-                            ImGui.Text(
-                                $"{silverCoffers} silver coffer{(silverCoffers == 1 ? "" : "s")} visible on current floor");
-                        }
-
-                        if (_goldConfig.Show)
-                        {
-                            int goldCoffers =
-                                _floorService.EphemeralLocations.Count(x =>
-                                    x.Type == MemoryLocation.EType.GoldCoffer);
-                            ImGui.Text(
-                                $"{goldCoffers} silver coffer{(goldCoffers == 1 ? "" : "s")} visible on current floor");
-                        }
-
-                        ImGui.Text($"Pomander of Sight: {_territoryState.PomanderOfSight}");
-                        ImGui.Text($"Pomander of Intuition: {_territoryState.PomanderOfIntuition}");
+                        int traps = memoryTerritory.Locations.Count(x => x.Type == MemoryLocation.EType.Trap);
+                        ImGui.Text($"{traps} known trap{(traps == 1 ? "" : "s")}");
                     }
-                    else
-                        ImGui.Text("Could not query current trap/coffer count.");
 
-                    ImGui.Unindent();
-                    ImGui.TextWrapped(
-                        "Traps and coffers may not be discovered even after using a pomander if they're far away (around 1,5-2 rooms).");
+                    if (_hoardConfig.Show)
+                    {
+                        int hoardCoffers =
+                            memoryTerritory.Locations.Count(x => x.Type == MemoryLocation.EType.Hoard);
+                        ImGui.Text($"{hoardCoffers} known hoard coffer{(hoardCoffers == 1 ? "" : "s")}");
+                    }
+
+                    if (_silverConfig.Show)
+                    {
+                        int silverCoffers =
+                            _floorService.EphemeralLocations.Count(x =>
+                                x.Type == MemoryLocation.EType.SilverCoffer);
+                        ImGui.Text(
+                            $"{silverCoffers} silver coffer{(silverCoffers == 1 ? "" : "s")} visible on current floor");
+                    }
+
+                    if (_goldConfig.Show)
+                    {
+                        int goldCoffers =
+                            _floorService.EphemeralLocations.Count(x =>
+                                x.Type == MemoryLocation.EType.GoldCoffer);
+                        ImGui.Text(
+                            $"{goldCoffers} silver coffer{(goldCoffers == 1 ? "" : "s")} visible on current floor");
+                    }
+
+                    ImGui.Text($"Pomander of Sight: {_territoryState.PomanderOfSight}");
+                    ImGui.Text($"Pomander of Intuition: {_territoryState.PomanderOfIntuition}");
                 }
                 else
-                    ImGui.Text(Localization.Config_Debug_NotInADeepDungeon);
+                    ImGui.Text("Could not query current trap/coffer count.");
 
-                ImGui.EndTabItem();
+                ImGui.Unindent();
+                ImGui.TextWrapped(
+                    "Traps and coffers may not be discovered even after using a pomander if they're far away (around 1,5-2 rooms).");
             }
+            else
+                ImGui.Text(Localization.Config_Debug_NotInADeepDungeon);
+
+            ImGui.EndTabItem();
+
         }
 
         internal void TestConnection()
@@ -574,5 +632,16 @@ namespace Pal.Client.Windows
                 };
             }
         }
+    }
+
+    public enum OpenWindow
+    {
+        None,
+        DeepDungeons,
+        Community,
+        Import,
+        Export,
+        Debug,
+        About
     }
 }
