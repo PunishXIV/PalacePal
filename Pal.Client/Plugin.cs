@@ -21,6 +21,7 @@ using Pal.Client.Configuration;
 using Pal.Client.DependencyInjection;
 using PunishLib;
 using ECommons.Configuration;
+using ECommons.Schedulers;
 
 namespace Pal.Client
 {
@@ -33,11 +34,11 @@ namespace Pal.Client
     {
         private readonly CancellationTokenSource _initCts = new();
 
-        private readonly DalamudPluginInterface _pluginInterface;
-        private readonly CommandManager _commandManager;
-        private readonly ClientState _clientState;
-        private readonly ChatGui _chatGui;
-        private readonly Framework _framework;
+        private  DalamudPluginInterface _pluginInterface;
+        private  CommandManager _commandManager;
+        private  ClientState _clientState;
+        private  ChatGui _chatGui;
+        private  Framework _framework;
 
         private readonly TaskCompletionSource<IServiceScope> _rootScopeCompletionSource = new();
         private ELoadState _loadState = ELoadState.Initializing;
@@ -59,28 +60,31 @@ namespace Pal.Client
             Framework framework)
         {
             P = this;
-            PunishLibMain.Init(pluginInterface, this);
             ECommonsMain.Init(pluginInterface, this, Module.SplatoonAPI, Module.DalamudReflector);
-            Config = EzConfig.Init<AdditionalConfiguration>(); // TODO temp solution, move it to main config later (maybe)
-            _pluginInterface = pluginInterface;
-            _commandManager = commandManager;
-            _clientState = clientState;
-            _chatGui = chatGui;
-            _framework = framework;
-
-            // set up the current UI language before creating anything
-            Localization.Culture = new CultureInfo(_pluginInterface.UiLanguage);
-
-            _commandManager.AddHandler("/pal", new CommandInfo(OnCommand)
+            PunishLibMain.Init(pluginInterface, this);
+            new TickScheduler(delegate
             {
-                HelpMessage = Localization.Command_pal_HelpText
+                Config = EzConfig.Init<AdditionalConfiguration>(); // TODO temp solution, move it to main config later (maybe)
+                _pluginInterface = pluginInterface;
+                _commandManager = commandManager;
+                _clientState = clientState;
+                _chatGui = chatGui;
+                _framework = framework;
+
+                // set up the current UI language before creating anything
+                Localization.Culture = new CultureInfo(_pluginInterface.UiLanguage);
+
+                _commandManager.AddHandler("/pal", new CommandInfo(OnCommand)
+                {
+                    HelpMessage = Localization.Command_pal_HelpText
+                });
+
+                // Using TickScheduler requires ECommons to at least be partially initialized
+                // ECommonsMain.Dispose leaves this untouched.
+                Svc.Init(pluginInterface);
+
+                Task.Run(async () => await CreateDependencyContext());
             });
-
-            // Using TickScheduler requires ECommons to at least be partially initialized
-            // ECommonsMain.Dispose leaves this untouched.
-            Svc.Init(pluginInterface);
-
-            Task.Run(async () => await CreateDependencyContext());
         }
 
         public string Name => Localization.Palace_Pal;
