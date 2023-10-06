@@ -10,6 +10,7 @@ using Dalamud.Game.Command;
 using Dalamud.Game.Gui;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
+using Dalamud.Plugin.Services;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,14 +47,14 @@ namespace Pal.Client
 
         public DependencyInjectionContext(
             DalamudPluginInterface pluginInterface,
-            ClientState clientState,
-            GameGui gameGui,
-            ChatGui chatGui,
-            ObjectTable objectTable,
-            Framework framework,
-            Condition condition,
-            CommandManager commandManager,
-            DataManager dataManager,
+            IClientState clientState,
+            IGameGui gameGui,
+            IChatGui chatGui,
+            IObjectTable objectTable,
+            IFramework framework,
+            ICondition condition,
+            ICommandManager commandManager,
+            IDataManager dataManager,
             Plugin plugin)
         {
             _logger.LogInformation("Building dalamud service container for {Assembly}",

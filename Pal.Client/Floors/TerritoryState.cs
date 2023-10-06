@@ -1,15 +1,16 @@
 ﻿using Dalamud.Game.ClientState;
 using Dalamud.Game.ClientState.Conditions;
+using Dalamud.Plugin.Services;
 using Pal.Common;
 
 namespace Pal.Client.Floors
 {
     public sealed class TerritoryState
     {
-        private readonly ClientState _clientState;
-        private readonly Condition _condition;
+        private readonly IClientState _clientState;
+        private readonly ICondition _condition;
 
-        public TerritoryState(ClientState clientState, Condition condition)
+        public TerritoryState(IClientState clientState, ICondition condition)
         {
             _clientState = clientState;
             _condition = condition;

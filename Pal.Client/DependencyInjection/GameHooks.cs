@@ -4,7 +4,9 @@ using Dalamud.Game.ClientState.Objects;
 using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Hooking;
 using Dalamud.Memory;
+using Dalamud.Plugin.Services;
 using Dalamud.Utility.Signatures;
+using ECommons.DalamudServices.Legacy;
 using Microsoft.Extensions.Logging;
 using Pal.Client.Floors;
 
@@ -13,7 +15,7 @@ namespace Pal.Client.DependencyInjection
     internal sealed unsafe class GameHooks : IDisposable
     {
         private readonly ILogger<GameHooks> _logger;
-        private readonly ObjectTable _objectTable;
+        private readonly IObjectTable _objectTable;
         private readonly TerritoryState _territoryState;
         private readonly FrameworkService _frameworkService;
 
@@ -24,7 +26,7 @@ namespace Pal.Client.DependencyInjection
         private Hook<ActorVfxCreateDelegate> ActorVfxCreateHook { get; init; } = null!;
 #pragma warning restore CS0649
 
-        public GameHooks(ILogger<GameHooks> logger, ObjectTable objectTable, TerritoryState territoryState, FrameworkService frameworkService)
+        public GameHooks(ILogger<GameHooks> logger, IObjectTable objectTable, TerritoryState territoryState, FrameworkService frameworkService)
         {
             _logger = logger;
             _objectTable = objectTable;
