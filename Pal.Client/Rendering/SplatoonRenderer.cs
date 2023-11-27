@@ -17,6 +17,7 @@ using Pal.Client.Floors;
 using Pal.Common;
 using ECommons.DalamudServices;
 using Dalamud.Logging;
+using Dalamud.Plugin.Services;
 
 namespace Pal.Client.Rendering
 {
@@ -26,7 +27,7 @@ namespace Pal.Client.Rendering
 
         private readonly ILogger<SplatoonRenderer> _logger;
         private readonly DebugState _debugState;
-        private readonly ClientState _clientState;
+        private readonly IClientState _clientState;
         private readonly Chat _chat;
 
         public SplatoonRenderer(
@@ -34,7 +35,7 @@ namespace Pal.Client.Rendering
             DalamudPluginInterface pluginInterface,
             IDalamudPlugin dalamudPlugin,
             DebugState debugState,
-            ClientState clientState,
+            IClientState clientState,
             Chat chat)
         {
             _logger = logger;
@@ -152,7 +153,7 @@ namespace Pal.Client.Rendering
                             _chat.Error(
                                 $"Splatoon is installed under the plugin name '{pluginName}', which is incompatible with the Splatoon API.");
                             _chat.Message(
-                                "You need to install Splatoon from the official repository at https://github.com/NightmareXIV/MyDalamudPlugins.");
+                                "You need to install Splatoon from the official repository at https://puni.sh/plugin/Splatoon.");
                             return;
                         }
                     }

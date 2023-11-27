@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dalamud.Game.ClientState;
+using Dalamud.Plugin.Services;
 using Pal.Client.DependencyInjection;
 using Pal.Client.Extensions;
 using Pal.Client.Floors;
@@ -12,11 +13,11 @@ namespace Pal.Client.Commands
     internal sealed class PalNearCommand : ISubCommand
     {
         private readonly Chat _chat;
-        private readonly ClientState _clientState;
+        private readonly IClientState _clientState;
         private readonly TerritoryState _territoryState;
         private readonly FloorService _floorService;
 
-        public PalNearCommand(Chat chat, ClientState clientState, TerritoryState territoryState,
+        public PalNearCommand(Chat chat, IClientState clientState, TerritoryState territoryState,
             FloorService floorService)
         {
             _chat = chat;
