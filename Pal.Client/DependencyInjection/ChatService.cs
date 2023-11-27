@@ -5,6 +5,7 @@ using Dalamud.Game.Gui;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Logging;
+using Dalamud.Plugin.Services;
 using Dalamud.Utility;
 using ECommons;
 using ECommons.DalamudServices;
@@ -17,14 +18,14 @@ namespace Pal.Client.DependencyInjection
 {
     internal sealed class ChatService : IDisposable
     {
-        private readonly ChatGui _chatGui;
+        private readonly IChatGui _chatGui;
         private readonly TerritoryState _territoryState;
         private readonly IPalacePalConfiguration _configuration;
-        private readonly DataManager _dataManager;
+        private readonly IDataManager _dataManager;
         private readonly LocalizedChatMessages _localizedChatMessages;
 
-        public ChatService(ChatGui chatGui, TerritoryState territoryState, IPalacePalConfiguration configuration,
-            DataManager dataManager)
+        public ChatService(IChatGui chatGui, TerritoryState territoryState, IPalacePalConfiguration configuration,
+            IDataManager dataManager)
         {
             _chatGui = chatGui;
             _territoryState = territoryState;

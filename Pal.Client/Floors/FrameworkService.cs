@@ -10,6 +10,7 @@ using Dalamud.Game.ClientState;
 using Dalamud.Game.ClientState.Objects;
 using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Logging;
+using Dalamud.Plugin.Services;
 using ECommons;
 using ECommons.DalamudServices;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,15 +30,15 @@ namespace Pal.Client.Floors
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<FrameworkService> _logger;
-        private readonly Framework _framework;
+        private readonly IFramework _framework;
         private readonly ConfigurationManager _configurationManager;
         private readonly IPalacePalConfiguration _configuration;
-        private readonly ClientState _clientState;
+        private readonly IClientState _clientState;
         private readonly TerritoryState _territoryState;
         private readonly FloorService _floorService;
         private readonly DebugState _debugState;
         private readonly RenderAdapter _renderAdapter;
-        private readonly ObjectTable _objectTable;
+        private readonly IObjectTable _objectTable;
         private readonly RemoteApi _remoteApi;
 
         internal Queue<IQueueOnFrameworkThread> EarlyEventQueue { get; } = new();
@@ -47,15 +48,15 @@ namespace Pal.Client.Floors
         public FrameworkService(
             IServiceProvider serviceProvider,
             ILogger<FrameworkService> logger,
-            Framework framework,
+            IFramework framework,
             ConfigurationManager configurationManager,
             IPalacePalConfiguration configuration,
-            ClientState clientState,
+            IClientState clientState,
             TerritoryState territoryState,
             FloorService floorService,
             DebugState debugState,
             RenderAdapter renderAdapter,
-            ObjectTable objectTable,
+            IObjectTable objectTable,
             RemoteApi remoteApi)
         {
             _serviceProvider = serviceProvider;
@@ -84,7 +85,7 @@ namespace Pal.Client.Floors
         private void OnSaved(object? sender, IPalacePalConfiguration? config)
             => EarlyEventQueue.Enqueue(new QueuedConfigUpdate());
 
-        private void OnUpdate(Framework framework)
+        private void OnUpdate(object framework)
         {
             if (_configuration.FirstUse)
                 return;

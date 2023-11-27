@@ -22,6 +22,7 @@ using Pal.Client.DependencyInjection;
 using PunishLib;
 using ECommons.Configuration;
 using ECommons.Schedulers;
+using Dalamud.Plugin.Services;
 
 namespace Pal.Client
 {
@@ -35,10 +36,10 @@ namespace Pal.Client
         private readonly CancellationTokenSource _initCts = new();
 
         private  DalamudPluginInterface _pluginInterface;
-        private  CommandManager _commandManager;
-        private  ClientState _clientState;
-        private  ChatGui _chatGui;
-        private  Framework _framework;
+        private ICommandManager _commandManager;
+        private IClientState _clientState;
+        private IChatGui _chatGui;
+        private IFramework _framework;
 
         private readonly TaskCompletionSource<IServiceScope> _rootScopeCompletionSource = new();
         private ELoadState _loadState = ELoadState.Initializing;
@@ -54,10 +55,10 @@ namespace Pal.Client
 
         public Plugin(
             DalamudPluginInterface pluginInterface,
-            CommandManager commandManager,
-            ClientState clientState,
-            ChatGui chatGui,
-            Framework framework)
+            ICommandManager commandManager,
+            IClientState clientState,
+            IChatGui chatGui,
+            IFramework framework)
         {
             P = this;
             ECommonsMain.Init(pluginInterface, this, Module.SplatoonAPI, Module.DalamudReflector);
@@ -148,7 +149,7 @@ namespace Pal.Client
                 _loginAction = loginAction;
         }
 
-        private void Login(object? sender, EventArgs eventArgs)
+        private void Login()
         {
             _loginAction?.Invoke();
             _loginAction = null;

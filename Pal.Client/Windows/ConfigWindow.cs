@@ -26,7 +26,6 @@ using System.Linq;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using ThreadLoadImageHandler = PunishLib.ImGuiMethods.ThreadLoadImageHandler;
 
 namespace Pal.Client.Windows
 {
@@ -34,7 +33,7 @@ namespace Pal.Client.Windows
     {
         private const string WindowId = "###PalPalaceConfig";
 
-        public OpenWindow OpenWindow { get; private set; } = OpenWindow.None;
+        public OpenWindow OpenWindow { get; private set; } = OpenWindow.DeepDungeons;
 
         private readonly ILogger<ConfigWindow> _logger;
         private readonly WindowSystem _windowSystem;
