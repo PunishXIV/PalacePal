@@ -317,9 +317,6 @@ namespace Pal.Client.Floors
 
         private void CreateRenderElement(MemoryLocation location, List<SplatoonElement> elements, uint color, MarkerConfiguration config)
         {
-            if (!config.Show)
-                return;
-
             var element = _renderAdapter.CreateElement(location.Type, location.Position, color, config.Fill);
             if(location.Type == MemoryLocation.EType.GoldCoffer)
             {
@@ -341,7 +338,7 @@ namespace Pal.Client.Floors
                 element2.Delegate.radius = 1f;
                 element2.Delegate.Filled = true;
                 location.RenderElement2 = element2;
-                if (config.Fill)
+                if (config.Show && config.Fill)
                 {
                     elements.Add(element2);
                 }
@@ -368,7 +365,7 @@ namespace Pal.Client.Floors
                 element2.Delegate.radius = 1f;
                 element2.Delegate.Filled = true;
                 location.RenderElement2 = element2;
-                if (config.Fill)
+                if (config.Show && config.Fill)
                 {
                     elements.Add(element2);
                 }
@@ -386,13 +383,15 @@ namespace Pal.Client.Floors
                 element2.Delegate.color = (P.Config.TrapColor with { W = 50f/255f }).ToUint();
                 element2.Delegate.Filled = true;
                 location.RenderElement2 = element2;
-                if (config.Fill)
+                if (config.Show && config.Fill)
                 {
                     elements.Add(element2);
                 }
             }
             location.RenderElement = element;
-            elements.Add(element); 
+
+            if (config.Show)
+                elements.Add(element);
         }
 
         #endregion
