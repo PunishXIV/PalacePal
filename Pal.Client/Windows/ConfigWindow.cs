@@ -179,6 +179,9 @@ namespace Pal.Client.Windows
                     {
                         if ((OpenWindow)window == OpenWindow.None) continue;
 
+                        if ((OpenWindow)window == OpenWindow.Export && !_configuration.HasRoleOnCurrentServer(RemoteApi.RemoteUrl, "export:run"))
+                            continue;
+
                         if (ImGui.Selectable($"{string.Join(" ", window.ToString().SplitCamelCase())}", OpenWindow == (OpenWindow)window))
                         {
                             OpenWindow = (OpenWindow)window;
