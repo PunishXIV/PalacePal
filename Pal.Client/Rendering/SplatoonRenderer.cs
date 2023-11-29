@@ -199,9 +199,9 @@ namespace Pal.Client.Rendering
                             Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
                             {
                                 radius = 2.1f,
-                                color = 3355498751,
+                                color = Plugin.P.Config.ExitColor.ToUint(),
                                 overlayVOffset = 0.76f,
-                                overlayText = "Passage",
+                                overlayText = Plugin.P.Config.ExitText ? "Passage" : "",
                                 overlayFScale = P.Config.OverlayFScale,
                                 refActorComparisonType = RefActorComparisonType.DataID,
                                 refActorDataID = x,
@@ -217,9 +217,9 @@ namespace Pal.Client.Rendering
                             Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
                             {
                                 radius = 2.1f,
-                                color = 3355498751,
+                                color = Plugin.P.Config.ExitColor.ToUint(),
                                 overlayVOffset = 0.76f,
-                                overlayText = "Passage",
+                                overlayText = Plugin.P.Config.ExitText ? "Passage" : "",
                                 overlayFScale = P.Config.OverlayFScale,
                                 refActorComparisonType = RefActorComparisonType.DataID,
                                 refActorDataID = x,
@@ -231,7 +231,7 @@ namespace Pal.Client.Rendering
                             radius = 2.1f,
                             color = 1684471552,
                             overlayVOffset = 0.76f,
-                            overlayText = "ACTIVE",
+                            overlayText = Plugin.P.Config.ExitText ? "ACTIVE" : "",
                             overlayFScale = P.Config.OverlayFScale,
                             refActorDataID = x,
                             includeHitbox = true,
@@ -241,7 +241,7 @@ namespace Pal.Client.Rendering
                             refActorObjectEffectData2 = 8,
                             refActorObjectEffectMax = int.MaxValue,
                         }, 0);
-                        
+
                     }
                 }
             }

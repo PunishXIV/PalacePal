@@ -325,11 +325,14 @@ namespace Pal.Client.Floors
                 {"Name":"Gold Treasure Coffer Fill","type":1,"Enabled":false,"color":838913279,"overlayVOffset":0.68,"overlayFScale":1.24,"refActorPlaceholder":["<t>"],"FillStep":0.429,"refActorComparisonType":5,"includeOwnHitbox":true,"Filled":true}
                 */
                 element.Delegate.color = color;
-                element.Delegate.overlayBGColor = 0;
-                element.Delegate.overlayVOffset = 0.6f;
-                element.Delegate.overlayFScale = P.Config.OverlayFScale;
-                element.Delegate.overlayText = " Gold Treasure Coffer";
-                element.Delegate.overlayTextColor = color;
+                if (P.Config.GoldText)
+                {
+                    element.Delegate.overlayBGColor = 0;
+                    element.Delegate.overlayVOffset = 0.6f;
+                    element.Delegate.overlayFScale = P.Config.OverlayFScale;
+                    element.Delegate.overlayText = " Gold Treasure Coffer";
+                    element.Delegate.overlayTextColor = color;
+                }
                 element.Delegate.radius = 1f;
                 element.Delegate.Filled = false;
 
@@ -352,11 +355,14 @@ namespace Pal.Client.Floors
 
                  * */
                 element.Delegate.color = color;
-                element.Delegate.overlayBGColor = 0;
-                element.Delegate.overlayVOffset = 0.6f;
-                element.Delegate.overlayFScale = P.Config.OverlayFScale;
-                element.Delegate.overlayText = " Silver Treasure Coffer";
-                element.Delegate.overlayTextColor = color;
+                if (P.Config.SilverText)
+                {
+                    element.Delegate.overlayBGColor = 0;
+                    element.Delegate.overlayVOffset = 0.6f;
+                    element.Delegate.overlayFScale = P.Config.OverlayFScale;
+                    element.Delegate.overlayText = " Silver Treasure Coffer";
+                    element.Delegate.overlayTextColor = color;
+                }
                 element.Delegate.radius = 1f;
                 element.Delegate.Filled = false;
 
