@@ -102,6 +102,7 @@ namespace Pal.Client.Windows
             SizeCondition = ImGuiCond.FirstUseEver;
             Position = new Vector2(300, 300);
             PositionCondition = ImGuiCond.FirstUseEver;
+            Flags = ImGuiWindowFlags.NoScrollbar;
 
             _importDialog = new FileDialogManager
             { AddedWindowFlags = ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoDocking };
@@ -169,7 +170,10 @@ namespace Pal.Client.Windows
                     if (ThreadLoadImageHandler.TryGetTextureWrap(imagePath, out var logo))
                     {
                         ImGuiEx.ImGuiLineCentered("###Logo", () => { ImGui.Image(logo.ImGuiHandle, new(125f.Scale(), 125f.Scale())); });
-
+                    }
+                    else
+                    {
+                        ImGuiEx.ImGuiLineCentered("###Logo", () => { ImGui.Dummy(new(125f.Scale(), 125f.Scale())); });
                     }
 
                     ImGui.Spacing();
@@ -194,7 +198,7 @@ namespace Pal.Client.Windows
 
                 ImGui.PopStyleVar(2);
                 ImGui.TableNextColumn();
-                if (ImGui.BeginChild($"###PPRight", Vector2.Zero, false, (false ? ImGuiWindowFlags.AlwaysVerticalScrollbar : ImGuiWindowFlags.None) | ImGuiWindowFlags.NoDecoration))
+                if (ImGui.BeginChild($"###PPRight", Vector2.Zero, false))
                 {
                     switch (OpenWindow)
                     {
