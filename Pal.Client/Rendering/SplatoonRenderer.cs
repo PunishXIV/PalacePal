@@ -177,6 +177,10 @@ namespace Pal.Client.Rendering
             ResetLayer(ELayer.RegularCoffers);
             ResetLayer(ELayer.Test);
 
+            // Clean up the extra elements as well
+            Splatoon.RemoveDynamicElements("PalacePal.ExitElement");
+            Splatoon.RemoveDynamicElements("PalacePal.BronzeTreasure");
+
             //ECommonsMain.Dispose();
         }
 

@@ -470,7 +470,7 @@ This is not synchronized with other players and not saved between floors/runs.</
     <value>Highlight When Activated</value>
   </data>
   <data name="pnHighlight When Activated Help" xml:space="preserve">
-    <value>By default the Passage will be marked only with a yellow outline and text label, enabling this will also enable a bright green fill.</value>
+    <value>By default the Passage will be marked only with an outline and text label, enabling this will also enable a bright green fill.</value>
   </data>
   <data name="pnPassages" xml:space="preserve">
     <value>Passages</value>
