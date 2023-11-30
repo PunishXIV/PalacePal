@@ -184,64 +184,40 @@ namespace Pal.Client.Rendering
         {
             const string Name = "PalacePal.ExitElement";
             Splatoon.RemoveDynamicElements(Name);
-            PluginLog.Debug($"Removing exit objects");
             if (Plugin.P.Config.DisplayExit)
             {
                 if (Enum.GetValues<ETerritoryType>().Contains((ETerritoryType)Svc.ClientState.TerritoryType))
                 {
-                    PluginLog.Debug($"Adding exit objects");
                     uint[] IDs = new uint[] { 2007188, 2009507, 2013287 };
                     foreach (var x in IDs)
                     {
-                        PluginLog.Debug($"Adding exit object {x}");
+                        Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
+                        {
+                            radius = 2.0f,
+                            color = Plugin.P.Config.ExitColor.ToUint(),
+                            overlayVOffset = 0.76f,
+                            overlayText = Plugin.P.Config.ExitText ? "Passage" : "",
+                            overlayFScale = P.Config.OverlayFScale,
+                            refActorComparisonType = RefActorComparisonType.DataID,
+                            refActorDataID = x,
+                            includeHitbox = false,
+                        }, 0);
+
                         if (Plugin.P.Config.DisplayExitOnlyActive)
                         {
                             Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
                             {
-                                radius = 2.1f,
-                                color = Plugin.P.Config.ExitColor.ToUint(),
-                                overlayVOffset = 0.76f,
-                                overlayText = Plugin.P.Config.ExitText ? "Passage" : "",
-                                overlayFScale = P.Config.OverlayFScale,
-                                refActorComparisonType = RefActorComparisonType.DataID,
+                                radius = 2.0f,
+                                color = 1684471552,
                                 refActorDataID = x,
-                                includeHitbox = true,
+                                includeHitbox = false,
+                                Filled = true,
                                 refActorComparisonAnd = true,
                                 refActorObjectEffectData1 = 4,
                                 refActorObjectEffectData2 = 8,
                                 refActorObjectEffectMax = int.MaxValue,
-                            }, 0) ;
-                        }
-                        else
-                        {
-                            Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
-                            {
-                                radius = 2.1f,
-                                color = Plugin.P.Config.ExitColor.ToUint(),
-                                overlayVOffset = 0.76f,
-                                overlayText = Plugin.P.Config.ExitText ? "Passage" : "",
-                                overlayFScale = P.Config.OverlayFScale,
-                                refActorComparisonType = RefActorComparisonType.DataID,
-                                refActorDataID = x,
-                                includeHitbox = true,
                             }, 0);
                         }
-                        Splatoon.AddDynamicElement(Name, new Element(ElementType.CircleRelativeToActorPosition)
-                        {
-                            radius = 2.1f,
-                            color = 1684471552,
-                            overlayVOffset = 0.76f,
-                            overlayText = Plugin.P.Config.ExitText ? "ACTIVE" : "",
-                            overlayFScale = P.Config.OverlayFScale,
-                            refActorDataID = x,
-                            includeHitbox = true,
-                            Filled = true,
-                            refActorComparisonAnd = true,
-                            refActorObjectEffectData1 = 4,
-                            refActorObjectEffectData2 = 8,
-                            refActorObjectEffectMax = int.MaxValue,
-                        }, 0);
-
                     }
                 }
             }
