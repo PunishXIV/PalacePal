@@ -329,6 +329,9 @@ namespace Pal.Client.Windows
                 ImGui.SetNextItemWidth(200f);
                 ImGui.SliderFloat(Localization.pnText_overlay_font_scale, ref P.Config.OverlayFScale, 0.1f, 5f);
                 P.Config.OverlayFScale.ValidateRange(0.1f, 10f);
+                ImGui.SetNextItemWidth(200f);
+                ImGui.SliderFloat(Localization.pnTrap_hoard_max_distance, ref P.Config.TrapHoardDistance, 20f, 200f);
+                P.Config.TrapHoardDistance.ValidateRange(20f, 200f);
                 ImGuiGroup.EndGroupBox();
             }
 

@@ -246,6 +246,12 @@ namespace Pal.Client.Rendering
                 get => Delegate.color;
                 set => Delegate.color = value;
             }
+
+            public float Thickness
+            {
+                get => Delegate.thicc;
+                set => Delegate.thicc = value;
+            }
         }
     }
 }

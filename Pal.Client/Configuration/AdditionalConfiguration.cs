@@ -26,5 +26,6 @@ namespace Pal.Client.Configuration
         public Vector4 TrapColor = 0xFF0000FF.ToVector4();
         public Vector4 ExitColor = 0xFFFF00C8.ToVector4();
         public float OverlayFScale = 1.3f;
+        public float TrapHoardDistance = 60.0f;
     }
 }
