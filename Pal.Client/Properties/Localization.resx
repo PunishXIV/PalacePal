@@ -493,4 +493,10 @@ This is not synchronized with other players and not saved between floors/runs.</
   <data name="pnExit Outline Colour" xml:space="preserve">
     <value>Exit Outline Colour</value>
   </data>
+  <data name="pnHighlight Found hoard" xml:space="preserve">
+    <value>Highlight Found hoard</value>
+  </data>
+  <data name="pnFound Hoard Help" xml:space="preserve">
+    <value>Display a more visible marker around Accursed Hoard that has been located using a Pomander of Intuition.</value>
+  </data>
 </root>

@@ -21,6 +21,9 @@ namespace Pal.Client.Configuration
         public bool BronzeShow = false;
         public bool BronzeFill = false;
         public bool BronzeText = true;
+        public bool FoundHoardShow = true;
+        public bool FoundHoardFill = true;
+        public bool FoundHoardText = true;
         public Vector4 BronzeColor = 0xFF185AE1.ToVector4();
         public Vector4 MimicColor = 0xFF0000FF.ToVector4();
         public Vector4 TrapColor = 0xFF0000FF.ToVector4();

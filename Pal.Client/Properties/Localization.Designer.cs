@@ -916,6 +916,15 @@ namespace Pal.Client.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Display a more visible marker around Accursed Hoard that has been located using a Pomander of Intuition..
+        /// </summary>
+        internal static string pnFound_Hoard_Help {
+            get {
+                return ResourceManager.GetString("pnFound Hoard Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide Accursed Hoard Locations on Intuition Use.
         /// </summary>
         internal static string pnHide_Accursed_Hoard_Locations_on_Intuition_Use {
@@ -948,6 +957,15 @@ namespace Pal.Client.Properties {
         internal static string pnHide_Traps_on_Safety_Sight_Use_Help {
             get {
                 return ResourceManager.GetString("pnHide Traps on Safety/Sight Use Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight Found hoard.
+        /// </summary>
+        internal static string pnHighlight_Found_hoard {
+            get {
+                return ResourceManager.GetString("pnHighlight Found hoard", resourceCulture);
             }
         }
         
