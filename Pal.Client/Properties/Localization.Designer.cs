@@ -910,6 +910,15 @@ namespace Pal.Client.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exit Outline Colour.
+        /// </summary>
+        internal static string pnExit_Outline_Colour {
+            get {
+                return ResourceManager.GetString("pnExit Outline Colour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide Accursed Hoard Locations on Intuition Use.
         /// </summary>
         internal static string pnHide_Accursed_Hoard_Locations_on_Intuition_Use {
@@ -964,11 +973,38 @@ namespace Pal.Client.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bronze Mimic Trap Coffer color.
+        /// </summary>
+        internal static string pnMimic_Coffer_color {
+            get {
+                return ResourceManager.GetString("pnMimic Coffer color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only mimics in bronze chests on early floor sets can be detected..
+        /// </summary>
+        internal static string pnMimic_Help {
+            get {
+                return ResourceManager.GetString("pnMimic Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Passages.
         /// </summary>
         internal static string pnPassages {
             get {
                 return ResourceManager.GetString("pnPassages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text overlay.
+        /// </summary>
+        internal static string pnText_overlay {
+            get {
+                return ResourceManager.GetString("pnText overlay", resourceCulture);
             }
         }
         

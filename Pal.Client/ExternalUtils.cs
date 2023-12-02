@@ -24,10 +24,13 @@ namespace Pal.Client
                 foreach(var x in BronzeCofferDataID)
                 {
                     var element = Splatoon.DecodeElement("{\"Name\":\"Bronze Treasure Coffer\",\"type\":1,\"color\":4279786209,\"overlayBGColor\":0,\"overlayTextColor\":4279786209,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"overlayText\":\" Bronze Treasure Coffer\",\"refActorComparisonType\":3,\"includeOwnHitbox\":true}");
+                    if (!P.Config.BronzeText)
+                        element.overlayText = "";
                     element.refActorDataID = x;
                     var elementFill = Splatoon.DecodeElement("{\"Name\":\"Bronze Treasure Coffer Fill\",\"type\":1,\"color\":840456929,\"overlayVOffset\":0.68,\"overlayFScale\":1.24,\"FillStep\":0.429,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"Filled\":true}");
                     elementFill.refActorDataID = x;
                     element.color = P.Config.BronzeColor.ToUint();
+                    element.overlayTextColor = P.Config.BronzeColor.ToUint();
                     elementFill.color = (P.Config.BronzeColor with { W = P.Config.BronzeColor.W / 2f }).ToUint();
                     Splatoon.AddDynamicElement(BronzeTreasureNamespace, element, 0);
                     if (P.Config.BronzeFill)
@@ -37,15 +40,20 @@ namespace Pal.Client
                 }
 
                 {
-                    var e = Splatoon.DecodeElement("{\"Name\":\"Mimic Trap Coffer\",\"type\":1,\"color\":4278190335,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"overlayText\":\" Mimic Trap Coffer\",\"refActorDataID\":2006020,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232}");
-                    e.overlayFScale = P.Config.OverlayFScale;
-                    Splatoon.AddDynamicElement(BronzeTreasureNamespace, e, 0);
-                }
-                if (P.Config.BronzeFill)
-                {
-                    var e = Splatoon.DecodeElement("{\"Name\":\"Mimic Trap Coffer Fill\",\"type\":1,\"color\":838861055,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"refActorDataID\":2006020,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232,\"Filled\":true}");
-                    e.overlayFScale = P.Config.OverlayFScale;
-                    Splatoon.AddDynamicElement(BronzeTreasureNamespace, e, 0);
+                    var element = Splatoon.DecodeElement("{\"Name\":\"Mimic Trap Coffer\",\"type\":1,\"color\":4278190335,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"overlayText\":\" Mimic Trap Coffer\",\"refActorDataID\":2006020,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232}");
+                    if (!P.Config.BronzeText)
+                        element.overlayText = "";
+                    element.color = P.Config.MimicColor.ToUint();
+                    element.overlayTextColor = P.Config.MimicColor.ToUint();
+                    element.overlayFScale = P.Config.OverlayFScale;
+                    Splatoon.AddDynamicElement(BronzeTreasureNamespace, element, 0);
+                    if (P.Config.BronzeFill)
+                    {
+                        var elementFill = Splatoon.DecodeElement("{\"Name\":\"Mimic Trap Coffer Fill\",\"type\":1,\"color\":838861055,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"refActorDataID\":2006020,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232,\"Filled\":true}");
+                        elementFill.color = (P.Config.MimicColor with { W = P.Config.MimicColor.W / 2f }).ToUint();
+                        elementFill.overlayFScale = P.Config.OverlayFScale;
+                        Splatoon.AddDynamicElement(BronzeTreasureNamespace, elementFill, 0);
+                    }
                 }
             }
         }

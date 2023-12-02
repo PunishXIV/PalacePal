@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0-windows</TargetFramework>
+		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 		<LangVersion>11.0</LangVersion>
 		<Nullable>enable</Nullable>
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
@@ -57,7 +58,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Pal.Common\Pal.Common.csproj" />
 	  <ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
-	  <ProjectReference Include="..\punishLib\PunishLib\PunishLib.csproj" />
+	  <ProjectReference Include="..\PunishLib\PunishLib\PunishLib.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -66,38 +67,44 @@
 		<Protobuf Include="..\Pal.Common\Protos\export.proto" Link="Protos\export.proto" GrpcServices="Client" Access="Internal" />
 	</ItemGroup>
 
+	<PropertyGroup>
+		<DalamudLibPath Condition="$([MSBuild]::IsOSPlatform('Windows'))">$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
+		<DalamudLibPath Condition="$([MSBuild]::IsOSPlatform('Linux'))">$(HOME)/.xlcore/dalamud/Hooks/dev/</DalamudLibPath>
+		<DalamudLibPath Condition="$([MSBuild]::IsOSPlatform('OSX'))">$(HOME)/Library/Application Support/XIV on Mac/dalamud/Hooks/dev/</DalamudLibPath>
+		<DalamudLibPath Condition="$(DALAMUD_HOME) != ''">$(DALAMUD_HOME)/</DalamudLibPath>
+	</PropertyGroup>
+
 	<ItemGroup>
-		<!--You may need to adjust these paths yourself. These point to a Dalamud assembly in AppData.-->
 		<Reference Include="Dalamud">
-			<HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Dalamud.dll</HintPath>
+			<HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
 			<Private Condition="'$(Configuration)' != 'EF'">false</Private>
 		</Reference>
 		<Reference Include="ImGui.NET">
-			<HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\ImGui.NET.dll</HintPath>
+			<HintPath>$(DalamudLibPath)ImGui.NET.dll</HintPath>
 			<Private Condition="'$(Configuration)' != 'EF'">false</Private>
 		</Reference>
 		<Reference Include="ImGuiScene">
-			<HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\ImGuiScene.dll</HintPath>
+			<HintPath>$(DalamudLibPath)ImGuiScene.dll</HintPath>
 			<Private Condition="'$(Configuration)' != 'EF'">false</Private>
 		</Reference>
 		<Reference Include="Lumina">
-			<HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Lumina.dll</HintPath>
+			<HintPath>$(DalamudLibPath)Lumina.dll</HintPath>
 			<Private Condition="'$(Configuration)' != 'EF'">false</Private>
 		</Reference>
 		<Reference Include="Lumina.Excel">
-			<HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Lumina.Excel.dll</HintPath>
+			<HintPath>$(DalamudLibPath)Lumina.Excel.dll</HintPath>
 			<Private Condition="'$(Configuration)' != 'EF'">false</Private>
 		</Reference>
 		<Reference Include="Newtonsoft.Json">
-			<HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Newtonsoft.Json.dll</HintPath>
+			<HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
 			<Private Condition="'$(Configuration)' != 'EF'">false</Private>
 		</Reference>
 		<Reference Include="FFXIVClientStructs">
-			<HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\FFXIVClientStructs.dll</HintPath>
+			<HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
 			<Private Condition="'$(Configuration)' != 'EF'">false</Private>
 		</Reference>
 		<Reference Include="Serilog">
-			<HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Serilog.dll</HintPath>
+			<HintPath>$(DalamudLibPath)Serilog.dll</HintPath>
 			<Private Condition="'$(Configuration)' != 'EF'">false</Private>
 		</Reference>
 	</ItemGroup>

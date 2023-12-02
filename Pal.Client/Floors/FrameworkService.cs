@@ -317,9 +317,6 @@ namespace Pal.Client.Floors
 
         private void CreateRenderElement(MemoryLocation location, List<SplatoonElement> elements, uint color, MarkerConfiguration config)
         {
-            if (!config.Show)
-                return;
-
             var element = _renderAdapter.CreateElement(location.Type, location.Position, color, config.Fill);
             if(location.Type == MemoryLocation.EType.GoldCoffer)
             {
@@ -328,11 +325,14 @@ namespace Pal.Client.Floors
                 {"Name":"Gold Treasure Coffer Fill","type":1,"Enabled":false,"color":838913279,"overlayVOffset":0.68,"overlayFScale":1.24,"refActorPlaceholder":["<t>"],"FillStep":0.429,"refActorComparisonType":5,"includeOwnHitbox":true,"Filled":true}
                 */
                 element.Delegate.color = color;
-                element.Delegate.overlayBGColor = 0;
-                element.Delegate.overlayVOffset = 0.6f;
-                element.Delegate.overlayFScale = P.Config.OverlayFScale;
-                element.Delegate.overlayText = " Gold Treasure Coffer";
-                element.Delegate.overlayTextColor = color;
+                if (P.Config.GoldText)
+                {
+                    element.Delegate.overlayBGColor = 0;
+                    element.Delegate.overlayVOffset = 0.6f;
+                    element.Delegate.overlayFScale = P.Config.OverlayFScale;
+                    element.Delegate.overlayText = " Gold Treasure Coffer";
+                    element.Delegate.overlayTextColor = color;
+                }
                 element.Delegate.radius = 1f;
                 element.Delegate.Filled = false;
 
@@ -341,7 +341,7 @@ namespace Pal.Client.Floors
                 element2.Delegate.radius = 1f;
                 element2.Delegate.Filled = true;
                 location.RenderElement2 = element2;
-                if (config.Fill)
+                if (config.Show && config.Fill)
                 {
                     elements.Add(element2);
                 }
@@ -355,11 +355,14 @@ namespace Pal.Client.Floors
 
                  * */
                 element.Delegate.color = color;
-                element.Delegate.overlayBGColor = 0;
-                element.Delegate.overlayVOffset = 0.6f;
-                element.Delegate.overlayFScale = P.Config.OverlayFScale;
-                element.Delegate.overlayText = " Silver Treasure Coffer";
-                element.Delegate.overlayTextColor = color;
+                if (P.Config.SilverText)
+                {
+                    element.Delegate.overlayBGColor = 0;
+                    element.Delegate.overlayVOffset = 0.6f;
+                    element.Delegate.overlayFScale = P.Config.OverlayFScale;
+                    element.Delegate.overlayText = " Silver Treasure Coffer";
+                    element.Delegate.overlayTextColor = color;
+                }
                 element.Delegate.radius = 1f;
                 element.Delegate.Filled = false;
 
@@ -368,7 +371,7 @@ namespace Pal.Client.Floors
                 element2.Delegate.radius = 1f;
                 element2.Delegate.Filled = true;
                 location.RenderElement2 = element2;
-                if (config.Fill)
+                if (config.Show && config.Fill)
                 {
                     elements.Add(element2);
                 }
@@ -386,13 +389,15 @@ namespace Pal.Client.Floors
                 element2.Delegate.color = (P.Config.TrapColor with { W = 50f/255f }).ToUint();
                 element2.Delegate.Filled = true;
                 location.RenderElement2 = element2;
-                if (config.Fill)
+                if (config.Show && config.Fill)
                 {
                     elements.Add(element2);
                 }
             }
             location.RenderElement = element;
-            elements.Add(element); 
+
+            if (config.Show)
+                elements.Add(element);
         }
 
         #endregion
