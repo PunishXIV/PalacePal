@@ -22,7 +22,7 @@ namespace Pal.Client.DependencyInjection
 #pragma warning disable CS0649
         private delegate nint ActorVfxCreateDelegate(char* a1, nint a2, nint a3, float a4, char a5, ushort a6, char a7);
 
-        [Signature("40 53 55 56 57 48 81 EC ?? ?? ?? ?? 0F 29 B4 24 ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 0F B6 AC 24 ?? ?? ?? ?? 0F 28 F3 49 8B F8", DetourName = nameof(ActorVfxCreate))]
+        [Signature("40 53 55 56 57 48 81 EC ?? ?? ?? ?? 0F 29 B4 24 ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 0F B6 AC 24", DetourName = nameof(ActorVfxCreate))]
         private Hook<ActorVfxCreateDelegate> ActorVfxCreateHook { get; init; } = null!;
 #pragma warning restore CS0649
 
