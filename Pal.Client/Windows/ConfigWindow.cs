@@ -221,7 +221,7 @@ namespace Pal.Client.Windows
                             DrawDebugTab();
                             break;
                         case OpenWindow.About:
-                            AboutTab.Draw(P);
+                            AboutTab.Draw(P.Name);
                             break;
                     }
                 }

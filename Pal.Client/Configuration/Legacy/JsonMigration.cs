@@ -21,10 +21,10 @@ namespace Pal.Client.Configuration.Legacy
     {
         private readonly ILogger<JsonMigration> _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
-        private readonly DalamudPluginInterface _pluginInterface;
+        private readonly IDalamudPluginInterface _pluginInterface;
 
         public JsonMigration(ILogger<JsonMigration> logger, IServiceScopeFactory serviceScopeFactory,
-            DalamudPluginInterface pluginInterface)
+            IDalamudPluginInterface pluginInterface)
         {
             _logger = logger;
             _serviceScopeFactory = serviceScopeFactory;

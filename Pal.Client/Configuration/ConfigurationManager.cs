@@ -18,12 +18,12 @@ namespace Pal.Client.Configuration
     internal sealed class ConfigurationManager
     {
         private readonly ILogger<ConfigurationManager> _logger;
-        private readonly DalamudPluginInterface _pluginInterface;
+        private readonly IDalamudPluginInterface _pluginInterface;
         private readonly IServiceProvider _serviceProvider;
 
         public event EventHandler<IPalacePalConfiguration>? Saved;
 
-        public ConfigurationManager(ILogger<ConfigurationManager> logger, DalamudPluginInterface pluginInterface,
+        public ConfigurationManager(ILogger<ConfigurationManager> logger, IDalamudPluginInterface pluginInterface,
             IServiceProvider serviceProvider)
         {
             _logger = logger;

@@ -35,7 +35,7 @@ namespace Pal.Client
     {
         private readonly CancellationTokenSource _initCts = new();
 
-        private  DalamudPluginInterface _pluginInterface;
+        private  IDalamudPluginInterface _pluginInterface;
         private ICommandManager _commandManager;
         private IClientState _clientState;
         private IChatGui _chatGui;
@@ -54,7 +54,7 @@ namespace Pal.Client
         internal AdditionalConfiguration Config;
 
         public Plugin(
-            DalamudPluginInterface pluginInterface,
+            IDalamudPluginInterface pluginInterface,
             ICommandManager commandManager,
             IClientState clientState,
             IChatGui chatGui,
@@ -62,7 +62,7 @@ namespace Pal.Client
         {
             P = this;
             ECommonsMain.Init(pluginInterface, this, Module.SplatoonAPI, Module.DalamudReflector);
-            PunishLibMain.Init(pluginInterface, this);
+            PunishLibMain.Init(pluginInterface, Name);
             new TickScheduler(delegate
             {
                 Config = EzConfig.Init<AdditionalConfiguration>(); // TODO temp solution, move it to main config later (maybe)

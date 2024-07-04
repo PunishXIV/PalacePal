@@ -82,7 +82,7 @@ namespace Pal.Client.DependencyInjection
                         _chat.PalPrint($"{vfxPath} on {obj}");
                     */
 
-                    if (obj is BattleChara bc && (bc.NameId == /* potd */ 5042 || bc.NameId == /* hoh */ 7395))
+                    if (obj is IBattleChara bc && (bc.NameId == /* potd */ 5042 || bc.NameId == /* hoh */ 7395))
                     {
                         if (vfxPath == "vfx/common/eff/dk05th_stdn0t.avfx" || vfxPath == "vfx/common/eff/dk05ht_ipws0t.avfx")
                         {

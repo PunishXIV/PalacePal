@@ -49,7 +49,7 @@ namespace Pal.Client.Configuration.Legacy
         public string BetaKey { get; set; } = "";
         #endregion
 
-        public void Migrate(DalamudPluginInterface pluginInterface, ILogger<ConfigurationV1> logger)
+        public void Migrate(IDalamudPluginInterface pluginInterface, ILogger<ConfigurationV1> logger)
         {
             if (Version == 1)
             {
@@ -136,7 +136,7 @@ namespace Pal.Client.Configuration.Legacy
             }
         }
 
-        public void Save(DalamudPluginInterface pluginInterface)
+        public void Save(IDalamudPluginInterface pluginInterface)
         {
             File.WriteAllText(pluginInterface.ConfigFile.FullName, JsonConvert.SerializeObject(this, Formatting.Indented, new JsonSerializerSettings
             {

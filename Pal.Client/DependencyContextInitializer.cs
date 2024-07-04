@@ -79,7 +79,7 @@ namespace Pal.Client
         private async Task RemoveOldBackups()
         {
             await using var scope = _serviceProvider.CreateAsyncScope();
-            var pluginInterface = scope.ServiceProvider.GetRequiredService<DalamudPluginInterface>();
+            var pluginInterface = scope.ServiceProvider.GetRequiredService<IDalamudPluginInterface>();
             var configuration = scope.ServiceProvider.GetRequiredService<IPalacePalConfiguration>();
 
             var paths = Directory.GetFiles(pluginInterface.GetPluginConfigDirectory(), "backup-*.data.sqlite3",
@@ -131,7 +131,7 @@ namespace Pal.Client
         {
             await using var scope = _serviceProvider.CreateAsyncScope();
 
-            var pluginInterface = scope.ServiceProvider.GetRequiredService<DalamudPluginInterface>();
+            var pluginInterface = scope.ServiceProvider.GetRequiredService<IDalamudPluginInterface>();
             string backupPath = Path.Join(pluginInterface.GetPluginConfigDirectory(),
                 $"backup-{DateTime.Now.ToUniversalTime():yyyy-MM-dd}.data.sqlite3");
             string sourcePath = Path.Join(pluginInterface.GetPluginConfigDirectory(),

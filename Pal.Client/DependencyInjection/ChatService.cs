@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using Dalamud.Data;
-using Dalamud.Game.Gui;
+using Dalamud.Game;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
-using Dalamud.Logging;
 using Dalamud.Plugin.Services;
 using Dalamud.Utility;
 using ECommons;
 using ECommons.DalamudServices;
-using FFXIVClientStructs.FFXIV.Client.Game;
 using Lumina.Excel.GeneratedSheets;
 using Pal.Client.Configuration;
 using Pal.Client.Floors;
@@ -40,7 +37,7 @@ namespace Pal.Client.DependencyInjection
         public void Dispose()
             => _chatGui.ChatMessage -= OnChatMessage;
 
-        private void OnChatMessage(XivChatType type, uint senderId, ref SeString sender, ref SeString seMessage,
+        private void OnChatMessage(XivChatType type, int timestamp, ref SeString sender, ref SeString seMessage,
             ref bool isHandled)
         {
             if (_configuration.FirstUse)
@@ -101,11 +98,11 @@ namespace Pal.Client.DependencyInjection
             //7270	57	33	0	False	Ebene <Value>IntegerParameter(1)</Value> betreten!
             //7270	57	33	0	False	Sous-sol <Value>IntegerParameter(1)</Value>
             //7270	57	33	0	False	地下<Value>IntegerParameter(1)</Value>层
-            if (Svc.ClientState.ClientLanguage == Dalamud.ClientLanguage.English) return @"^Floor (\d+)";
-            if (Svc.ClientState.ClientLanguage == Dalamud.ClientLanguage.Japanese) return @"^地下(\d+)階";
-            if (Svc.ClientState.ClientLanguage == Dalamud.ClientLanguage.German) return @"^Ebene (\d+) betreten!";
-            if (Svc.ClientState.ClientLanguage == Dalamud.ClientLanguage.French) return @"^Sous-sol (\d+)";
-            if (Svc.ClientState.ClientLanguage == (Dalamud.ClientLanguage)4) return @"^地下(\d+)层";
+            if (Svc.ClientState.ClientLanguage == ClientLanguage.English) return @"^Floor (\d+)";
+            if (Svc.ClientState.ClientLanguage == ClientLanguage.Japanese) return @"^地下(\d+)階";
+            if (Svc.ClientState.ClientLanguage == ClientLanguage.German) return @"^Ebene (\d+) betreten!";
+            if (Svc.ClientState.ClientLanguage == ClientLanguage.French) return @"^Sous-sol (\d+)";
+            if (Svc.ClientState.ClientLanguage == (ClientLanguage)4) return @"^地下(\d+)层";
             throw new Exception("Invalid client language: " + Svc.ClientState.ClientLanguage);
 
         }

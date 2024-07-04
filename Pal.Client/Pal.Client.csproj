@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 		<LangVersion>11.0</LangVersion>
 		<Nullable>enable</Nullable>
@@ -35,7 +35,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DalamudPackager" Version="2.1.12" />
+		<PackageReference Include="DalamudPackager" Version="2.1.13" />
 		<PackageReference Include="Dalamud.Extensions.MicrosoftLogging" Version="1.0.0" />
 		<PackageReference Include="Google.Protobuf" Version="3.21.12" />
 		<PackageReference Include="Grpc.Net.Client" Version="2.51.0" />

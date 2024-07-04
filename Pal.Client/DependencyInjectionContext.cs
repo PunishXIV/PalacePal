@@ -46,7 +46,7 @@ namespace Pal.Client
         private ServiceProvider? _serviceProvider;
 
         public DependencyInjectionContext(
-            DalamudPluginInterface pluginInterface,
+            IDalamudPluginInterface pluginInterface,
             IClientState clientState,
             IGameGui gameGui,
             IChatGui chatGui,
