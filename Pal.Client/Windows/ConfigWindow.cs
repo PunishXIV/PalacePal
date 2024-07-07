@@ -51,7 +51,6 @@ namespace Pal.Client.Windows
         private readonly ImportService _importService;
 
         private int _mode;
-        private int _renderer;
         private ConfigurableMarker _trapConfig = new();
         private ConfigurableMarker _hoardConfig = new();
         private ConfigurableMarker _silverConfig = new();
@@ -168,7 +167,7 @@ namespace Pal.Client.Windows
 
                 if (ImGui.BeginChild($"###PPLeft", regionSize with { Y = topLeftSideHeight }, false, ImGuiWindowFlags.NoDecoration))
                 {
-                    var imagePath = "https://love.puni.sh/resources/palacepal.png";
+                    var imagePath = "https://s3.puni.sh/media/plugin/32/icon-vrl2a8dqi3h.png";
 
                     if (ThreadLoadImageHandler.TryGetTextureWrap(imagePath, out var logo))
                     {
@@ -221,7 +220,7 @@ namespace Pal.Client.Windows
                             DrawDebugTab();
                             break;
                         case OpenWindow.About:
-                            AboutTab.Draw(P);
+                            AboutTab.Draw(P.Name);
                             break;
                     }
                 }

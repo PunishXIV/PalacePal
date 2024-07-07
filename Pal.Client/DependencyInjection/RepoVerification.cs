@@ -10,7 +10,7 @@ namespace Pal.Client.DependencyInjection
 {
     internal sealed class RepoVerification
     {
-        public RepoVerification(ILogger<RepoVerification> logger, DalamudPluginInterface pluginInterface, Chat chat)
+        public RepoVerification(ILogger<RepoVerification> logger, IDalamudPluginInterface pluginInterface, Chat chat)
         {
             logger.LogInformation("Install source: {Repo}", pluginInterface.SourceRepository);
             /*if (!pluginInterface.IsDev

@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using Dalamud.Game;
-using Dalamud.Game.ClientState;
-using Dalamud.Game.ClientState.Objects;
 using Dalamud.Game.ClientState.Objects.Types;
-using Dalamud.Logging;
 using Dalamud.Plugin.Services;
 using ECommons;
-using ECommons.DalamudServices;
+using ECommons.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Pal.Client.Configuration;
@@ -475,7 +470,7 @@ namespace Pal.Client.Floors
             List<EphemeralLocation> ephemeralLocations = new();
             for (int i = 246; i < _objectTable.Length; i++)
             {
-                GameObject? obj = _objectTable[i];
+                IGameObject? obj = _objectTable[i];
                 if (obj == null)
                     continue;
 

@@ -32,7 +32,7 @@ namespace Pal.Client.Rendering
 
         public SplatoonRenderer(
             ILogger<SplatoonRenderer> logger,
-            DalamudPluginInterface pluginInterface,
+            IDalamudPluginInterface pluginInterface,
             IDalamudPlugin dalamudPlugin,
             DebugState debugState,
             IClientState clientState,
