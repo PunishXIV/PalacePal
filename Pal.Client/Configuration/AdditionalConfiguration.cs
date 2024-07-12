@@ -21,10 +21,14 @@ namespace Pal.Client.Configuration
         public bool BronzeShow = false;
         public bool BronzeFill = false;
         public bool BronzeText = true;
+        public bool FoundHoardShow = true;
+        public bool FoundHoardFill = true;
+        public bool FoundHoardText = true;
         public Vector4 BronzeColor = 0xFF185AE1.ToVector4();
         public Vector4 MimicColor = 0xFF0000FF.ToVector4();
         public Vector4 TrapColor = 0xFF0000FF.ToVector4();
         public Vector4 ExitColor = 0xFFFF00C8.ToVector4();
         public float OverlayFScale = 1.3f;
+        public float TrapHoardDistance = 60.0f;
     }
 }
