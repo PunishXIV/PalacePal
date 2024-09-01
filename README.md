@@ -13,6 +13,8 @@ Shows possible trap & Accursed Hoard locations in Palace of The Dead, Heaven on 
 Note, you **need to install Splatoon**, which is used to render the visible overlays.
 Please check [Splatoon's Installation Instructions](https://github.com/NightmareXIV/MyDalamudPlugins#installation).
 
+<br />
+
 <div align="center">
 
 [![image](https://discordapp.com/api/guilds/1001823907193552978/embed.png?style=banner2)](https://discord.gg/Zzrcc8kmvy)
