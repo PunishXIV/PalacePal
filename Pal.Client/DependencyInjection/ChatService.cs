@@ -7,7 +7,7 @@ using Dalamud.Plugin.Services;
 using Dalamud.Utility;
 using ECommons;
 using ECommons.DalamudServices;
-using Lumina.Excel.GeneratedSheets;
+using Lumina.Excel.Sheets;
 using Pal.Client.Configuration;
 using Pal.Client.Floors;
 
@@ -109,12 +109,12 @@ namespace Pal.Client.DependencyInjection
 
         private string GetLocalizedString(uint id)
         {
-            return _dataManager.GetExcelSheet<LogMessage>()?.GetRow(id)?.Text?.ToString() ?? "Unknown";
+            return _dataManager.GetExcelSheet<LogMessage>().GetRow(id).Text.ToString() ?? "Unknown";
         }
 
         private string GetLocalizedExtractedString(uint id)
         {
-            return _dataManager.GetExcelSheet<LogMessage>()?.GetRow(id)?.Text.ToDalamudString().ExtractText() ?? "Unknown";
+            return _dataManager.GetExcelSheet<LogMessage>().GetRow(id).Text.ToDalamudString().ExtractText() ?? "Unknown";
         }
 
         private sealed class LocalizedChatMessages
