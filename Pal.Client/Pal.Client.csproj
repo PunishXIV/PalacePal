@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
+		<TargetFramework>net9.0-windows7.0</TargetFramework>
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
@@ -19,7 +19,7 @@
 		<DebugType>portable</DebugType>
 		<PathMap Condition="$(SolutionDir) != ''">$(SolutionDir)=X:\</PathMap>
 		<GitVersion>false</GitVersion>
-		<Version>4.11.0.0</Version>
+		<Version>4.12.0.0</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
@@ -35,7 +35,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DalamudPackager" Version="11.0.0" />
+		<PackageReference Include="DalamudPackager" Version="12.0.0" />
 		<PackageReference Include="Dalamud.Extensions.MicrosoftLogging" Version="1.0.0" />
 		<PackageReference Include="Google.Protobuf" Version="3.21.12" />
 		<PackageReference Include="Grpc.Net.Client" Version="2.51.0" />
@@ -106,6 +106,10 @@
 		<Reference Include="Serilog">
 			<HintPath>$(DalamudLibPath)Serilog.dll</HintPath>
 			<Private Condition="'$(Configuration)' != 'EF'">false</Private>
+		</Reference>
+		<Reference Include="InteropGenerator.Runtime">
+			<HintPath>$(DalamudLibPath)InteropGenerator.Runtime.dll</HintPath>
+			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
 
