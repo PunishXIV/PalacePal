@@ -179,7 +179,8 @@ namespace Pal.Client.Rendering
 
             // Clean up the extra elements as well
             Splatoon.RemoveDynamicElements("PalacePal.ExitElement");
-            Splatoon.RemoveDynamicElements("PalacePal.BronzeTreasure");
+            Splatoon.RemoveDynamicElements(ExternalUtils.BronzeTreasureNamespace);
+            Splatoon.RemoveDynamicElements(ExternalUtils.FoundHoardNamespace);
 
             //ECommonsMain.Dispose();
         }
@@ -245,6 +246,12 @@ namespace Pal.Client.Rendering
             {
                 get => Delegate.color;
                 set => Delegate.color = value;
+            }
+
+            public float Thickness
+            {
+                get => Delegate.thicc;
+                set => Delegate.thicc = value;
             }
         }
     }

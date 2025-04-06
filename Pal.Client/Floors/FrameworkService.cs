@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Dalamud.Game.ClientState.Objects.Types;
@@ -110,6 +111,7 @@ namespace Pal.Client.Floors
                     _debugState.Reset();
                     Plugin.P._rootScope!.ServiceProvider.GetRequiredService<RenderAdapter>()._implementation.UpdateExitElement();
                     ExternalUtils.UpdateBronzeTreasureCoffers(_clientState.TerritoryType);
+                    ExternalUtils.UpdateFoundHoard(_clientState.TerritoryType);
                 }
 
                 if (!_territoryState.IsInDeepDungeon() || !_floorService.IsReady(_territoryState.LastTerritory))
@@ -175,6 +177,7 @@ namespace Pal.Client.Floors
         private bool CheckLocationsForPomanders(IReadOnlyList<PersistentLocation> visibleLocations)
         {
             MemoryTerritory? memoryTerritory = _floorService.GetTerritoryIfReady(_territoryState.LastTerritory);
+            var playerPos = _clientState.LocalPlayer?.Position ?? Vector3.Zero;
             if (memoryTerritory is { Locations.Count: > 0 } &&
                 (_configuration.DeepDungeons.Traps.OnlyVisibleAfterPomander ||
                  _configuration.DeepDungeons.HoardCoffers.OnlyVisibleAfterPomander))
@@ -183,9 +186,19 @@ namespace Pal.Client.Floors
                 {
                     foreach (var location in memoryTerritory.Locations)
                     {
-                        uint desiredColor = DetermineColor(location, visibleLocations);
                         if (location.RenderElement == null || !location.RenderElement.IsValid)
                             return true;
+
+                        uint desiredColor = DetermineColor(location, visibleLocations);
+                        float desiredThickness = location.RenderElement.Thickness;
+
+                        // scale color/thickness for smooth distance limiting
+                        var dist = float.Abs(Vector3.Distance(location.Position, playerPos));
+                        uint alpha = (desiredColor & 0xFF000000) >> 24;
+                        alpha = ((uint)(alpha * float.Sqrt(1.0f - dist / P.Config.TrapHoardDistance))) << 24;
+                        if (desiredColor != 0x00000000)
+                            desiredColor = (desiredColor & 0x00FFFFFF) | alpha;
+                        desiredThickness = float.Max(1.0f, (1.0f - dist / 60f) * 2.5f);
 
                         if (location.RenderElement.Color != desiredColor)
                         {
@@ -194,6 +207,11 @@ namespace Pal.Client.Floors
                             {
                                 location.RenderElement2.Color = desiredColor == RenderData.ColorInvisible? RenderData.ColorInvisible : (desiredColor.ToVector4() with { W = 50f / 255f }).ToUint();
                             }
+                        }
+
+                        if (location.RenderElement.Thickness != desiredThickness)
+                        {
+                            location.RenderElement.Thickness = desiredThickness;
                         }
                     }
                 }
