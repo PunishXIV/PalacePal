@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 namespace Pal.Client.Extensions
 {
@@ -19,7 +19,7 @@ namespace Pal.Client.Extensions
             Marshal.Copy(labelBytes, 0, (IntPtr)labelPtr, labelLength);
             labelPtr[labelLength] = 0;
 
-            return ImGuiNative.igBeginTabItem(labelPtr, null, flags) != 0;
+            return ImGuiNative.BeginTabItem(labelPtr, null, flags) != 0;
         }
 
         public static void RadioButtonWrapped(string label, ref int choice, int value)

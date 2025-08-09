@@ -6,5 +6,5 @@
     "RepoUrl": "https://github.com/PunishXIV/PalacePal",
     "IconUrl": "https://s3.puni.sh/media/plugin/32/icon-vrl2a8dqi3h.png",
     "Tags": [ "potd", "palace", "hoh", "splatoon" ],
-    "DalamudApiLevel": 12
+    "DalamudApiLevel": 13
 }

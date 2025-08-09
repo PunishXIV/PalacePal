@@ -2,7 +2,7 @@
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Windowing;
 using ECommons;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using System.Numerics;
 using Pal.Client.Configuration;
 using Pal.Client.Extensions;

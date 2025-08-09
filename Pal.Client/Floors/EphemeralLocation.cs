@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Pal.Client.Floors
+﻿namespace Pal.Client.Floors
 {
     /// <summary>
     /// This is a currently-visible marker.

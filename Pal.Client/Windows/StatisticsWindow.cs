@@ -1,5 +1,5 @@
 ﻿using Dalamud.Interface.Windowing;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using Pal.Common;
 using Palace;
 using System;
