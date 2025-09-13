@@ -271,6 +271,13 @@ namespace Pal.Client.Windows
                 Spacing(true); ImGui.ColorEdit4(Localization.pnAccursed_Hoard_Outline_Colour, ref _hoardConfig.Color, ImGuiColorEditFlags.NoInputs);
                 Spacing(); ImGui.Checkbox(Localization.pnHide_Accursed_Hoard_Locations_on_Intuition_Use, ref _hoardConfig.OnlyVisibleAfterPomander);
                 ImGuiComponents.HelpMarker(Localization.pnHide_Accursed_Hoard_Locations_on_Intuition_Use_Help);
+
+                ImGui.Separator();
+
+                if (ImGui.Checkbox(Localization.pnHighlight_Found_hoard, ref P.Config.FoundHoardShow)) UpdateRender();
+                ImGuiComponents.HelpMarker(Localization.pnFound_Hoard_Help);
+                Spacing(true); if (ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref P.Config.FoundHoardFill)) UpdateRender();
+                Spacing(); if (ImGui.Checkbox(Localization.pnText_overlay, ref P.Config.FoundHoardText)) UpdateRender();
                 ImGuiGroup.EndGroupBox();
             }
 
@@ -328,6 +335,9 @@ namespace Pal.Client.Windows
                 ImGui.SetNextItemWidth(200f);
                 ImGui.SliderFloat(Localization.pnText_overlay_font_scale, ref P.Config.OverlayFScale, 0.1f, 5f);
                 P.Config.OverlayFScale.ValidateRange(0.1f, 10f);
+                ImGui.SetNextItemWidth(200f);
+                ImGui.SliderFloat(Localization.pnTrap_hoard_max_distance, ref P.Config.TrapHoardDistance, 20f, 200f);
+                P.Config.TrapHoardDistance.ValidateRange(20f, 200f);
                 ImGuiGroup.EndGroupBox();
             }
 
@@ -346,6 +356,7 @@ namespace Pal.Client.Windows
         {
             Plugin.P._rootScope!.ServiceProvider.GetRequiredService<RenderAdapter>()._implementation.UpdateExitElement();
             ExternalUtils.UpdateBronzeTreasureCoffers(_clientState.TerritoryType);
+            ExternalUtils.UpdateFoundHoard(_clientState.TerritoryType);
         }
 
         private void DrawCommunityTab(ref bool saveAndClose)

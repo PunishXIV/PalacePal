@@ -478,6 +478,9 @@ This is not synchronized with other players and not saved between floors/runs.</
   <data name="pnText overlay font scale" xml:space="preserve">
     <value>Text overlay font scale</value>
   </data>
+  <data name="pnTrap/hoard max distance" xml:space="preserve">
+    <value>Trap/hoard max distance</value>
+  </data>
   <data name="pnTrap Outline Colour" xml:space="preserve">
     <value>Trap Outline Colour</value>
   </data>
@@ -489,5 +492,11 @@ This is not synchronized with other players and not saved between floors/runs.</
   </data>
   <data name="pnExit Outline Colour" xml:space="preserve">
     <value>Exit Outline Colour</value>
+  </data>
+  <data name="pnHighlight Found hoard" xml:space="preserve">
+    <value>Highlight Found hoard</value>
+  </data>
+  <data name="pnFound Hoard Help" xml:space="preserve">
+    <value>Display a more visible marker around Accursed Hoard that has been located using a Pomander of Intuition.</value>
   </data>
 </root>
