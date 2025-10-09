@@ -77,7 +77,7 @@ namespace Pal.Client.Configuration
                 }
                 catch (Exception e)
                 {
-                    _logger.LogTrace(e, "Could not load account id {Id}", EncryptedId);
+                    //_logger.LogTrace(e, "Could not load account id {Id}", EncryptedId);
                     return null;
                 }
             }

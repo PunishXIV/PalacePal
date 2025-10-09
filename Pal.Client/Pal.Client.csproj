@@ -52,12 +52,13 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
 		<PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.1" />
-		<PackageReference Include="ECommons" Version="3.0.1.3" />
+		<PackageReference Include="ECommons" Version="3.0.1.14" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Pal.Common\Pal.Common.csproj" />
 	  <ProjectReference Include="..\PunishLib\PunishLib\PunishLib.csproj" />
+	  <ProjectReference Include="..\..\ECommons\ECommons\ECommons.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

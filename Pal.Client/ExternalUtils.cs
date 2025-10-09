@@ -1,6 +1,7 @@
 ﻿using ECommons;
 using ECommons.DalamudServices;
 using ECommons.SplatoonAPI;
+using ECommons.Logging;
 using Pal.Common;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,10 @@ namespace Pal.Client
     internal static unsafe class ExternalUtils
     {
         static readonly uint[] BronzeCofferDataID = new uint[] { 782, 783, 784, 785, 786, 787, 788, 789, 790, 802, 803, 804, 805, 1036, 1037, 1038, 1039, 1040, 1041, 1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1541, 1542, 1543, 1544, 1545, 1546, 1547, 1548, 1549, 1550, 1551, 1552, 1553, 1554 };
-        const string BronzeTreasureNamespace = "PalacePal.BronzeTreasure";
 
+        const string BronzeTreasureNamespace = "PalacePal.BronzeTreasure";
+        const string SilverTreasureNamespace = "PalacePal.SilverTreasure";
+        const string GoldTreasureNamespace = "PalacePal.GoldTreasure";
 
         internal static void UpdateBronzeTreasureCoffers(uint terr)
         {
@@ -56,6 +59,61 @@ namespace Pal.Client
                     }
                 }
             }
+        }
+
+        internal static void UpdateSilverTreasureCoffers(uint terr)
+        {
+            Splatoon.RemoveDynamicElements(SilverTreasureNamespace);
+            if (Enum.GetValues<ETerritoryType>().Contains((ETerritoryType)terr) && P.Config.SilverShow)
+            {
+                PluginLog.Debug($"Entered silver if statement");
+                // Silver Coffers
+                {
+                    PluginLog.Debug($"Added Silver Coffer");
+                    var element = Splatoon.DecodeElement("{\"Name\":\"Silver Treasure Coffer\",\"type\":1,\"color\":4278190335,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"overlayText\":\" Silver Treasure Coffer\",\"refActorDataID\":2007357,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232}");
+                    if (!P.Config.SilverText)
+                        element.overlayText = "";
+                    element.color = P.Config.SilverColor.ToUint();
+                    element.overlayTextColor = P.Config.SilverColor.ToUint();
+                    element.overlayFScale = P.Config.OverlayFScale;
+                    Splatoon.AddDynamicElement(SilverTreasureNamespace, element, 0);
+                    if (P.Config.SilverFill)
+                    {
+                        var elementFill = Splatoon.DecodeElement("{\"Name\":\"Silver Treasure Coffer Fill\",\"type\":1,\"color\":838861055,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"refActorDataID\":2007357,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232,\"Filled\":true}");
+                        elementFill.color = (P.Config.SilverColor with { W = P.Config.SilverColor.W / 2f }).ToUint();
+                        elementFill.overlayFScale = P.Config.OverlayFScale;
+                        Splatoon.AddDynamicElement(SilverTreasureNamespace, elementFill, 0);
+                    }
+                }
+            }
+            PluginLog.Debug($"Ran Silver Coffer Update");
+        }
+
+        internal static void UpdateGoldTreasureCoffers(uint terr)
+        {
+            Splatoon.RemoveDynamicElements(GoldTreasureNamespace);
+            if (Enum.GetValues<ETerritoryType>().Contains((ETerritoryType)terr) && P.Config.GoldShow)
+            {
+                // Gold Coffers
+                {
+                    PluginLog.Debug($"Added Gold Coffer");
+                    var element = Splatoon.DecodeElement("{\"Name\":\"Gold Treasure Coffer\",\"type\":1,\"color\":4278190335,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"overlayText\":\" Gold Treasure Coffer\",\"refActorDataID\":2007358,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232}");
+                    if (!P.Config.GoldText)
+                        element.overlayText = "";
+                    element.color = P.Config.GoldColor.ToUint();
+                    element.overlayTextColor = P.Config.GoldColor.ToUint();
+                    element.overlayFScale = P.Config.OverlayFScale;
+                    Splatoon.AddDynamicElement(GoldTreasureNamespace, element, 0);
+                    if (P.Config.GoldFill)
+                    {
+                        var elementFill = Splatoon.DecodeElement("{\"Name\":\"Gold Treasure Coffer Fill\",\"type\":1,\"color\":838861055,\"overlayBGColor\":0,\"overlayTextColor\":4278190335,\"overlayVOffset\":0.6,\"overlayFScale\":1.3,\"refActorDataID\":2007358,\"FillStep\":0.029,\"refActorComparisonType\":3,\"includeOwnHitbox\":true,\"AdditionalRotation\":0.43633232,\"Filled\":true}");
+                        elementFill.color = (P.Config.GoldColor with { W = P.Config.GoldColor.W / 2f }).ToUint();
+                        elementFill.overlayFScale = P.Config.OverlayFScale;
+                        Splatoon.AddDynamicElement(GoldTreasureNamespace, elementFill, 0);
+                    }
+                }
+            }
+            PluginLog.Debug($"Ran Gold Coffer Update");
         }
     }
 }

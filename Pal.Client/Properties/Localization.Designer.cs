@@ -826,10 +826,32 @@ namespace Pal.Client.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gold Coffer color.
+        /// </summary>
+        internal static string pnGold_Coffer_color {
+            get {
+                return ResourceManager.GetString("pnGold Coffer color", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Silver Coffer color.
+        /// </summary>
+        internal static string pnSilver_Coffer_color
+        {
+            get
+            {
+                return ResourceManager.GetString("pnSilver Coffer color", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Bronze Coffer color.
         /// </summary>
-        internal static string pnBronze_Coffer_color {
-            get {
+        internal static string pnBronze_Coffer_color
+        {
+            get
+            {
                 return ResourceManager.GetString("pnBronze Coffer color", resourceCulture);
             }
         }

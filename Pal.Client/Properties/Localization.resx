@@ -421,6 +421,12 @@ This is not synchronized with other players and not saved between floors/runs.</
   <data name="pnBronze Coffer color" xml:space="preserve">
     <value>Bronze Coffer color</value>
   </data>
+  <data name="pnSilver Coffer color" xml:space="preserve">
+    <value>Silver Coffer color</value>
+  </data>
+  <data name="pnGold Coffer color" xml:space="preserve">
+    <value>Gold Coffer color</value>
+  </data>
   <data name="pnMimic Coffer color" xml:space="preserve">
     <value>Bronze Mimic Trap Coffer color</value>
   </data>

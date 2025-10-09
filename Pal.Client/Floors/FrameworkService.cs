@@ -110,6 +110,8 @@ namespace Pal.Client.Floors
                     _debugState.Reset();
                     Plugin.P._rootScope!.ServiceProvider.GetRequiredService<RenderAdapter>()._implementation.UpdateExitElement();
                     ExternalUtils.UpdateBronzeTreasureCoffers(_clientState.TerritoryType);
+                    ExternalUtils.UpdateSilverTreasureCoffers(_clientState.TerritoryType);
+                    ExternalUtils.UpdateGoldTreasureCoffers(_clientState.TerritoryType);
                 }
 
                 if (!_territoryState.IsInDeepDungeon() || !_floorService.IsReady(_territoryState.LastTerritory))

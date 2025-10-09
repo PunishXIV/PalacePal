@@ -180,6 +180,8 @@ namespace Pal.Client.Rendering
             // Clean up the extra elements as well
             Splatoon.RemoveDynamicElements("PalacePal.ExitElement");
             Splatoon.RemoveDynamicElements("PalacePal.BronzeTreasure");
+            Splatoon.RemoveDynamicElements("PalacePal.SilverTreasure");
+            Splatoon.RemoveDynamicElements("PalacePal.GoldTreasure");
 
             //ECommonsMain.Dispose();
         }

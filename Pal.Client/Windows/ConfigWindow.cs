@@ -278,20 +278,20 @@ namespace Pal.Client.Windows
             if (ImGuiGroup.BeginGroupBox())
             {
                 ImGui.PushID("coffer1");
-                ImGui.Checkbox(Localization.Config_GoldCoffer_Show, ref _goldConfig.Show);
+                if (ImGui.Checkbox(Localization.Config_GoldCoffer_Show, ref P.Config.GoldShow)) UpdateRender();
                 ImGuiComponents.HelpMarker(Localization.Config_GoldCoffers_ToolTip);
-                Spacing(true); ImGui.ColorEdit4(Localization.Config_GoldCoffer_Color, ref _goldConfig.Color, ImGuiColorEditFlags.NoInputs);
-                Spacing(true); ImGui.Checkbox(Localization.Config_GoldCoffer_Filled, ref _goldConfig.Fill);
+                Spacing(true); if (ImGui.ColorEdit4(Localization.pnGold_Coffer_color, ref P.Config.GoldColor, ImGuiColorEditFlags.NoInputs)) UpdateRender();
+                Spacing(true); if (ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref P.Config.GoldFill)) UpdateRender();
                 Spacing(); ImGui.Checkbox(Localization.pnText_overlay, ref P.Config.GoldText);
                 ImGui.PopID();
 
                 ImGui.Separator();
 
                 ImGui.PushID("coffer2");
-                ImGui.Checkbox(Localization.Config_SilverCoffer_Show, ref _silverConfig.Show);
+                if (ImGui.Checkbox(Localization.Config_SilverCoffer_Show, ref P.Config.SilverShow)) UpdateRender();
                 ImGuiComponents.HelpMarker(Localization.Config_SilverCoffers_ToolTip);
-                Spacing(true); ImGui.ColorEdit4(Localization.Config_SilverCoffer_Color, ref _silverConfig.Color, ImGuiColorEditFlags.NoInputs);
-                Spacing(true); ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref _silverConfig.Fill);
+                Spacing(true); if (ImGui.ColorEdit4(Localization.pnSilver_Coffer_color, ref P.Config.SilverColor, ImGuiColorEditFlags.NoInputs)) UpdateRender();
+                Spacing(true); if (ImGui.Checkbox(Localization.Config_SilverCoffer_Filled, ref P.Config.SilverFill)) UpdateRender();
                 Spacing(); ImGui.Checkbox(Localization.pnText_overlay, ref P.Config.SilverText);
                 ImGui.PopID();
 
@@ -346,6 +346,8 @@ namespace Pal.Client.Windows
         {
             Plugin.P._rootScope!.ServiceProvider.GetRequiredService<RenderAdapter>()._implementation.UpdateExitElement();
             ExternalUtils.UpdateBronzeTreasureCoffers(_clientState.TerritoryType);
+            ExternalUtils.UpdateSilverTreasureCoffers(_clientState.TerritoryType);
+            ExternalUtils.UpdateGoldTreasureCoffers(_clientState.TerritoryType);
         }
 
         private void DrawCommunityTab(ref bool saveAndClose)

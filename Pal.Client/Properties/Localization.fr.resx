@@ -137,6 +137,12 @@ Il n'y a pas de synchronisation avec les autres joueurs ni de sauvegarde entre l
   <data name="Config_SilverCoffer_Color" xml:space="preserve">
         <value>Couleur coffres argent</value>
     </data>
+  <data name="Config_GoldCoffer_Color" xml:space="preserve">
+      <value>Couleur du coffre d'or</value>
+    </data>
+  <data name="Config_BronzeCoffer_Color" xml:space="preserve">
+      <value>Couleur du coffre de bronze</value>
+    </data>
   <data name="Config_SilverCoffer_Filled" xml:space="preserve">
         <value>Remplir</value>
         <comment>Whether silver coffers should only be drawn with the circle outline or as filled circle.</comment>
@@ -304,4 +310,13 @@ Il n'y a pas de synchronisation avec les autres joueurs ni de sauvegarde entre l
         <value>Échec de l'import : fichier invalide.</value>
     </data>
   <!-- Other -->
+  <data name="pnBronze Coffer color" xml:space="preserve">
+    <value>Couleur du coffre de bronze</value>
+  </data>
+  <data name="pnSilver Coffer color" xml:space="preserve">
+    <value>Couleur du coffre d'argent</value>
+  </data>
+  <data name="pnGold Coffer color" xml:space="preserve">
+    <value>Couleur du coffre d'or</value>
+  </data>
 </root>

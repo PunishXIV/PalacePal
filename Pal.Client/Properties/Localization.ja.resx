@@ -321,4 +321,13 @@
         <value>インポートに失敗しました: 無効なファイルです。</value>
     </data>
   <!-- Other -->
+  <data name="pnBronze Coffer color" xml:space="preserve">
+    <value>ブロンズコファーの色</value>
+  </data>
+  <data name="pnSilver Coffer color" xml:space="preserve">
+    <value>シルバーコファーの色</value>
+  </data>
+  <data name="pnGold Coffer color" xml:space="preserve">
+    <value>ゴールドコファーの色</value>
+  </data>
 </root>
