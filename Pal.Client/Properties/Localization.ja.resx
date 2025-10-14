@@ -40,7 +40,11 @@
   <!-- Generic Errors -->
   <data name="Error_FirstTimeSetupRequired" xml:space="preserve">
         <value>最初にセットアップを完了してください。</value>
-        <comment>Before using any /pal command, the initial setup/agreeement needs to be completed.</comment>
+        <comment>すべての /pal コマンドを使う前に初期設定と同意を完了する必要があります。</comment>
+    </data>
+  <data name="Error_LoadFailed" xml:space="preserve">
+        <value>プラグインを読み込めませんでした: {0}</value>
+        <comment>プラグインの読み込みに失敗した場合に表示され、プレースホルダーには例外メッセージが入ります。</comment>
     </data>
   <data name="Error_WrongRepository" xml:space="preserve">
         <value>引き続き使用する場合は公式リポジトリ {0} からこのプラグインをインストールしてください。</value>
@@ -48,18 +52,22 @@
   <!-- /pal commands -->
   <data name="Command_pal_HelpText" xml:space="preserve">
         <value>設定を開く</value>
-        <comment>Help text for the /pal command, shown in the Plugin Installer</comment>
+        <comment>プラグインインストーラーに表示される /pal コマンドのヘルプ文です。</comment>
     </data>
   <data name="Command_pal_UnknownSubcommand" xml:space="preserve">
         <value>そのコマンドはありません。： '{0}' for '{1}'。</value>
-        <comment>Error shown when using '/pal xxx' with an unknown argument 'xxx'.</comment>
+        <comment>未知の引数 'xxx' で '/pal xxx' を実行したときに表示されるエラーです。</comment>
     </data>
   <data name="Command_pal_stats_CurrentFloor" xml:space="preserve">
         <value>設定からDebugタブを開くことで、現在のフロアの統計情報を表示できます。</value>
     </data>
   <data name="Command_pal_stats_UnableToFetchStatistics" xml:space="preserve">
         <value>統計情報を取得できません。</value>
-        <comment>Shown when /pal stats produces a server-side error, and the statistics window can't be loaded.</comment>
+        <comment>'/pal stats' 実行時にサーバー側でエラーが発生し、統計ウィンドウを読み込めない場合に表示されます。</comment>
+    </data>
+  <data name="Error_CommandFailed" xml:space="preserve">
+        <value>コマンドを実行できませんでした: {0}</value>
+        <comment>'/pal ...' が失敗した際に表示され、プレースホルダーには例外メッセージが入ります。</comment>
     </data>
   <!-- Messages while connecting to the server. These are typically only visible when clicking 'Test connection'. -->
   <data name="ConnectionSuccessful" xml:space="preserve">
@@ -67,31 +75,31 @@
     </data>
   <data name="ConnectionError_NotOnline" xml:space="preserve">
         <value>接続に失敗しました。</value>
-        <comment>Shown if you attempt to connect to the server while you have selected 'never upload discoveries, only show traps and coffers i found myself'</comment>
+        <comment>「発見をアップロードせず、自分で見つけたトラップと宝箱だけ表示する」を選択した状態で接続しようとした場合に表示されます。</comment>
     </data>
   <data name="ConnectionError_OldVersion" xml:space="preserve">
         <value>Palace Palのバージョンが古くなっています。プラグインインストーラを使用してプラグインを更新してください。</value>
-        <comment>Shown if the version is too old to create an account or log in.</comment>
+        <comment>バージョンが古すぎてアカウント作成やログインができない場合に表示されます。</comment>
     </data>
   <data name="ConnectionError_CreateAccountFailed" xml:space="preserve">
         <value>アカウントを作成できませんでした。({0})</value>
-        <comment>Creating an account failed with an error code, but there is no (translated) error message for it.</comment>
+        <comment>エラーコード付きでアカウント作成に失敗した際に表示されます（対応する翻訳済みメッセージはありません）。</comment>
     </data>
   <data name="ConnectionError_CreateAccountReturnedNoId" xml:space="preserve">
         <value>アカウントが作成されようとしましたが、アカウントIDがありません。</value>
-        <comment>If the creation of an account was successful, we expect an account-id to be returned so we can log in. If this happens, the server sent an invalid response.</comment>
+        <comment>アカウント作成が成功した場合はログイン用のアカウントIDが返る想定ですが、それが返らなかったときに表示され、サーバーから不正な応答が届いたことを示します。</comment>
     </data>
   <data name="ConnectionError_InvalidAccountId" xml:space="preserve">
         <value>無効なアカウントIDです。</value>
-        <comment>The account id used was not found on the server.</comment>
+        <comment>指定したアカウントIDがサーバーに存在しませんでした。</comment>
     </data>
   <data name="ConnectionError_LoginFailed" xml:space="preserve">
         <value>ログインできませんでした 。({0})</value>
-        <comment>Logging in failed with an error code, but there is no (translated) error message for it.</comment>
+        <comment>エラーコード付きでログインに失敗した際に表示されます（対応する翻訳済みメッセージはありません）。</comment>
     </data>
   <data name="ConnectionError_LoginReturnedNoToken" xml:space="preserve">
         <value>ログイン情報がありません。</value>
-        <comment>The server sent no valid client token, even though the login was successful.</comment>
+        <comment>ログイン自体は成功したものの、有効なクライアントトークンがサーバーから返されなかった場合に表示されます。</comment>
     </data>
   <data name="ConnectionError_CouldNotConnectToServer" xml:space="preserve">
         <value>サーバーに接続できません: {0}</value>
@@ -108,7 +116,7 @@
     </data>
   <data name="Config_Traps_HideImpossible" xml:space="preserve">
         <value>現在のフロアに存在しないトラップを非表示</value>
-        <comment>When a trap has no chance of appearing (after a pomander of safety/sight is used), hide it.</comment>
+        <comment>ジュニパーの香・明敏／サイトロを使用して出現し得ないトラップを非表示にします。</comment>
     </data>
   <data name="Config_Traps_HideImpossible_ToolTip" xml:space="preserve">
         <value>サイトロを使用した場合、存在するトラップの位置のみが表示されます。
@@ -122,7 +130,7 @@
     </data>
   <data name="Config_HoardCoffers_HideImpossible" xml:space="preserve">
         <value>現在のフロアに存在しない埋もれた財宝を非表示</value>
-        <comment>When a hoard coffer has no chance of appearing (after a pomander of safety/sight is used), hide it.</comment>
+        <comment>ジュニパーの香・明敏／サイトロを使用して出現し得ない埋もれた財宝を非表示にします。</comment>
     </data>
   <data name="Config_HoardCoffers_HideImpossible_ToolTip" xml:space="preserve">
         <value>財宝感知を使用した場合、現在のフロアに埋もれた財宝が存在する場合は表示されます。
@@ -140,7 +148,7 @@
     </data>
   <data name="Config_SilverCoffer_Filled" xml:space="preserve">
         <value>塗りつぶす</value>
-        <comment>Whether silver coffers should only be drawn with the circle outline or as filled circle.</comment>
+        <comment>銀の宝箱を枠線のみで描画するか、塗りつぶしで表示するかを設定します。</comment>
     </data>
   <data name="Config_GoldCoffer_Show" xml:space="preserve">
         <value>金の宝箱を表示</value>
@@ -154,7 +162,7 @@
     </data>
   <data name="Config_GoldCoffer_Filled" xml:space="preserve">
         <value>塗りつぶす</value>
-        <comment>Whether gold coffers should only be drawn with the circle outline or as filled circle.</comment>
+        <comment>金の宝箱を枠線のみで描画するか、塗りつぶしで表示するかを設定します。</comment>
     </data>
   <!-- Config Window: Community -->
   <data name="ConfigTab_Community" xml:space="preserve">
@@ -165,7 +173,7 @@
     </data>
   <data name="Config_TestConnection_Connecting" xml:space="preserve">
         <value>接続テスト中...</value>
-        <comment>When clicking on the 'Test Connection' button, this is shown until a success/error message is available.</comment>
+        <comment>「接続テスト」ボタンを押してから、成功／失敗の結果が返るまで表示される文言です。</comment>
     </data>
   <!-- Config Window: Import -->
   <data name="ConfigTab_Import" xml:space="preserve">
@@ -189,6 +197,10 @@
     </data>
   <data name="Config_SelectImportFile" xml:space="preserve">
         <value>ファイルを選択</value>
+    </data>
+  <data name="Config_SelectImportFile_Hint" xml:space="preserve">
+        <value>*.pal ファイルのパス</value>
+        <comment>ファイル未選択時にパス入力欄へ表示されるヒントです。</comment>
     </data>
   <data name="Config_StartImport" xml:space="preserve">
         <value>インポート</value>
@@ -219,14 +231,14 @@
   <!-- Config Window: Renderer -->
   <data name="ConfigTab_Renderer" xml:space="preserve">
         <value>レンダリング</value>
-        <comment>Configuration tab to select Splatoon or Simple as rendering backend</comment>
+        <comment>Splatoon か Simple を描画バックエンドとして選択するための設定タブです。</comment>
     </data>
   <data name="Config_SelectRenderBackend" xml:space="preserve">
         <value>マーカーに使用するバックエンドを選択:</value>
     </data>
   <data name="Config_Renderer_Splatoon" xml:space="preserve">
         <value>Splatoon</value>
-        <comment>Splatoon plugin. Do not localize.</comment>
+        <comment>Splatoon プラグイン名。ローカライズしないでください。</comment>
     </data>
   <data name="Config_Renderer_Splatoon_Hint" xml:space="preserve">
         <value>デフォルトではSpatoonをインストールする必要があります</value>
@@ -239,7 +251,7 @@
     </data>
   <data name="Config_Splatoon_DrawCircles" xml:space="preserve">
         <value>自分の周りにトラップと宝箱を表示する</value>
-        <comment>To test the Splatoon integration, you can draw markers around yourself.</comment>
+        <comment>Splatoon 連携をテストする目的で、自キャラ周囲にマーカーを描画できます。</comment>
     </data>
   <!-- Config Window: Debug -->
   <data name="ConfigTab_Debug" xml:space="preserve">
@@ -303,12 +315,12 @@
     </data>
   <data name="Agreement_PickOneOption" xml:space="preserve">
         <value>以下のいずれかのオプションを選択してください。</value>
-        <comment>Shown if neither of the two radio buttons in the setup setup window are selected.</comment>
+        <comment>初期設定ウィンドウでどちらのラジオボタンも選択されていない場合に表示されます。</comment>
     </data>
   <!-- Import (chat messages) -->
   <data name="ImportCompleteStatistics" xml:space="preserve">
         <value>{0} 個の新しいトラップの場所と {1} 個の新しい宝箱の場所をインポートしました。</value>
-        <comment>After the import of a *.pal file, the number of traps/hoard coffers is shown as a summary.</comment>
+        <comment>*.pal ファイルをインポートした後、トラップと埋もれた財宝の件数をサマリーとして表示します。</comment>
     </data>
   <data name="Error_ImportFailed" xml:space="preserve">
         <value>インポートに失敗しました。
@@ -319,6 +331,87 @@
     </data>
   <data name="Error_ImportFailed_InvalidFile" xml:space="preserve">
         <value>インポートに失敗しました: 無効なファイルです。</value>
+    </data>
+  <data name="pnAccursed Hoard" xml:space="preserve">
+        <value>埋もれた財宝</value>
+    </data>
+  <data name="pnAccursed Hoard Outline Colour" xml:space="preserve">
+        <value>埋もれた財宝の枠線の色</value>
+    </data>
+  <data name="pnBronze Coffer color" xml:space="preserve">
+        <value>銅の宝箱の色</value>
+    </data>
+  <data name="pnMimic Coffer color" xml:space="preserve">
+        <value>銅の宝箱（ミミック）の色</value>
+    </data>
+  <data name="pnMimic Help" xml:space="preserve">
+        <value>低層の銅の宝箱に潜むミミックのみ検出できます。</value>
+    </data>
+  <data name="pnCoffers" xml:space="preserve">
+        <value>宝箱</value>
+    </data>
+  <data name="pnCommon settings" xml:space="preserve">
+        <value>共通設定</value>
+    </data>
+  <data name="pnDisplay Bronze Treasure Coffer Locations" xml:space="preserve">
+        <value>銅の宝箱の位置を表示</value>
+    </data>
+  <data name="pnDisplay Passages" xml:space="preserve">
+        <value>通路を表示</value>
+    </data>
+  <data name="pnDisplay Potential Accursed Hoard Coffer Locations" xml:space="preserve">
+        <value>埋もれた財宝候補の位置を表示</value>
+    </data>
+  <data name="pnDisplay Potential Accursed Hoard Coffer Locations Help" xml:space="preserve">
+        <value>埋もれた財宝が発見されたことのある場所を表示します。</value>
+    </data>
+  <data name="pnDisplay Potential Trap Locations" xml:space="preserve">
+        <value>トラップ候補の位置を表示</value>
+    </data>
+  <data name="pnDisplay Potential Trap Locations Help" xml:space="preserve">
+        <value>床に仕掛けられた不可視トラップ候補の位置を表示します。</value>
+    </data>
+  <data name="pnDraw Traps Filled" xml:space="preserve">
+        <value>トラップを塗りつぶして表示</value>
+    </data>
+  <data name="pnHide Accursed Hoard Locations on Intuition Use" xml:space="preserve">
+        <value>識の魔土器使用時に埋もれた財宝を非表示</value>
+    </data>
+  <data name="pnHide Accursed Hoard Locations on Intuition Use Help" xml:space="preserve">
+        <value>識の魔土器を使用中は、埋もれた財宝候補のマーカーを財宝を発見するまで表示しません。</value>
+    </data>
+  <data name="pnHide Traps on Safety/Sight Use" xml:space="preserve">
+        <value>ジュニパーの香・明敏／サイトロ使用時にトラップを非表示</value>
+    </data>
+  <data name="pnHide Traps on Safety/Sight Use Help" xml:space="preserve">
+        <value>ジュニパーの香または明敏（サイトロ）で判明し、このフロアに実際には存在しないトラップの表示を無効にします。</value>
+    </data>
+  <data name="pnHighlight When Activated" xml:space="preserve">
+        <value>起動時にハイライト表示</value>
+    </data>
+  <data name="pnHighlight When Activated Help" xml:space="preserve">
+        <value>通路は標準では枠線とテキストラベルのみで表示されますが、有効にすると明るい緑色で塗りつぶします。</value>
+    </data>
+  <data name="pnPassages" xml:space="preserve">
+        <value>通路</value>
+    </data>
+  <data name="pnText overlay font scale" xml:space="preserve">
+        <value>テキストオーバーレイのフォントサイズ</value>
+    </data>
+  <data name="pnTrap Outline Colour" xml:space="preserve">
+        <value>トラップの枠線の色</value>
+    </data>
+  <data name="pnTraps" xml:space="preserve">
+        <value>トラップ</value>
+    </data>
+  <data name="pnText overlay" xml:space="preserve">
+        <value>テキストオーバーレイ</value>
+    </data>
+  <data name="pnExit Outline Colour" xml:space="preserve">
+        <value>出口の枠線の色</value>
+    </data>
+  <data name="Pilgrim's Traverse" xml:space="preserve">
+        <value>ピルグリム・トラバース</value>
     </data>
   <!-- Other -->
 </root>
